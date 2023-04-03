@@ -27,6 +27,13 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
+    },
+
+    update: function (siren, nom, type, siege, callback) {
+        db.query("update Organisation set nom = ?, type = ?, siege = ? where siren = ?", [nom, type, siege, siren], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     }
 
 }

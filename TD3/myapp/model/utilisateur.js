@@ -39,6 +39,13 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
+    },
+
+    update: function (id, email, nom, prenom, pwd, type, telephone, callback) {
+        db.query("update Utilisateur set email = ?, nom = ?, prenom = ?, motDePasse = ?, type = ?, telephone = ? where id = ?", [email, nom, prenom, pwd, type, telephone, id], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
     }
 
 }

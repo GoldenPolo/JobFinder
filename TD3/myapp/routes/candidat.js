@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/offersList', function (req, res, next) { 
   result = offerModel.readall(function(result){
-    res.render('offersList', { title: 'Offres', users: result });
+    res.render('offersList', { title: 'Offres', offers: result });
   });
 });
 
@@ -24,7 +24,7 @@ router.get('/myApplications', function (req, res, next) {
 });
 
 router.get('/addOrganisation', function (req, res, next) {
-  res.render('addOrganisation', { title: 'Ajouter une organisation' });
+  res.render('addOrganisation', { title: 'Ajouter mon organisation' });
 });
 
 module.exports = router;
