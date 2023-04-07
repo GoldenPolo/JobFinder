@@ -27,8 +27,8 @@ module.exports = {
         });
     },
 
-    create: function (email, nom, prenom, pwd, type, telephone, callback) {
-        db.query("insert into Utilisateur(email, nom, prenom, motDePasse, type, telephone, dateCreation, estActif) values(?, ?, ?, ?, ?, ?, ?, ?)", [email, nom, prenom, pwd, type, telephone, new Date, 1], function (err, results) {
+    create: function (id, nom, prenom, pwd, type, telephone, callback) {
+        db.query("insert into Utilisateur(id, nom, prenom, motDePasse, type, telephone, dateCreation, estActif) values(?, ?, ?, ?, ?, ?, ?, ?)", [id, nom, prenom, pwd, type, telephone, new Date, 1], function (err, results) {
             if (err) throw err;
             callback(results);
         });
