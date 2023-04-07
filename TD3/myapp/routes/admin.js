@@ -1,8 +1,10 @@
 var express = require('express');
+var userModel = require('../model/utilisateur');
+var organisationsModel = require('../model/organisation');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.redirect('/usersList');
 });
 
 router.get('/usersList', function (req, res, next) { 

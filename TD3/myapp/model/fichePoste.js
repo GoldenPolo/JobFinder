@@ -1,4 +1,5 @@
 var db = require('./db.js');
+
 module.exports = {
     readFicheIntitule: function (intitule, callback) {
         db.query("select * from FichePoste where intitule= ?", intitule, function(err, results) {

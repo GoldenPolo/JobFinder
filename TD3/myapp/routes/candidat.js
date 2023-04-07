@@ -1,8 +1,9 @@
 var express = require('express');
+var offerModel = require('../model/offre');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.redirect('/offersList');
 });
 
 router.get('/offersList', function (req, res, next) { 

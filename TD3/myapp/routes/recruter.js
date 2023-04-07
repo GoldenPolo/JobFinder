@@ -1,14 +1,28 @@
 var express = require('express');
+var userModel = require('../model/utilisateur');
+var offerModel = require('../model/offre');
 var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.redirect('/myOffersList');
 });
 
-router.get('/userslist', function (req, res, next) { 
-  result = userModel.readall(function(result){
-    res.render('usersList', { title: 'List des utilisateurs', users: result });
+router.get('/myOffersList', function (req, res, next) { 
+  result = offerModel.readOffresOrganisation(req.session.user.organisation, function(result){
+    res.render('myOffersList', { title: 'Mes offres', offers: result });
+  });
+});
+
+router.get('/offerDetails', function (req, res, next) { 
+  result = offerModel.read(req.query.id, function(result){
+    res.render('offerDetails', { title: 'Détails de l\'offre', offer: result });
+  });
+});
+
+router.get('/offerApplications', function (req, res, next) {
+  result = offerModel.readCandidaturesOffre(req.query.id, function(result){
+    res.render('offerApplications', { title: 'Candidatures', applications: result });
   });
 });
 
