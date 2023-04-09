@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/offersList', function (req, res, next) { 
-  result = offerModel.readall(function(result){
+  result = offerModel.readAll(function(result){
     res.render('offersList', { title: 'Offres', offers: result });
   });
 });
@@ -19,7 +19,7 @@ router.get('/offerDetails', function (req, res, next) {
 });
 
 router.get('/myApplications', function (req, res, next) {
-  result = CandidaturesModel.readall(req.session.user.id, function(result){
+  result = CandidaturesModel.readAll(req.session.user.id, function(result){
     res.render('myApplications', { title: 'Mes candidatures', applications: result });
   });
 });
