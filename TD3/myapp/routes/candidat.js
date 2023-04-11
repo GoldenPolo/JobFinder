@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/offersList', function (req, res, next) { 
-  result = offerModel.readAll(function(result){
+  result = offerModel.readAllDetailed(function(result){
     res.render('offersList', { title: 'Offres', offers: result });
   });
 });

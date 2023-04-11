@@ -16,7 +16,14 @@ module.exports = {
     },
     
     readAll: function (callback) {
-        db.query("select * from Offres", function (err, results) {
+        db.query("select * from Offre", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    readAllDetailed: function (callback) {
+        db.query("select * from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee')", function (err, results) {
             if (err) throw err;
             callback(results);
         });

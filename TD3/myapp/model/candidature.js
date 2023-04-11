@@ -16,7 +16,7 @@ module.exports = {
     },
     
     readAll: function (callback) {
-        db.query("select * from Candidatures", function (err, results) {
+        db.query("select * from Candidature", function (err, results) {
             if (err) throw err;
             callback(results);
         });
