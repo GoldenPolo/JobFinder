@@ -26,9 +26,9 @@ module.exports = {
         db.query("select * from Utilisateur where email = ?", [email], function (err, rows) {
             if (err) throw err;
             if (rows.length == 1 && rows[0].motDePasse === password) {
-                callback(true, rows[0].type)
+                callback([true, rows[0].type])
             } else {
-                callback(false);
+                callback([false]);
             }
         });
     },
