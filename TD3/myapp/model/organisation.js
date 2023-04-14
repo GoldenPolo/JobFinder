@@ -2,7 +2,7 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (siren, callback) {
-        db.query("select * from Organisation where siren = ?", email, function (err, results) {
+        db.query("select * from Organisation where siren = ?", [email], function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -23,7 +23,7 @@ module.exports = {
     },
 
     delete: function (siren, callback) {
-        db.query("delete from Organisation where siren = ?", siren, function (err, results) {
+        db.query("delete from Organisation where siren = ?", [siren], function (err, results) {
             if (err) throw err;
             callback(results);
         });

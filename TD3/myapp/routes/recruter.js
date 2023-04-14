@@ -14,9 +14,9 @@ router.get('/myOffersList', function (req, res, next) {
   });
 });
 
-router.get('/offerDetails', function (req, res, next) { 
+router.get('/myOfferDetails', function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
-    res.render('offerDetails', { title: 'Détails de l\'offre', offer: result });
+    res.render('myOfferDetails', { title: 'Détails de l\'offre', offer: result });
   });
 });
 

@@ -2,7 +2,7 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (siren, callback) {
-        db.query("select * from DemandeAjoutOrganisation where id = ?", email, function (err, results) {
+        db.query("select * from DemandeAjoutOrganisation where id = ?", [email], function (err, results) {
             if (err) throw err;
             callback(results);
         });

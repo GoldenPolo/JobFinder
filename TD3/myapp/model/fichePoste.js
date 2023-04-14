@@ -2,7 +2,7 @@ var db = require('./db.js');
 
 module.exports = {
     readFicheIntitule: function (intitule, callback) {
-        db.query("select * from FichePoste where intitule= ?", intitule, function(err, results) {
+        db.query("select * from FichePoste where intitule= ?", [intitule], function(err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -23,7 +23,7 @@ module.exports = {
     },
 
     delete: function (id, callback) {
-        db.query("delete from FichePoste where id = ?", id, function (err, results) {
+        db.query("delete from FichePoste where id = ?", [id], function (err, results) {
             if (err) throw err;
             callback(results);
         });

@@ -2,14 +2,14 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (id, callback) {
-        db.query("select * from Utilisateur where id = ?", id, function (err, results) {
+        db.query("select * from Utilisateur where id = ?", [id], function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
 
     readType: function (id, callback) {
-        db.query("select type from Utilisateur where id = ?", id, function (err, results) {
+        db.query("select type from Utilisateur where id = ?", [id], function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -23,7 +23,7 @@ module.exports = {
     },
 
     validPassword: function (email, password, callback) {
-        db.query("select * from Utilisateur where email = ?", email, function (err, rows) {
+        db.query("select * from Utilisateur where email = ?", [email], function (err, rows) {
             if (err) throw err;
             if (rows.length == 1 && rows[0].motDePasse === password) {
                 callback(true, rows[0].type)
@@ -41,7 +41,7 @@ module.exports = {
     },
 
     delete: function (id, callback) {
-        db.query("delete from Utilisateur where id = ?", id, function (err, results) {
+        db.query("delete from Utilisateur where id = ?", [id], function (err, results) {
             if (err) throw err;
             callback(results);
         });
