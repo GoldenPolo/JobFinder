@@ -10,20 +10,24 @@ router.get('/', function(req, res, next) {
 
 router.get('/myOffersList', function (req, res, next) { 
   result = offerModel.readOffresOrganisation(req.session.user.organisation, function(result){
-    res.render('myOffersList', { title: 'Mes offres', offers: result });
+    res.render('./recruter/myOffersList', { title: 'Mes offres', offers: result });
   });
 });
 
 router.get('/myOfferDetails', function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
-    res.render('myOfferDetails', { title: 'Détails de l\'offre', offer: result });
+    res.render('./recruter/myOfferDetails', { title: 'Détails de l\'offre', offer: result });
   });
 });
 
-router.get('/offerApplications', function (req, res, next) {
+router.get('/applicationsList', function (req, res, next) {
   result = offerModel.readCandidaturesOffre(req.query.id, function(result){
-    res.render('offerApplications', { title: 'Candidatures', applications: result });
+    res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result });
   });
+});
+
+router.get('/addRecruter', function (req, res, next) {
+  res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur' });
 });
 
 module.exports = router;
