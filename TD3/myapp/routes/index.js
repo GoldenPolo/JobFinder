@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('login');
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login');
+});
+
 router.get('/successfulLogin', function(req, res, next) {
   console.log(req.query.type);
   if (req.query.type == 'candidat') {

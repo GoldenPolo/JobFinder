@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -33,7 +33,16 @@
             </div>
         </nav>
 
-        
+        <div class="col col-12">
+            <div class="row m-3">
+                <div class="col col-2 ms-5">
+                    <a class="btn btn-outline-secondary w-100" href="/candidat/offersList">Retour</a>
+                </div>
+                <div class="col">
+                    <h2 class="m-2 text-center"><%= title %> - <%= offer.intitule %></h2>
+                </div>
+            </div>
+        </div>
         
     </body> 
 </html>

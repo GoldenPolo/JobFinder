@@ -23,16 +23,16 @@ module.exports = {
     },
 
     readAllDetailed: function (callback) {
-        db.query("select * from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee')", function (err, results) {
+        db.query("select Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee')", function (err, results) {
             if (err) throw err;
             callback(results);
         });
     },
 
     read: function (id, callback) {
-        db.query("select * from Offre where id = ?", [id], function (err, results) {
+        db.query("select Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.id = ?)", [id], function (err, results) {
             if (err) throw err;
-            callback(results);
+            callback(results[0]);
         });
     },
 

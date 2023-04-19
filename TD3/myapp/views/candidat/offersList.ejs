@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -68,7 +68,7 @@
               <small>Entreprise</small>
             </a>
             <% offers.forEach((offer)=> { %>
-                <a href="/candidat/offerDetails" class="list-group-item list-group-item-action">
+                <a href="/candidat/offerDetails?id=<%= offer.id %>" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><%= offer.intitule %></h5>
                         <small class="text-body-secondary">valide jusqu'au <%= offer.dateValidite %></small>
