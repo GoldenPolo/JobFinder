@@ -39,10 +39,27 @@
                     <a class="btn btn-outline-secondary w-100" href="/candidat/offersList">Retour</a>
                 </div>
                 <div class="col">
-                    <h2 class="m-2 text-center"><%= title %> - <%= offer.intitule %></h2>
+                    <h2 class="m-2 text-center"><%= title %> - <%= offer.fiche_intitule %></h2>
                 </div>
             </div>
         </div>
+
+        <p><%= offer.offre_etat %></p><br>
+        <p><%= offer.offre_date_validite %></p><br>
+        <p><%= offer.offre_nombre_pieces_demandees %></p><br>
+        <p><%= offer.offre_indications %></p><br>
+        <p><%= offer.organisation_nom %></p><br>
+        <p><%= offer.organisation_type %></p><br>
+        <p><%= offer.organisation_siege %></p><br>
+        <p><%= offer.fiche_intitule %></p><br>
+        <p><%= offer.fiche_statu %></p><br>
+        <p><%= offer.fiche_responsable %></p><br>
+        <p><%= offer.fiche_type %></p><br>
+        <p><%= offer.fiche_description %></p><br>
+        <p><%= offer.fiche_lieu %></p><br>
+        <p><%= offer.fiche_rythme %></p><br>
+        <p><%= offer.fiche_salaire_min %></p><br>
+        <p><%= offer.fiche_salaire_max %></p><br>
         
     </body> 
 </html>
