@@ -2,14 +2,13 @@ var db = require('./db.js');
 
 module.exports = {
     readCandidaturesCandidat: function (id, callback) {
-        db.query("select * from Candidature where Utilisateur= ?", [id], function(err, results) {
+        db.query("select * from (Candidature INNER JOIN Offre ON (Candidature.offre = Offre.id) INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Candidature.utilisateur = ?)", id, function(err, results) {
             if (err) throw err;
             callback(results);
         });
     },
-
     readCandidaturesOffre: function (offre, callback) {
-        db.query("select * from Candidature where offre= ?", [offre], function(err, results) {
+        db.query("select * from (Candidature INNER JOIN Utilisateur ON (Candidature.candidat = Utilisateur.id)) WHERE (Candidature.offre= ?)", offre, function(err, results) {
             if (err) throw err;
             callback(results);
         });
