@@ -14,68 +14,22 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Recruter</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/usersList">Utilisateurs</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Mes candidatures</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/organisationsList">Organisations</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Déconnexion</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="">Déconnexion</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="d-flex justify-content-end my-2">
-            <div class="col-auto">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                    Prix
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="index.html">Salaire</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrer par
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <a class="dropdown-item">Récent à ancient</a>
-                        <a class="dropdown-item">Distance croissante</a>
-                        <a class="dropdown-item">Salaire décroissant</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         
-        <div class="list-group">
-            <% organisations.forEach((orga)=> { %>
-                <a class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"> <%= orga.nom %></h5>
-                        <% if(orga.validee){ %>
-                            <small class="text-body-secondary">Organisation validée</small>
-                          <% } else{ %>  
-                            <div class="d-inline-flex">
-                                <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Valider</button>
-                                <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Refuser</button>
-                            </div>
-                         <% } %>
-                    </div>
-                    <div class="d-flex w-100">
-                        <p class="mx-2">SIREN : <%= orga.siren %></p>
-                        <p class="mx-2">Type : <%= orga.type %></p>
-                        <p class="mx-2">Siege : <%= orga.siege %></p>
-                    </div>
-                </a>
-            <% }); %>
-        </div>
     </body> 
 </html>
