@@ -1,6 +1,6 @@
 var express = require('express');
 var userModel = require('../model/utilisateur');
-var organisationsModel = require('../model/organisation');
+var organisationModel = require('../model/organisation');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {

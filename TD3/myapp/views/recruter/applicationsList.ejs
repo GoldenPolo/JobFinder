@@ -33,7 +33,45 @@
             </div>
         </nav>
 
+        <div class="d-flex justify-content-end">
+            <div class="col-auto">
+                <div class="dropdown">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                    Prix
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" href="index.html">Salaire</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="dropdown">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrer par
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        <a class="dropdown-item">Récent à ancient</a>
+                        <a class="dropdown-item">Distance croissante</a>
+                        <a class="dropdown-item">Salaire décroissant</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         
+        <div class="list-group">
+            <% applications.forEach((application)=> { %>
+                <a class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-flex flex-column">
+                          <h5 class="mb-1"><%= application.prenom %> <%= application.nom %></h5>
+                          <p class="mb-1">Date : moment(application.date).format('L')</p>
+                      </div>
+                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Télécharger les documents</button>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+
         
     </body> 
 </html>

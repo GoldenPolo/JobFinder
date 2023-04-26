@@ -1,6 +1,10 @@
 var express = require('express');
 var offerModel = require('../model/offre');
 var router = express.Router();
+var candidatureModel = require('../model/candidature');
+const moment = require('moment'); //installer moment (npm install moment --save)
+require('moment/locale/fr.js');
+moment.locale('fr');
 
 router.get('/', function(req, res, next) {
   res.redirect('/offersList');
@@ -8,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/offersList', function (req, res, next) { 
   result = offerModel.readAllDetailed(function(result){
-    res.render('./candidat/offersList', { title: 'Offres', offers: result });
+    res.render('./candidat/offersList', { title: 'Offres', offers: result, moment: moment});
   });
 });
 
@@ -19,8 +23,8 @@ router.get('/offerDetails', function (req, res, next) {
 });
 
 router.get('/myApplications', function (req, res, next) {
-  result = CandidaturesModel.readAll(req.session.user.id, function(result){
-    res.render('./candidat/myApplications', { title: 'Mes candidatures', applications: result });
+  result = candidatureModel.readCandidaturesCandidat(req.session.userid, function(result){
+    res.render('./candidat/myApplications', { title: 'Mes candidatures', applications: result, moment: moment});
   });
 });
 

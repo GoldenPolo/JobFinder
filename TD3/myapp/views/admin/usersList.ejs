@@ -30,31 +30,49 @@
             </div>
         </nav>
 
-        <body> <h1>
-            <%= title %>
-        </h1>
-        <table border>
-            <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-        <tbody>
-        <% users.forEach((user)=> { %>
-        <tr> <td>
-                            <%= user.prenom %>
-                        </td>
-                        <td>
-                            <%= user.nom %>
-        </td> <td>
-                            <%= user.email %>
-                        </td>
-        </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+        <div class="d-flex justify-content-end my-2">
+            <div class="col-auto">
+                <div class="dropdown">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                    Prix
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" href="index.html">Salaire</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="dropdown">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrer par
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                        <a class="dropdown-item">Récent à ancient</a>
+                        <a class="dropdown-item">Distance croissante</a>
+                        <a class="dropdown-item">Salaire décroissant</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="list-group">
+            <% users.forEach((user)=> { %>
+                <a class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"> <%= user.prenom %> <%= user.nom %></h5>
+                        <div class="d-inline-flex">
+                            <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Admin</button>
+                            <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Modifier</button>
+                            <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Supprimer</button>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <p class="mx-2">Role : <%= user.type %></p>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+
         
     </body> 
 </html>
