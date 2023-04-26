@@ -27,7 +27,7 @@
                         <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/myApplications">Mes candidatures</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="">Déconnexion</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/logout">Déconnexion</a>
                     </li>
                 </ul>
             </div>
@@ -35,31 +35,97 @@
 
         <div class="col col-12">
             <div class="row m-3">
-                <div class="col col-2 ms-5">
+                <div class="col col-1 ms-5">
                     <a class="btn btn-outline-secondary w-100" href="/candidat/offersList">Retour</a>
                 </div>
-                <div class="col">
+                <div class="col col-9">
                     <h2 class="m-2 text-center"><%= title %> - <%= offer.fiche_intitule %></h2>
                 </div>
             </div>
         </div>
 
-        <p><%= offer.offre_etat %></p><br>
-        <p><%= offer.offre_date_validite %></p><br>
-        <p><%= offer.offre_nombre_pieces_demandees %></p><br>
-        <p><%= offer.offre_indications %></p><br>
-        <p><%= offer.organisation_nom %></p><br>
-        <p><%= offer.organisation_type %></p><br>
-        <p><%= offer.organisation_siege %></p><br>
-        <p><%= offer.fiche_intitule %></p><br>
-        <p><%= offer.fiche_statu %></p><br>
-        <p><%= offer.fiche_responsable %></p><br>
-        <p><%= offer.fiche_type %></p><br>
-        <p><%= offer.fiche_description %></p><br>
-        <p><%= offer.fiche_lieu %></p><br>
-        <p><%= offer.fiche_rythme %></p><br>
-        <p><%= offer.fiche_salaire_min %></p><br>
-        <p><%= offer.fiche_salaire_max %></p><br>
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p><%= offer.fiche_intitule %></p><br>
+                    </div>
+                    <div class="row">
+                        <p><%= offer.fiche_statut %></p><br>
+                    </div>
+                    <div class="row">
+                        <p><%= offer.fiche_type %></p><br>
+                    </div>
+                </div>
+                <div class="col col-5 m-3">
+                    <!-- <div class="row overflow-auto h-50"> -->
+                    <div class="row">
+                        <p>Description :</p><br>
+                        <div class="border">
+                            <p> <%= offer.fiche_description %></p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <p>Responsable : <%= offer.fiche_responsable %></p><br>
+                    </div>
+                </div>
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Salaire : <%= offer.fiche_salaire_min %> - <%= offer.fiche_salaire_max %></p><br>
+                    </div>
+                    <div class="row">
+                        <p>Rythme : <%= offer.fiche_rythme %></p><br>
+                    </div>
+                    <div class="row">
+                        <p>Lieu : <%= offer.fiche_lieu %></p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Logo ?</p><br>
+                    </div>
+                </div>
+                <div class="col col-5 m-3">
+                    <div class="row">
+                        <p>Entreprise : <%= offer.organisation_nom %></p><br>
+                    </div>
+                </div>
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p><%= offer.organisation_type %></p><br>
+                    </div>
+                    <div class="row">
+                        <p><%= offer.organisation_siege %></p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Nombre de pièces demandées : <%= offer.offre_nombre_pieces_demandees %></p><br>
+                    </div>
+                </div>
+                <div class="col col-5 m-3">
+                    <div class="row">
+                        <p>Indications : <%= offer.offre_indications %></p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="">Candidater</a>
+            </div>
+        </div>
         
     </body> 
 </html>

@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/myOffersList', function (req, res, next) { 
-  result = offerModel.readOffresOrganisation(req.session.user.organisation, function(result){
+  result = offerModel.readOffresOrganisation(req.session.userorganisation, function(result){
     res.render('./recruter/myOffersList', { title: 'Mes offres', offers: result });
   });
 });
