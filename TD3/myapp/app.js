@@ -1,8 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const sessions = require('express-session');
+const cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var candidatRouter = require('./routes/candidat');
@@ -19,6 +20,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(sessions({
+  secret: "moncodesercretquepersonnenedoitconnaitre", 
+  saveUninitialized:true,
+  cookie: { maxAge: 1000 * 60 * 60 * 2 },
+  resave: false
+  }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

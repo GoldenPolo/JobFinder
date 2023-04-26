@@ -2,14 +2,14 @@ var db = require('./db.js');
 
 module.exports = {
     readOffresPoste: function (fiche, callback) {
-        db.query("select * from Candidature where fichePoste= ?", [fiche], function(err, results) {
+        db.query("select * from Offre where fichePoste= ?", [fiche], function(err, results) {
             if (err) throw err;
             callback(results);
         });
     },
 
     readOffresOrganisation: function (organisation, callback) {
-        db.query("select * from Candidature where organisation= ?", [organisation], function(err, results) {
+        db.query("select * from Offre where organisation= ?", [organisation], function(err, results) {
             if (err) throw err;
             callback(results);
         });

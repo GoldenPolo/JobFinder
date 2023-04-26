@@ -14,59 +14,26 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Recruter</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/recruter/myOffersList">Mes offres</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Mes candidatures</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/recruter/addRecruter">Recruteurs</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Déconnexion</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/recruter/applicationsList">Candidatures</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/logout">Déconnexion</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="d-flex justify-content-end">
-            <div class="col-auto">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                    Prix
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="index.html">Salaire</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrer par
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <a class="dropdown-item">Récent à ancient</a>
-                        <a class="dropdown-item">Distance croissante</a>
-                        <a class="dropdown-item">Salaire décroissant</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         
-        <div class="list-group">
-            <% applications.forEach((application)=> { %>
-                <a class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="d-flex flex-column">
-                          <h5 class="mb-1"><%= application.prenom %> <%= application.nom %></h5>
-                          <p class="mb-1">Date : moment(application.date).format('L')</p>
-                      </div>
-                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Télécharger les documents</button>
-                    </div>
-                </a>
-            <% }); %>
-        </div>
+        
     </body> 
 </html>
