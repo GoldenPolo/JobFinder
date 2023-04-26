@@ -72,7 +72,7 @@
                     </div>
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">Entreprise : <%= offer.nom %></p>
-                        <button id="btnDetails" href="/candidat/offerDetails" type="button" class="btn btn-outline-secondary mx-2">En savoir plus</button>
+                        <button id="btnDetails" href="/recruter/myOfferDetails?id=<%= offer.id %>" type="button" class="btn btn-outline-secondary mx-2">En savoir plus</button>
                     </div>
                 </a>
             <% }); %>

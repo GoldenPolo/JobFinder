@@ -9,7 +9,7 @@ module.exports = {
     },
 
     readOffresOrganisation: function (organisation, callback) {
-        db.query("select * from Offre where organisation= ?", [organisation], function(err, results) {
+        db.query("select Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?)", [organisation], function(err, results) {
             if (err) throw err;
             callback(results);
         });
