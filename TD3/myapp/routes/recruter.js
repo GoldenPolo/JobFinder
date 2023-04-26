@@ -3,7 +3,7 @@ var userModel = require('../model/utilisateur');
 var offerModel = require('../model/offre');
 var candidatureModel = require('../model/candidature');
 var router = express.Router();
-const moment = require('moment'); //installer moment (npm install moment --save)
+const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
 

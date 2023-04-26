@@ -30,6 +30,55 @@
             </div>
         </nav>
 
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Id : <%= user.id %></p><br> <!-- enlever a la ligne ? -->
+                    </div>
+                    <div class="row">
+                        <p>Nom : <%= user.nom %></p>
+                    </div>
+                    <div class="row">
+                        <p>Date de création : <%= moment(user.dateCreation).format('L') %></p>
+                    </div>
+                </div>
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Email : <%= user.email %></p><br> <!-- enlever a la ligne ? -->
+                    </div>
+                    <div class="row">
+                        <p>Prénom : <%= user.prenom %></p>
+                    </div>
+                    <div class="row">
+                        <p>Id Organisation : <%= user.organisation %></p>
+                    </div>
+                </div>
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Type : <%= user.type %></p><br> <!-- enlever a la ligne ? -->
+                    </div>
+                    <div class="row">
+                        <p>Téléphone : <%= user.telephone %></p>
+                    </div>
+                    <div class="row">
+                        <p>Est Actif : <%= user.estActif %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="">Admin</a>
+            </div>
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="">Modifier</a>
+            </div>
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="">Supprimer</a>
+            </div>
+        </div>
         
     </body> 
 </html>

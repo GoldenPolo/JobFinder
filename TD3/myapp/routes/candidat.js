@@ -2,7 +2,7 @@ var express = require('express');
 var offerModel = require('../model/offre');
 var router = express.Router();
 var candidatureModel = require('../model/candidature');
-const moment = require('moment'); //installer moment (npm install moment --save)
+const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
 

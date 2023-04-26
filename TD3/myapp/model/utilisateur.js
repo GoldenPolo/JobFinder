@@ -4,7 +4,7 @@ module.exports = {
     read: function (id, callback) {
         db.query("select * from Utilisateur where id = ?", [id], function (err, results) {
             if (err) throw err;
-            callback(results);
+            callback(results[0]);
         });
     },
 

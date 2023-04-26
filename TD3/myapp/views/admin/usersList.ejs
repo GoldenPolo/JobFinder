@@ -57,7 +57,7 @@
         
         <div class="list-group">
             <% users.forEach((user)=> { %>
-                <a class="list-group-item list-group-item-action">
+                <a href="/admin/userDetails?id=<%= user.id %>" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"> <%= user.prenom %> <%= user.nom %></h5>
                         <div class="d-inline-flex">
