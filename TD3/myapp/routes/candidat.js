@@ -53,12 +53,11 @@ router.get('/addUser', function (req, res, next) {
 });
 
 router.post('/newUser', function (req, res, next) {
- //id auto incrémenté !!!
  const prenom = req.body.prenom;
  const nom = req.body.nom;
  const pwd = req.body.pwd;
  const tel = req.body.tel;
- userModel.create(id, nom, prenom, pwd, 'candidat', tel, function (req, res, next) {
+ userModel.create(nom, prenom, pwd, 'candidat', tel, function (req, res, next) {
   res.redirect('/offersList');
 })});
 

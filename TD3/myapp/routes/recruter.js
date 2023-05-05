@@ -46,8 +46,7 @@ router.post('/newOffer', function (req, res, next) {
   const indic = req.body.indic;
   const nbPieces = req.body.nbPieces;
   //comment récupérer fichePoste et organisation?
-  //auto increment id!!!
-  offerModel.create(id, etat, dateValid, indic, nbPieces, fichePoste, organisation, function (req, res, next) {
+  offerModel.create(etat, dateValid, indic, nbPieces, fichePoste, organisation, function (req, res, next) {
    res.redirect('/myOffersList');
  })});
 
