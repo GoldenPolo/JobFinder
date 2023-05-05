@@ -29,11 +29,10 @@
                 </ul>
             </div>
         </nav>
-        <form method="post" action="/candidat/newOrga">
-              <input type="text" name="nomOrga" id="nomOrga"><label for="nomOrga">Nom de l'organisation :</label>
-              <input type="text" name="siren" id="siren"><label for="siren">Numéro SIREN :</label>
-              <input type="text" name="type" id="type"><label for="type">Type d'organisation :</label>
-              <input type="text" name="siege" id="siege"><label for="siege">L'adresse du siège :</label>
-        </form>
+        <form method="post" action="/recruter/newOffer">
+            <input type="date" name="dateValid" id="dateValid"><label for="dateValid">Date d'expiration de l'offre :</label>
+            <input type="text" name="indic" id="indic"><label for="indic">Indications :</label>
+            <input type="number" name="nbPieces" id="nbPieces"><label for="nbPieces">Nombre de pièces demandées :</label>
+      </form>
     </body> 
 </html>

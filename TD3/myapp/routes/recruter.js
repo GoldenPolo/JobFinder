@@ -1,4 +1,6 @@
 var express = require('express');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 var userModel = require('../model/utilisateur');
 var offerModel = require('../model/offre');
 var candidatureModel = require('../model/candidature');
@@ -33,5 +35,19 @@ router.get('/applicationsList', function (req, res, next) {
 router.get('/addRecruter', function (req, res, next) {
   res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur' });
 });
+
+router.get('/addOffre', function (req, res, next) {
+  res.render('candidat/addOffre', { title: 'Ajouter une offre' });
+});
+
+router.post('/newOffer', function (req, res, next) {
+  const dateValid = req.body.dateValid;
+  const indic = req.body.indic;
+  const nbPieces = req.body.nbPieces;
+  //comment récupérer fichePoste et organisation?
+  //auto increment id!!!
+  offerModel.create(id, etat, dateValid, indic, nbPieces, fichePoste, organisation, function (req, res, next) {
+   res.redirect('/myOffersList');
+ })});
 
 module.exports = router;

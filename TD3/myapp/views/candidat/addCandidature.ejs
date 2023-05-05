@@ -29,11 +29,8 @@
                 </ul>
             </div>
         </nav>
-        <form method="post" action="/candidat/newOrga">
-              <input type="text" name="nomOrga" id="nomOrga"><label for="nomOrga">Nom de l'organisation :</label>
-              <input type="text" name="siren" id="siren"><label for="siren">Numéro SIREN :</label>
-              <input type="text" name="type" id="type"><label for="type">Type d'organisation :</label>
-              <input type="text" name="siege" id="siege"><label for="siege">L'adresse du siège :</label>
+        <form method="post" action="/candidat/newCandidature">
+              <input type="file" name="files" id="files" multiple><label for="files">Vos fichiers :</label>
         </form>
     </body> 
 </html>
