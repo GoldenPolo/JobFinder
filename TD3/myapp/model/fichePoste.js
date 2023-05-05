@@ -15,8 +15,8 @@ module.exports = {
         });
     },
 
-    create: function (id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description) {
-        db.query("insert into FichePoste(id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description], function (err, results) {
+    create: function (intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description) {
+        db.query("insert into FichePoste(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description], function (err, results) {
             if (err) throw err;
             callback(results);
         });

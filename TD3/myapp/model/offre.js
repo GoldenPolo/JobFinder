@@ -36,8 +36,8 @@ module.exports = {
         });
     },
 
-    create: function (id, etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation) {
-        db.query("insert into Offre(id, etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation) values (?, ?, ?, ?, ?, ?, ?)", [id, etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation], function (err, results) {
+    create: function (etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation) {
+        db.query("insert into Offre(etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation) values (?, ?, ?, ?, ?, ?)", [etat, dateValidite, indications, nombrePiecesDemandees, fichePoste, organisation], function (err, results) {
             if (err) throw err;
             callback(results);
         });
