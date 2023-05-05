@@ -28,7 +28,8 @@ router.get('/myOfferDetails', function (req, res, next) {
 });
 
 router.get('/applicationsList', function (req, res, next) {
-  result = candidatureModel.readCandidaturesOffre(req.query.id, function(result){
+  result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
+    console.log(result);
     res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment});
   });
 });

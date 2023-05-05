@@ -54,7 +54,7 @@
         
         <div class="list-group">
             <% offers.forEach((offer)=> { %>
-                <a class="list-group-item list-group-item-action">
+                <div class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Poste de : <%= offer.intitule %></h5>
                         <div class="d-inline-flex">
@@ -67,11 +67,11 @@
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">Entreprise : <%= offer.nom %></p>
                         <div class="d-inline-flex">
-                            <button id="btnDetails" href="/candidat/offerDetails" type="button" class="btn btn-outline-secondary mx-2">En savoir plus</button>
-                            <button id="btnDetails" href="/candidat/offerDetails" type="button" class="btn btn-outline-secondary mx-2">Candidater</button>
+                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/candidat/offerDetails?id=<%= offer.id %>">En savoir plus</a>
+                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/candidat/applyToOffer">Candidater</a>
                         </div>
                     </div>
-                </a>
+                </div>
             <% }); %>
         </div>
 

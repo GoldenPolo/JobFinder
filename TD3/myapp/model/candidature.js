@@ -8,8 +8,8 @@ module.exports = {
         });
     },
 
-    readCandidaturesOffre: function (offre, callback) {
-        db.query("select * from (Candidature INNER JOIN Utilisateur ON (Candidature.candidat = Utilisateur.id)) WHERE (Candidature.offre= ?)", [offre], function(err, results) {
+    readCandidaturesToAllMyOffres: function (organisation, callback) {
+        db.query("select * from (Candidature INNER JOIN Offre ON Candidature.offre = Offre.id) WHERE (Offre.organisation = ?)", [organisation], function(err, results) {
             if (err) throw err;
             callback(results);
         });

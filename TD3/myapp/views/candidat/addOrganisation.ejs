@@ -14,21 +14,26 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Recruter</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/offersList">Offres</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Mes candidatures</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/addOrganisation">Recruter</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="index.html">Déconnexion</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/myApplications">Mes candidatures</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/logout">Déconnexion</a>
                     </li>
                 </ul>
             </div>
         </nav>
+
+        
         <form method="post" action="/candidat/newOrga">
               <input type="text" name="nomOrga" id="nomOrga"><label for="nomOrga">Nom de l'organisation :</label>
               <input type="text" name="siren" id="siren"><label for="siren">Numéro SIREN :</label>
