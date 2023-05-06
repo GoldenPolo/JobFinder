@@ -59,6 +59,13 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
-    }
+    },
+
+    searchByName : function (query, callback) {
+        db.query("SELECT * FROM Utilisateur WHERE nom LIKE ? OR prenom LIKE ?", [`%${query}%`, `%${query}%`], function(err, results) {
+          if (err) throw err;
+          callback(results);
+        });
+      }
 
 }

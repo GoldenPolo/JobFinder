@@ -21,7 +21,14 @@ router.get('/', function(req, res, next) {
 
 router.get('/usersList', requireAdmin, function (req, res, next) { 
   result = userModel.readall(function(result){
-    res.render('./admin/usersList', { title: 'Liste des utilisateurs', users: result });
+    res.render('./admin/usersList', {users: result });
+  });
+});
+
+router.get('/searchUser', requireAdmin, (req, res) => {
+  const query = req.query.q; // Récupère le paramètre "q" de l'URL
+  userModel.searchByName(query, function(users) {
+    res.render('./admin/usersList', {users: users});
   });
 });
 
