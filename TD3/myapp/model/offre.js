@@ -8,12 +8,13 @@ module.exports = {
         });
     },
 
-    readOffresOrganisation: function (organisation, callback) {
-        db.query("select Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax from (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?)", [organisation], function(err, results) {
-            if (err) throw err;
-            callback(results);
+    readOffresOrganisation: function (organisation, startIndex, perPage, callback) {
+        const query = "SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) LIMIT ?, ?";
+        db.query(query, [organisation, startIndex, perPage], function(err, results) {
+          if (err) throw err;
+          callback(results);
         });
-    },
+      },
     
     readAll: function (callback) {
         db.query("select * from Offre", function (err, results) {

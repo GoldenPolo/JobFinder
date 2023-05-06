@@ -26,10 +26,38 @@ router.get('/', requireRecruteur, function(req, res, next) {
 });
 
 router.get('/myOffersList', requireRecruteur, function (req, res, next) { 
-  result = offerModel.readOffresOrganisation(req.session.userorganisation, function(result){
-    res.render('./recruter/myOffersList', { title: 'Mes offres', offers: result, moment: moment});
+  let currentPage = req.query.page || 1;
+  let perPage = req.query.perPage || 10;
+  let startIndex = (currentPage - 1) * perPage;
+
+  if (isNaN(currentPage) || currentPage < 1) {
+    currentPage = 1;
+  }
+  if (isNaN(perPage) || perPage < 1) {
+    perPage = 10;
+  }
+
+  offerModel.readOffresOrganisation(req.session.userorganisation, startIndex, perPage, function(result) {
+    const numOffers = result.length; // nombre total d'offres
+    const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
+    const pages = []; // tableau des numéros de page
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    res.render('./recruter/myOffersList', { 
+      title: 'Mes offres', 
+      offers: result,
+      paginationInfo: {
+        currentPage: parseInt(currentPage),
+        perPage: parseInt(perPage),
+        totalPages: totalPages,
+        pages: pages
+      },
+      moment: moment
+    });
   });
 });
+
 
 router.get('/myOfferDetails', requireRecruteur, function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){

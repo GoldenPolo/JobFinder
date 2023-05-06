@@ -96,7 +96,7 @@ router.get('/userDetails', requireAdmin, function (req, res, next) {
     });
 });
 
-router.get('/organisationsList', function(req, res) {
+router.get('/organisationsList', requireAdmin, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
@@ -130,7 +130,7 @@ router.get('/organisationsList', function(req, res) {
 });
 
 
-router.get('/searchOrganisation', function(req, res) {
+router.get('/searchOrganisation', requireAdmin, function(req, res) {
   const query = req.query.q;
   organisationModel.search(query, function(organisations) {
     res.render('./admin/organisationsList', {organisations: organisations});
