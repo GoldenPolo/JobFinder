@@ -9,6 +9,8 @@ var router = express.Router();
 const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
+const paginateInfo = require('paginate-info');
+
 
 function requireRecruteur(req, res, next) {
   if (req.session && req.session.userType === 'recruteur') {

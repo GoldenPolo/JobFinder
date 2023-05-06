@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require('../model/utilisateur');
+const paginateInfo = require('paginate-info');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -15,6 +15,13 @@ module.exports = {
         });
     },
 
+    readPage: function(startIndex, perPage, callback) {
+        db.query('SELECT * FROM Organisation LIMIT ?, ?', [startIndex, perPage], function(err, results) {
+          if (err) throw err;
+          callback(results);
+        });
+      },      
+
     create: function (siren, nom, type, siege, callback) {
         db.query("insert into Organisation(siren, nom, type, siege, validee) values(?, ?, ?, ?, ?)", [siren, nom, type, siege, 0], function (err, results) {
             if (err) throw err

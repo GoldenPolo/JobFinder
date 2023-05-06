@@ -22,12 +22,44 @@ module.exports = {
         });
     },
 
-    readall: function (callback) {
-        db.query("select * from Utilisateur", function (err, results) {
+    readall: function (page, size, callback) {
+        var start = page * size;
+        db.query("select * from Utilisateur limit ?, ?", [start, size], function (err, results) {
             if (err) throw err;
-            callback(results);
+    
+            // Get the total count of users
+            db.query("select count(*) as count from Utilisateur", function (err, countResult) {
+                if (err) throw err;
+    
+                // Generate pagination info
+                var totalItems = countResult[0].count;
+                var currentPage = page;
+                var pageSize = size;
+                var totalPages = Math.ceil(totalItems / pageSize);
+                var startPage = 1;
+                var endPage = totalPages;
+                var startIndex = (currentPage - 1) * pageSize;
+                var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+                var pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
+    
+                var paginationInfo = {
+                    totalItems: totalItems,
+                    currentPage: currentPage,
+                    pageSize: pageSize,
+                    totalPages: totalPages,
+                    startPage: startPage,
+                    endPage: endPage,
+                    startIndex: startIndex,
+                    endIndex: endIndex,
+                    pages: pages
+                };
+    
+                // Return the results and pagination info
+                callback(results, paginationInfo);
+            });
         });
     },
+    
 
     validPassword: function (email, password, callback) {
         db.query("select motDePasse, type, id from Utilisateur where email = ?", [email], function (err, rows) {

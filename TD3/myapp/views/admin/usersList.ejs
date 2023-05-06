@@ -81,6 +81,26 @@
             <% } else { %>
               <p>Aucun utilisateur trouvé </p>
               <% } %>
+
+              <% if (paginationInfo) { %>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
+                      <a class="page-link" href="/admin/usersList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>" tabindex="-1">Previous</a>
+                    </li>
+                    <% paginationInfo.pages.forEach((page) => { %>
+                      <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
+                        <a class="page-link" href="/admin/usersList?page=<%= page %>&size=<%= paginationInfo.pageSize %>"><%= page %></a>
+                      </li>
+                    <% }); %>
+                    <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">
+                      <a class="page-link" href="/admin/usersList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              <% } %>
+       
+            
           
 
         

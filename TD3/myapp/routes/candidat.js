@@ -11,6 +11,8 @@ var candidatureModel = require('../model/candidature');
 const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
+const paginateInfo = require('paginate-info');
+
 
 function requireCandidat(req, res, next) {
   if (req.session && req.session.userType === 'candidat') {
