@@ -26,7 +26,7 @@ router.get('/', requireCandidat, function(req, res, next) {
   res.redirect('/offersList');
 });
 
-router.get('/offersList', function(req, res) {
+router.get('/offersList', requireCandidat, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
@@ -40,7 +40,7 @@ router.get('/offersList', function(req, res) {
   }
 
   // Execute la requête SQL avec les variables de pagination
-  offerModel.readall(startIndex, perPage, function (results) {
+  offerModel.readAllDetailed(startIndex, perPage, function (results) {
     const numOffers = results.length; // nombre total d'offres
     const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
@@ -54,7 +54,8 @@ router.get('/offersList', function(req, res) {
         perPage: parseInt(perPage),
         totalPages: totalPages,
         pages: pages
-      }
+      },
+      moment: moment
     });
   });
 });

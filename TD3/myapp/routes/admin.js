@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   res.redirect('/usersList');
 });
 
-router.get('/usersList', function(req, res) {
+router.get('/usersList', requireAdmin, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
