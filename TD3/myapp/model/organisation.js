@@ -34,6 +34,14 @@ module.exports = {
             if (err) throw err;
             callback(results);
         });
-    }
+    },
+
+    search: function(query, callback) {
+        db.query("SELECT * FROM Organisation WHERE nom LIKE ?", [`%${query}%`], function(err, results) {
+          if (err) throw err;
+          callback(results);
+        });
+      }
+      
 
 }

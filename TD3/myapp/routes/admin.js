@@ -44,5 +44,12 @@ router.get('/organisationslist', requireAdmin, function (req, res, next) {
     });
 });
 
+router.get('/searchOrganisation', function(req, res) {
+  const query = req.query.q;
+  organisationModel.search(query, function(organisations) {
+    res.render('./admin/organisationsList', {organisations: organisations});
+  });
+});
+
 
 module.exports = router;

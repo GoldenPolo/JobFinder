@@ -53,30 +53,44 @@
                     </div>
                 </div>
             </div>
+            <form action="/admin/searchOrganisation" method="get">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Rechercher une organisation..." name="q">
+                  <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+                </div>
+              </form>
+              
         </div>
         
         <div class="list-group">
-            <% organisations.forEach((orga)=> { %>
-                <a class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"> <%= orga.nom %></h5>
-                        <% if(orga.validee){ %>
-                            <small class="text-body-secondary">Organisation validée</small>
-                          <% } else{ %>  
-                            <div class="d-inline-flex">
-                                <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Valider</button>
-                                <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Refuser</button>
-                            </div>
-                         <% } %>
-                    </div>
-                    <div class="d-flex w-100">
-                        <p class="mx-2">SIREN : <%= orga.siren %></p>
-                        <p class="mx-2">Type : <%= orga.type %></p>
-                        <p class="mx-2">Siege : <%= orga.siege %></p>
-                    </div>
+            <% if (organisations.length === 0) { %>
+              <div class="alert alert-warning" role="alert">
+                Aucune organisation ne correspond à cette recherche.
+              </div>
+            <% } else { %>
+              <% organisations.forEach((orga) => { %>
+                <a href="/organisation/<%= orga.id %>" class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%= orga.nom %></h5>
+                    <% if (orga.validee) { %>
+                      <small class="text-body-secondary">Organisation validée</small>
+                    <% } else { %>
+                      <div class="d-inline-flex">
+                        <button id="btnDetails" type="button" class="btn btn-outline-secondary mx-2">Valider</button>
+                        <button id="btnDetails" type="button" class="btn btn-outline-secondary mx-2">Refuser</button>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="d-flex w-100">
+                    <p class="mx-2">SIREN : <%= orga.siren %></p>
+                    <p class="mx-2">Type : <%= orga.type %></p>
+                    <p class="mx-2">Siège : <%= orga.siege %></p>
+                  </div>
                 </a>
-            <% }); %>
-        </div>
+              <% }); %>
+            <% } %>
+          </div>
+          
 
         
     </body> 

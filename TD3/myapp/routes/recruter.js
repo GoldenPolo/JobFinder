@@ -47,7 +47,7 @@ router.get('/addRecruter', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/addOffre', requireRecruteur, function (req, res, next) {
-  res.render('candidat/addOffre', { title: 'Ajouter une offre' });
+  res.render('./candidat/addOffre', { title: 'Ajouter une offre' });
 });
 
 router.post('/newOffer', requireRecruteur, function (req, res, next) {
