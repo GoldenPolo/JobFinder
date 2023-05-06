@@ -12,33 +12,41 @@ const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
 
-router.get('/', function(req, res, next) {
+function requireCandidat(req, res, next) {
+  if (req.session && req.session.userType === 'candidat') {
+    return next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+router.get('/', requireCandidat, function(req, res, next) {
   res.redirect('/offersList');
 });
 
-router.get('/offersList', function (req, res, next) { 
+router.get('/offersList', requireCandidat, function (req, res, next) { 
   result = offerModel.readAllDetailed(function(result){
     res.render('./candidat/offersList', { title: 'Offres', offers: result, moment: moment});
   });
 });
 
-router.get('/offerDetails', function (req, res, next) { 
+router.get('/offerDetails', requireCandidat, function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
     res.render('./candidat/offerDetails', { title: 'Détails de l\'offre', offer: result });
   });
 });
 
-router.get('/myApplications', function (req, res, next) {
+router.get('/myApplications', requireCandidat, function (req, res, next) {
   result = candidatureModel.readCandidaturesCandidat(req.session.userid, function(result){
     res.render('./candidat/myApplications', { title: 'Mes candidatures', applications: result, moment: moment});
   });
 });
 
-router.get('/addOrganisation', function (req, res, next) {
+router.get('/addOrganisation', requireCandidat, function (req, res, next) {
   res.render('./candidat/addOrganisation', { title: 'Ajouter mon organisation' });
 });
 
-router.post('/newOrga', function (req, res, next) {
+router.post('/newOrga', requireCandidat, function (req, res, next) {
   const nomOrga = req.body.nomOrga;
   const siren = req.body.siren;
   const type = req.body.type;
@@ -49,7 +57,7 @@ router.post('/newOrga', function (req, res, next) {
  
 
 router.get('/addUser', function (req, res, next) {
- res.render('candidat/addUser', { title: 'Ajouter un utilisateur' });
+ res.render('./candidat/addUser', { title: 'Ajouter un utilisateur' });
 });
 
 router.post('/newUser', function (req, res, next) {
@@ -61,11 +69,11 @@ router.post('/newUser', function (req, res, next) {
   res.redirect('/offersList');
 })});
 
-router.get('/addCandidature', function (req, res, next) {
- res.render('candidat/addCandidature', { title: 'Ajouter une candidature' });
+router.get('/addCandidature', requireCandidat, function (req, res, next) {
+ res.render('./candidat/addCandidature', { title: 'Ajouter une candidature' });
 });
 
-router.post('/newCandidature', function (req, res, next) {
+router.post('/newCandidature', requireCandidat, function (req, res, next) {
  const files = req.body.files;
  //comment avoir l'offre actuelle???
  candidatureModel.create(req.user.id, offre, new Date().toLocaleDateString(), files, function (req, res, next) {

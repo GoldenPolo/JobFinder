@@ -13,7 +13,7 @@ router.get('/login', function(req, res, next) {
 
 router.get('/successfulLogin', function(req, res, next) {
   console.log(req.query.type);
-  req.session.type = req.query.type;
+  req.session.userType = req.query.type;
   if (req.query.type == 'candidat') {
     res.redirect('./candidat/offersList');
   } else if (req.query.type == 'recruteur') {

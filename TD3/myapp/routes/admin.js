@@ -7,23 +7,31 @@ const moment = require('moment');
 require('moment/locale/fr.js');
 moment.locale('fr');
 
+function requireAdmin(req, res, next) {
+  if (req.session && req.session.userType === 'admin') {
+    return next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
 router.get('/', function(req, res, next) {
   res.redirect('/usersList');
 });
 
-router.get('/usersList', function (req, res, next) { 
+router.get('/usersList', requireAdmin, function (req, res, next) { 
   result = userModel.readall(function(result){
     res.render('./admin/usersList', { title: 'Liste des utilisateurs', users: result });
   });
 });
 
-router.get('/userDetails', function (req, res, next) {
+router.get('/userDetails', requireAdmin, function (req, res, next) {
     result = userModel.read(req.query.id, function(result){
         res.render('./admin/userDetails', { title: 'Détails de l\'utilisateur', user: result, moment: moment});
     });
 });
 
-router.get('/organisationslist', function (req, res, next) {
+router.get('/organisationslist', requireAdmin, function (req, res, next) {
     result = organisationModel.readall(function(result){
         res.render('./admin/organisationsList', { title: 'List des organisations', organisations: result });
     });
