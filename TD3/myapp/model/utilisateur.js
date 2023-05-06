@@ -93,11 +93,21 @@ module.exports = {
         });
     },
 
-    searchByName : function (query, callback) {
-        db.query("SELECT * FROM Utilisateur WHERE nom LIKE ? OR prenom LIKE ?", [`%${query}%`, `%${query}%`], function(err, results) {
+    searchByName: function(query, startIndex, perPage, callback) {
+        db.query("SELECT COUNT(*) AS total FROM Utilisateur WHERE nom LIKE ? OR prenom LIKE ?", [`%${query}%`, `%${query}%`], function(err, result) {
           if (err) throw err;
-          callback(results);
+          const total = result[0].total;
+          const totalPages = Math.ceil(total / perPage);
+          const pages = [];
+          for (let i = 1; i <= totalPages; i++) {
+            pages.push(i);
+          }
+          db.query("SELECT * FROM Utilisateur WHERE nom LIKE ? OR prenom LIKE ? LIMIT ?, ?", [`%${query}%`, `%${query}%`, startIndex, perPage], function(err, results) {
+            if (err) throw err;
+            callback(results, pages, total);
+          });
         });
       }
+      
 
 }

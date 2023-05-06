@@ -21,12 +21,6 @@ router.get('/', function(req, res, next) {
   res.redirect('/usersList');
 });
 
-// router.get('/usersList', requireAdmin, function (req, res, next) { 
-//   result = userModel.readall(function(result){
-//     res.render('./admin/usersList', {users: result });
-//   });
-// });
-
 router.get('/usersList', function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
@@ -63,10 +57,38 @@ router.get('/usersList', function(req, res) {
 
 router.get('/searchUser', requireAdmin, (req, res) => {
   const query = req.query.q; // Récupère le paramètre "q" de l'URL
-  userModel.searchByName(query, function(users) {
-    res.render('./admin/usersList', {users: users});
+  let currentPage = req.query.page || 1;
+  let perPage = req.query.perPage || 10;
+  let startIndex = (currentPage - 1) * perPage;
+  
+  // Initialise les variables de pagination à des valeurs par défaut
+  if (isNaN(currentPage) || currentPage < 1) {
+    currentPage = 1;
+  }
+  if (isNaN(perPage) || perPage < 1) {
+    perPage = 10;
+  }
+
+  // Execute la requête SQL avec les variables de pagination
+  userModel.searchByName(query, startIndex, perPage, function (results) {
+    const numUsers = results.length; // nombre total d'utilisateurs
+    const totalPages = Math.ceil(numUsers / perPage); // nombre total de pages
+    const pages = []; // tableau des numéros de page
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    res.render('./admin/usersList', { 
+      users: results,
+      paginationInfo: {
+        currentPage: parseInt(currentPage),
+        perPage: parseInt(perPage),
+        totalPages: totalPages,
+        pages: pages
+      }
+    });
   });
 });
+
 
 router.get('/userDetails', requireAdmin, function (req, res, next) {
     result = userModel.read(req.query.id, function(result){
