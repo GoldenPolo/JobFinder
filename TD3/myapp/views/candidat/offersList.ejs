@@ -34,23 +34,28 @@
         </nav>
 
         <div class="d-flex justify-content-end">
-            <div class="col-auto">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                    Prix
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrer par
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <a class="dropdown-item">Récent à ancient</a>
-                        <a class="dropdown-item">Distance croissante</a>
-                        <a class="dropdown-item">Salaire décroissant</a>
+            <div class="dropdown">
+                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Salaire min
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <div class="form-outline dropdown-item">
+                        <input type="text" id="form12" class="form-control" />
+                        <label class="form-label" for="form12">en euros</label>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="dropdown">
+                <button id="btnGroupDrop2" type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Trier
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                    <a class="dropdown-item">Récent à ancient</a>
+                    <a class="dropdown-item">Distance croissante</a>
+                    <a class="dropdown-item">Salaire décroissant</a>
+                </div>
+            </div>
+    </div>
         
         <div class="list-group">
             <% offers.forEach((offer)=> { %>
