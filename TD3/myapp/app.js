@@ -10,6 +10,9 @@ var candidatRouter = require('./routes/candidat');
 var recruterRouter = require('./routes/recruter');
 var adminRouter = require('./routes/admin');
 
+var apiRouter = require('./routes/api');
+var cors=require('cors');
+
 var app = express();
 
 // view engine setup
@@ -32,6 +35,9 @@ app.use('/', indexRouter);
 app.use('/candidat', candidatRouter);
 app.use('/recruter', recruterRouter);
 app.use('/admin', adminRouter);
+
+app.use('/api', apiRouter);
+app.use(cors());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

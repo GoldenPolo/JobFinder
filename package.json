@@ -4,5 +4,9 @@
     "express-session": "^1.17.3",
     "moment": "^2.29.4",
     "paginate-info": "^1.0.4"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
   }
 }
