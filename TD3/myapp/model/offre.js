@@ -9,8 +9,7 @@ module.exports = {
     },
 
     readOffresOrganisation: function (organisation, startIndex, perPage, callback) {
-        const query = "SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) LIMIT ?, ?";
-        db.query(query, [organisation, startIndex, perPage], function(err, results) {
+        db.query("SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) LIMIT ?, ?", [organisation, startIndex, perPage], function(err, results) {
           if (err) throw err;
           callback(results);
         });
@@ -51,8 +50,8 @@ module.exports = {
         });
     },
 
-    searchByIntitule: function(query, startIndex, perPage, callback) {
-        db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?)", [`%${query}%`, `%${query}%`], function(err, result) {
+    searchByIntituleCandidat: function(query, startIndex, perPage, callback) {
+        db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?)", [`%${query}%`], function(err, result) {
           if (err) throw err;
           const total = result[0].total;
           const totalPages = Math.ceil(total / perPage);
@@ -65,5 +64,21 @@ module.exports = {
             callback(results, pages, total);
           });
         });
-      }
+      },
+
+    searchByIntituleRecruter: function(query, organisation, startIndex, perPage, callback) {
+    db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?)", [organisation, `%${query}%`], function(err, result) {
+        if (err) throw err;
+        const total = result[0].total;
+        const totalPages = Math.ceil(total / perPage);
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+        }
+        db.query("SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?) LIMIT ?, ?", [organisation, `%${query}%`, startIndex, perPage], function(err, results) {
+        if (err) throw err;
+        callback(results, pages, total);
+        });
+    });
+    }
 }

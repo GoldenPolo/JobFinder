@@ -75,7 +75,7 @@ router.get('/searchOffer', requireCandidat, (req, res) => {
   }
 
   // Execute la requête SQL avec les variables de pagination
-  offerModel.searchByIntitule(query, startIndex, perPage, function (results) {
+  offerModel.searchByIntituleCandidat(query, startIndex, perPage, function (results) {
     const numOffers = results.length; // nombre total d'utilisateurs
     const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
