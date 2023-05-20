@@ -60,6 +60,41 @@ router.get('/offersList', requireCandidat, function(req, res) {
   });
 });
 
+router.get('/searchOffer', requireCandidat, (req, res) => {
+  const query = req.query.q; // Récupère le paramètre "q" de l'URL
+  let currentPage = req.query.page || 1;
+  let perPage = req.query.perPage || 10;
+  let startIndex = (currentPage - 1) * perPage;
+  
+  // Initialise les variables de pagination à des valeurs par défaut
+  if (isNaN(currentPage) || currentPage < 1) {
+    currentPage = 1;
+  }
+  if (isNaN(perPage) || perPage < 1) {
+    perPage = 10;
+  }
+
+  // Execute la requête SQL avec les variables de pagination
+  offerModel.searchByIntitule(query, startIndex, perPage, function (results) {
+    const numOffers = results.length; // nombre total d'utilisateurs
+    const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
+    const pages = []; // tableau des numéros de page
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    res.render('./candidat/offersList', { 
+      offers: results,
+      paginationInfo: {
+        currentPage: parseInt(currentPage),
+        perPage: parseInt(perPage),
+        totalPages: totalPages,
+        pages: pages
+      },
+      moment: moment
+    });
+  });
+});
+
 
 router.get('/offerDetails', requireCandidat, function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
