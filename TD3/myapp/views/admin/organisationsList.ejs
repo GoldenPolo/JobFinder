@@ -31,7 +31,7 @@
         </nav>
 
         <div class="d-flex justify-content-end my-2">
-            <div class="col-auto">
+            <div class="col-auto me-3">
                 <div class="dropdown">
                     <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                     Prix
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-auto">
+            <div class="col-auto me-3">
                 <div class="dropdown">
                     <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Filtrer par
@@ -53,16 +53,17 @@
                     </div>
                 </div>
             </div>
-            <form action="/admin/searchOrganisation" method="get">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Rechercher une organisation..." name="q">
-                  <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
-                </div>
-            </form>
-              
+            <div class="col-auto me-3">
+              <form action="/admin/searchOrganisation" method="get">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher une organisation..." name="q">
+                    <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+                  </div>
+              </form>
+            </div>
         </div>
         
-        <div class="list-group">
+        <div class="col list-group">
             <% if (organisations.length === 0) { %>
               <div class="alert alert-warning" role="alert">
                 Aucune organisation ne correspond à cette recherche.
@@ -92,7 +93,7 @@
           </div>
 
           <% if (paginationInfo) { %>
-            <nav aria-label="Page navigation example">
+            <nav class="navbar d-flex justify-content-center" aria-label="Page navigation"">
               <ul class="pagination">
                 <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
                   <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>" tabindex="-1">Previous</a>
