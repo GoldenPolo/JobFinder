@@ -31,36 +31,28 @@
         </nav>
 
         <div class="d-flex justify-content-end my-2">
-            <div class="col-auto me-3">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                    Prix
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="index.html">Salaire</a>
-                    </div>
-                </div>
+            <div class="dropdown me-3">
+                  <button type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Statut
+                  </button>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item <% if (statusFilter === 'attente') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=attente">En attente</a>
+                      <a class="dropdown-item <% if (statusFilter === 'validee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=validee">Validées</a>
+                      <a class="dropdown-item <% if (statusFilter === 'refusee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=refusee">Refusées</a>
+                  </div>
             </div>
             <div class="col-auto me-3">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrer par
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <a class="dropdown-item">Récent à ancient</a>
-                        <a class="dropdown-item">Distance croissante</a>
-                        <a class="dropdown-item">Salaire décroissant</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto me-3">
-              <form action="/admin/searchOrganisation" method="get">
+              <form action="/admin/organisationsList" method="get">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Rechercher une organisation..." name="q">
+                    <input type="text" class="form-control" placeholder="Rechercher une organisation..." name="q" value="<%= query %>">
+                    <input type="hidden" name="statusFilter" value="<%= statusFilter %>">
                     <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                   </div>
               </form>
             </div>
+            <div class="col-auto me-3">
+              <a class="btn btn-outline-danger mb-2 me-2" href="/admin/organisationsList">Réinitialiser les filtres</a>
+          </div>
         </div>
         
         <div class="col list-group">

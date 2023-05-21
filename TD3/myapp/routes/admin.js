@@ -62,42 +62,6 @@ router.get('/usersList', requireAdmin, function(req, res) {
   });
 });
 
-
-router.get('/searchUser', requireAdmin, (req, res) => {
-  const query = req.query.q; // Récupère le paramètre "q" de l'URL
-  let currentPage = req.query.page || 1;
-  let perPage = req.query.perPage || 10;
-  let startIndex = (currentPage - 1) * perPage;
-  
-  // Initialise les variables de pagination à des valeurs par défaut
-  if (isNaN(currentPage) || currentPage < 1) {
-    currentPage = 1;
-  }
-  if (isNaN(perPage) || perPage < 1) {
-    perPage = 10;
-  }
-
-  // Execute la requête SQL avec les variables de pagination
-  userModel.searchByName(query, startIndex, perPage, function (results) {
-    const numUsers = results.length; // nombre total d'utilisateurs
-    const totalPages = Math.ceil(numUsers / perPage); // nombre total de pages
-    const pages = []; // tableau des numéros de page
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-    res.render('./admin/usersList', { 
-      users: results,
-      paginationInfo: {
-        currentPage: parseInt(currentPage),
-        perPage: parseInt(perPage),
-        totalPages: totalPages,
-        pages: pages
-      }
-    });
-  });
-});
-
-
 router.get('/userDetails', requireAdmin, function (req, res, next) {
     result = userModel.read(req.query.id, function(result){
         res.render('./admin/userDetails', { title: 'Détails de l\'utilisateur', user: result, moment: moment});
@@ -108,6 +72,8 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
+  let query = req.query.q; // Récupère le paramètre "q" de l'URL
+  let statusFilter = req.query.statusFilter; // Récupère le paramètre "statusFilter" de l'URL
   
   // Initialise les variables de pagination à des valeurs par défaut
   if (isNaN(currentPage) || currentPage < 1) {
@@ -116,14 +82,23 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   if (isNaN(perPage) || perPage < 1) {
     perPage = 10;
   }
+  if (!query) {
+    query = '%';
+  }
+  if (!statusFilter) {
+    statusFilter = 'attente';
+  }
 
   // Execute la requête SQL avec les variables de pagination
-  organisationModel.readPage(startIndex, perPage, function (results) {
-    const numOrganisations = results.length; // nombre total d'orga
-    const totalPages = Math.ceil(numOrganisations / perPage); // nombre total de pages
+  organisationModel.readAllFilters(query, statusFilter, startIndex, perPage, function (results) {
+    const numOrga = results.length; // nombre total d'orga
+    const totalPages = Math.ceil(numOrga / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
+    }
+    if (query == '%') {
+      query = '';
     }
     res.render('./admin/organisationsList', { 
       organisations: results,
@@ -132,7 +107,9 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
         perPage: parseInt(perPage),
         totalPages: totalPages,
         pages: pages
-      }
+      },
+      query: query,
+      statusFilter: statusFilter
     });
   });
 });

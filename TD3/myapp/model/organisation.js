@@ -48,7 +48,27 @@ module.exports = {
           if (err) throw err;
           callback(results);
         });
-      }
+    },
+
+    readAllFilters: function(query, statusFilter, startIndex, perPage, callback) {
+        console.log(query);
+        console.log(statusFilter);
+        console.log(startIndex);
+        console.log(perPage);
+        db.query("SELECT COUNT(*) AS total FROM Organisation WHERE nom LIKE ? AND statut = ?", [`%${query}%`, statusFilter], function(err, result) {
+            if (err) throw err;
+            const total = result[0].total;
+            const totalPages = Math.ceil(total / perPage);
+            const pages = [];
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+            db.query("SELECT * FROM Organisation WHERE nom LIKE ? AND statut = ? LIMIT ?, ?", [`%${query}%`, statusFilter, startIndex, perPage], function(err, result) {
+            if (err) throw err;
+            callback(result, pages, total);
+            });
+        });
+    },
       
 
 }
