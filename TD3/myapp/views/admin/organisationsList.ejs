@@ -65,8 +65,10 @@
                 <a href="/organisation/<%= orga.id %>" class="list-group-item list-group-item-action">
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= orga.nom %></h5>
-                    <% if (orga.validee) { %>
+                    <% if (statusFilter == 'validee') { %>
                       <small class="text-body-secondary">Organisation validée</small>
+                    <% } else if (statusFilter == 'refusee') { %>
+                      <small class="text-body-secondary">Organisation refusée</small>
                     <% } else { %>
                       <div class="d-inline-flex">
                         <button type="button" class="btn btn-outline-secondary mx-2">Valider</button>
