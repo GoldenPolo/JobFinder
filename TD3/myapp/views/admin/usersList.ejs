@@ -32,35 +32,16 @@
 
         <div class="d-flex justify-content-end my-2">
             <div class="col-auto me-3">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                    Prix
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="index.html">Salaire</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto me-3">
-                <div class="dropdown">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrer par
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                        <a class="dropdown-item">Récent à ancient</a>
-                        <a class="dropdown-item">Distance croissante</a>
-                        <a class="dropdown-item">Salaire décroissant</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto me-3">
-              <form action="/admin/searchUser" method="get">
+              <form action="/admin/usersList" method="get">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Rechercher un utilisateur..." name="q">
+                    <input type="text" class="form-control" placeholder="Rechercher un utilisateur..." name="q" value="<%= query %>">
                     <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                   </div>
                 </form>
-              </div>
+            </div>
+            <div class="col-auto me-3">
+                <a class="btn btn-outline-danger mb-2 me-2" href="/admin/usersList">Réinitialiser les filtres</a>
+            </div>
         </div>
         
         <div class="col list-group">

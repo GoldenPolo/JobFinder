@@ -25,6 +25,7 @@ router.get('/usersList', requireAdmin, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
+  let query = req.query.q; // Récupère le paramètre "q" de l'URL
   
   // Initialise les variables de pagination à des valeurs par défaut
   if (isNaN(currentPage) || currentPage < 1) {
@@ -33,14 +34,20 @@ router.get('/usersList', requireAdmin, function(req, res) {
   if (isNaN(perPage) || perPage < 1) {
     perPage = 10;
   }
+  if (!query) {
+    query = '%';
+  }
 
   // Execute la requête SQL avec les variables de pagination
-  userModel.readall(startIndex, perPage, function (results) {
+  userModel.readAllFilters(query, startIndex, perPage, function (results) {
     const numUsers = results.length; // nombre total d'utilisateurs
     const totalPages = Math.ceil(numUsers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
+    }
+    if (query == '%') {
+      query = '';
     }
     res.render('./admin/usersList', { 
       users: results,
@@ -49,7 +56,8 @@ router.get('/usersList', requireAdmin, function(req, res) {
         perPage: parseInt(perPage),
         totalPages: totalPages,
         pages: pages
-      }
+      },
+      query: query
     });
   });
 });
