@@ -82,6 +82,12 @@ router.get('/offersList', requireCandidat, function(req, res) {
     if (query == '%') {
       query = '';
     }
+    if (jobTypeFilter == '%') {
+      jobTypeFilter = '';
+    }
+    if (salaryFilter == '%') {
+      salaryFilter = '';
+    }
     res.render('./candidat/offersList', { 
       offers: results,
       paginationInfo: {
