@@ -90,15 +90,15 @@
             <nav class="navbar d-flex justify-content-center" aria-label="Page navigation"">
               <ul class="pagination">
                 <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
-                  <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>" tabindex="-1">Previous</a>
+                  <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>" tabindex="-1">Previous</a>
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
                   <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
-                    <a class="page-link" href="/admin/organisationsList?page=<%= page %>&size=<%= paginationInfo.pageSize %>"><%= page %></a>
+                    <a class="page-link" href="/admin/organisationsList?page=<%= page %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>"><%= page %></a>
                   </li>
                 <% }); %>
                 <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">
-                  <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>">Next</a>
+                  <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>">Next</a>
                 </li>
               </ul>
             </nav>
