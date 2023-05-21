@@ -41,8 +41,11 @@ router.get('/usersList', requireAdmin, function(req, res) {
   // Execute la requête SQL avec les variables de pagination
   userModel.readAllFilters(query, startIndex, perPage, function (results) {
     const numUsers = results.length; // nombre total d'utilisateurs
-    const totalPages = Math.ceil(numUsers / perPage); // nombre total de pages
+    let totalPages = Math.ceil(numUsers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
+    if (totalPages == 0) {
+      totalPages = 1;
+    }
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
@@ -92,8 +95,11 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   // Execute la requête SQL avec les variables de pagination
   organisationModel.readAllFilters(query, statusFilter, startIndex, perPage, function (results) {
     const numOrga = results.length; // nombre total d'orga
-    const totalPages = Math.ceil(numOrga / perPage); // nombre total de pages
+    let totalPages = Math.ceil(numOrga / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
+    if (totalPages == 0) {
+      totalPages = 1;
+    }
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }

@@ -64,8 +64,11 @@ router.get('/offersList', requireCandidat, function(req, res) {
   // Execute la requête SQL avec les variables
   offerModel.readAllFilters(query, order, jobTypeFilter, salaryFilter, startIndex, perPage, function (results) {
     const numOffers = results.length; // nombre total d'offres
-    const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
+    let totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
+    if (totalPages == 0) {
+      totalPages = 1;
+    }
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }

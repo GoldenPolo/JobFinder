@@ -48,8 +48,11 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
 
   offerModel.readOffresOrganisationFilters(req.session.userorganisation, query, statusFilter, startIndex, perPage, function(result) {
     const numOffers = result.length; // nombre total d'offres
-    const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
+    let totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
+    if (totalPages == 0) {
+      totalPages = 1;
+    }
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }

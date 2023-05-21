@@ -45,7 +45,11 @@
         </div>
         
         <div class="col list-group">
-            <% if (users.length > 0) { %>
+          <% if (users.length === 0) { %>
+            <div class="alert alert-warning" role="alert">
+              Aucun utilisateur ne correspond à cette recherche.
+            </div>
+          <% } else { %>
               <% users.forEach((user)=> { %>
                 <a href="/admin/userDetails?id=<%= user.id %>" class="list-group-item list-group-item-action">
                   <div class="d-flex w-100 justify-content-between">
@@ -60,10 +64,8 @@
                     <p class="mx-2">Role : <%= user.type %></p>
                   </div>
                 </a>
-              <% }); %>
-            <% } else { %>
-              <p>Aucun utilisateur trouvé </p>
-              <% } %>
+            <% }); %>
+          <% } %>
 
               <% if (paginationInfo) { %>
                 <nav class="navbar d-flex justify-content-center" aria-label="Page navigation"">
