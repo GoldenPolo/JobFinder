@@ -50,15 +50,16 @@
                 Trier
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item">Récent à ancient</a>
-                    <a class="dropdown-item">Distance croissante</a>
-                    <a class="dropdown-item">Salaire décroissant</a>
+                    <a class="dropdown-item <% if (order === 'date') { %>active<% } %>" href="/candidat/offersList?order=date %>">Récent à ancient</a>
+                    <a class="dropdown-item <% if (order === 'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire %>">Salaire min décroissant</a>
+                    <a class="dropdown-item <% if (order === 'distance') { %>active<% } %>" href="/candidat/offersList?order=distance %>">Distance croissante</a>
+                    
                 </div>
             </div>
             <div class="col-auto me-3">
                 <form action="/candidat/offersList" method="get">
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Rechercher un intitulé..." name="q">
+                      <input type="text" class="form-control" placeholder="Rechercher un intitulé..." name="q" value="<%= query %>">
                       <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                     </div>
                   </form>

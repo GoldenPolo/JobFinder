@@ -45,7 +45,13 @@ router.get('/offersList', requireCandidat, function(req, res) {
   if (!query) {
     query = '%';
   }
-  if (!order) {
+  if (order == 'date') {
+    order = 'Offre.datePublication DESC';
+  } else if (order == 'salaire') {
+    order = 'FichePoste.salaireMin DESC';
+  } else if (order == 'distance') {
+    order = 'distance';
+  } else {
     order = 'Offre.datePublication DESC';
   }
   if (!jobTypeFilter) {
@@ -63,6 +69,19 @@ router.get('/offersList', requireCandidat, function(req, res) {
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
+    // traduction des parametres en variables
+    if (order == 'Offre.datePublication DESC') {
+      order = 'date';
+    } else if (order == 'FichePoste.salaireMin DESC') {
+      order = 'salaire';
+    } else if (order == 'distance') {
+      order = 'distance';
+    } else {
+      order = '';
+    }
+    if (query == '%') {
+      query = '';
+    }
     res.render('./candidat/offersList', { 
       offers: results,
       paginationInfo: {
@@ -71,7 +90,11 @@ router.get('/offersList', requireCandidat, function(req, res) {
         totalPages: totalPages,
         pages: pages
       },
-      moment: moment
+      moment: moment,
+      query: query,
+      order: order,
+      jobTypeFilter: jobTypeFilter,
+      salaryFilter: salaryFilter
     });
   });
 });
