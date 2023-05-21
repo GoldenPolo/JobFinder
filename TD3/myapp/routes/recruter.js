@@ -30,6 +30,8 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
+  let query = req.query.q; // Récupère le paramètre "q" de l'URL
+  let statusFilter = req.query.statusFilter;
 
   if (isNaN(currentPage) || currentPage < 1) {
     currentPage = 1;
@@ -37,13 +39,22 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
   if (isNaN(perPage) || perPage < 1) {
     perPage = 10;
   }
+  if (!query) {
+    query = '%';
+  }
+  if (!statusFilter) {
+    statusFilter = 'publiee';
+  }
 
-  offerModel.readOffresOrganisation(req.session.userorganisation, startIndex, perPage, function(result) {
+  offerModel.readOffresOrganisationFilters(req.session.userorganisation, query, statusFilter, startIndex, perPage, function(result) {
     const numOffers = result.length; // nombre total d'offres
     const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
+    }
+    if (query == '%') {
+      query = '';
     }
     res.render('./recruter/myOffersList', { 
       title: 'Mes offres', 
@@ -54,42 +65,9 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
         totalPages: totalPages,
         pages: pages
       },
-      moment: moment
-    });
-  });
-});
-
-router.get('/searchOffer', requireRecruteur, (req, res) => {
-  const query = req.query.q; // Récupère le paramètre "q" de l'URL
-  let currentPage = req.query.page || 1;
-  let perPage = req.query.perPage || 10;
-  let startIndex = (currentPage - 1) * perPage;
-  
-  // Initialise les variables de pagination à des valeurs par défaut
-  if (isNaN(currentPage) || currentPage < 1) {
-    currentPage = 1;
-  }
-  if (isNaN(perPage) || perPage < 1) {
-    perPage = 10;
-  }
-
-  // Execute la requête SQL avec les variables de pagination
-  offerModel.searchByIntituleRecruter(query, req.session.userorganisation, startIndex, perPage, function (results) {
-    const numOffers = results.length; // nombre total d'utilisateurs
-    const totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
-    const pages = []; // tableau des numéros de page
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-    res.render('./recruter/myOffersList', { 
-      offers: results,
-      paginationInfo: {
-        currentPage: parseInt(currentPage),
-        perPage: parseInt(perPage),
-        totalPages: totalPages,
-        pages: pages
-      },
-      moment: moment
+      moment: moment,
+      query: query,
+      statusFilter: statusFilter
     });
   });
 });

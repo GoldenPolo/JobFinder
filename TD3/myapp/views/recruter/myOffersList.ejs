@@ -35,34 +35,27 @@
 
         <div class="d-flex justify-content-end my-2">
             <div class="dropdown me-3">
-                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Salaire min
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                État
                 </button>
-                <div class="dropdown-menu me-3" aria-labelledby="btnGroupDrop1">
-                    <div class="form-outline dropdown-item">
-                        <input type="text" id="form12" class="form-control" />
-                        <label class="form-label" for="form12">en euros</label>
-                    </div>
-                </div>
-            </div>
-            <div class="dropdown me-3">
-                <button id="btnGroupDrop2" type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Trier
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                    <a class="dropdown-item">Récent à ancient</a>
-                    <a class="dropdown-item">Distance croissante</a>
-                    <a class="dropdown-item">Salaire décroissant</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item <% if (statusFilter === 'publiee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=publiee">Offres valides</a>
+                    <a class="dropdown-item <% if (statusFilter === 'expiree') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=expiree">Offres expirées</a>
+                    <a class="dropdown-item <% if (statusFilter === 'nonPubliee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=nonPubliee">Offres non publiées</a>
                 </div>
             </div>
             <div class="col-auto me-3">
-                <form action="/recruter/searchOffer" method="get">
+                <form action="/recruter/myOffersList" method="get">
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Rechercher un intitulé..." name="q">
+                      <input type="text" class="form-control" placeholder="Rechercher un intitulé..." name="q" value="<%= query %>">
+                        <input type="hidden" name="statusFilter" value="<%= statusFilter %>"/>
                       <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                     </div>
-                  </form>
-                </div>
+                </form>
+            </div>
+            <div class="col-auto me-3">
+                <a class="btn btn-outline-danger mb-2 me-2" href="/recruter/myOffersList">Réinitialiser les filtres</a>
+            </div>
         </div>
         
         <div class="col">
@@ -93,7 +86,7 @@
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
                   <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
-                    <a class="page-link" href="/recruter/myOffersList?page=<%= page %>&size=<%= paginationInfo.pageSize %>"><%= page %></a>
+                    <a class="page-link" href="/recruter/myOffersList?page=<%= paginationInfo.page %>&size=<%= paginationInfo.pageSize %>"><%= page %></a>
                   </li>
                 <% }); %>
                 <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">

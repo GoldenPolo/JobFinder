@@ -57,7 +57,7 @@ module.exports = {
         console.log(salaryFilter);
         console.log(startIndex);
         console.log(perPage);
-        db.query("SELECT COUNT(*) FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?) AND (FichePoste.type LIKE ?) AND (FichePoste.salaireMin > ?)", [`%${query}%`, jobTypeFilter, salaryFilter], function(err, result) {
+        db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?) AND (FichePoste.type LIKE ?) AND (FichePoste.salaireMin > ?)", [`%${query}%`, jobTypeFilter, salaryFilter], function(err, result) {
             console.log(result[0]);
             if (err) throw err;
             const total = result[0].total;
@@ -71,6 +71,27 @@ module.exports = {
             db.query(SQLquery, function(err, results) {
             if (err) throw err;
             console.log(results);
+            callback(results, pages, total);
+            });
+        });
+    },
+
+    readOffresOrganisationFilters: function(organisation, query, statusFilter, startIndex, perPage, callback) {
+        console.log(organisation);
+        console.log(query);
+        console.log(statusFilter);
+        console.log(startIndex);
+        console.log(perPage);
+        db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?) AND (Offre.etat = ?)", [organisation, `%${query}%`, statusFilter], function(err, result) {
+            if (err) throw err;
+            const total = result[0].total;
+            const totalPages = Math.ceil(total / perPage);
+            const pages = [];
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+            db.query("SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?) AND (Offre.etat = ?) LIMIT ?, ?", [organisation, `%${query}%`, statusFilter, startIndex, perPage], function(err, results) {
+            if (err) throw err;
             callback(results, pages, total);
             });
         });

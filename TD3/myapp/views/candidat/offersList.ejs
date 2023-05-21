@@ -54,9 +54,9 @@
                 Trier
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item <% if (order === 'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<% query %>&salaryFilter=<%= salaryFilter %>">Récent à ancient</a>
-                    <a class="dropdown-item <% if (order === 'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<% query %>&salaryFilter=<%= salaryFilter %>">Salaire min décroissant</a>
-                    <a class="dropdown-item <% if (order === 'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<% query %>&salaryFilter=<%= salaryFilter %>">Distance croissante</a>
+                    <a class="dropdown-item <% if (order === 'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Récent à ancient</a>
+                    <a class="dropdown-item <% if (order === 'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Salaire min décroissant</a>
+                    <a class="dropdown-item <% if (order === 'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Distance croissante</a>
                     
                 </div>
             </div>
@@ -64,8 +64,8 @@
                 <form action="/candidat/offersList" method="get">
                     <div class="input-group mb-3">
                       <input type="text" class="form-control" placeholder="Rechercher un intitulé..." name="q" value="<%= query %>">
-                    <input type="hidden" name="order" value="<%= order %>"/>
-                    <input type="hidden" name="salaryFilter" value="<%= salaryFilter %>"/>
+                        <input type="hidden" name="order" value="<%= order %>"/>
+                        <input type="hidden" name="salaryFilter" value="<%= salaryFilter %>"/>
                       <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
                     </div>
                   </form>
