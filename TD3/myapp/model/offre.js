@@ -66,7 +66,7 @@ module.exports = {
             for (let i = 1; i <= totalPages; i++) {
                 pages.push(i);
             }
-            const SQLquery = "SELECT Offre.id, Offre.dateValidite, Offre.datePublication, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE '" + query + "') AND (FichePoste.type LIKE '" + jobTypeFilter + "') AND (FichePoste.salaireMin > '" + salaryFilter + "') ORDER BY " + order + " LIMIT " + startIndex + "," + perPage;
+            const SQLquery = "SELECT Offre.id, Offre.dateValidite, Offre.datePublication, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE '%" + query + "%') AND (FichePoste.type LIKE '" + jobTypeFilter + "') AND (FichePoste.salaireMin > '" + salaryFilter + "') ORDER BY " + order + " LIMIT " + startIndex + "," + perPage;
             console.log(SQLquery);
             db.query(SQLquery, function(err, results) {
             if (err) throw err;
