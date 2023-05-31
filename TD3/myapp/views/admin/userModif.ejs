@@ -18,16 +18,10 @@
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/offersList">Offres</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/usersList">Utilisateurs</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/addOrganisation">Ajouter organisation</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/becomeRecruter">Devenir recruteur</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/myApplications">Mes candidatures</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/organisationsList">Organisations</a>
                     </li>
                     <li>
                         <a class="btn btn-outline-secondary m-2 me-5" href="/logout">Déconnexion</a>
@@ -35,15 +29,31 @@
                 </ul>
             </div>
         </nav>
-        <form enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>">
+        <form method="post" action="/admin/userModified?id=<%= user.id %>">
             <div class="card m-5">
                 <div class="d-flex flex-row justify-content-center">
-                    <label for="files">Vos fichiers :</label><input type="file" name="files" id="files" multiple>
+                    <div class="col col-2 m-3">
+                        <div class="row">
+                            <label for="nom">Nom :</label><input type="text" id="nom" name="nom" value=<%= user.nom %>><br>
+                        </div>
+                        <div class="row">
+                            <label for="email">Mail :</label><input type="text" id="email" name="email" value=<%= user.email %>>
+                        </div>
+                    </div>
+                    <div class="col col-2 m-3">
+                        <div class="row">
+                            <label for="prenom">Prénom :</label><input type="text" id="prenom" name="prenom" value=<%= user.prenom %>><br>
+                        </div>
+                        <div class="row">
+                            <label for="tel">Tel :</label><input type="text" id="tel" name="tel" value=<%= user.telephone %>>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
             </div>
         </form>
+        
     </body> 
 </html>

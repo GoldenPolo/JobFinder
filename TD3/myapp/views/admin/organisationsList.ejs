@@ -62,7 +62,7 @@
               </div>
             <% } else { %>
               <% organisations.forEach((orga) => { %>
-                <a href="/organisation/<%= orga.id %>" class="list-group-item list-group-item-action">
+                <a href="/orgaDetails/<%= orga.siren %>" class="list-group-item list-group-item-action">
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= orga.nom %></h5>
                     <% if (statusFilter == 'validee') { %>
@@ -71,8 +71,8 @@
                       <small class="text-body-secondary">Organisation refusée</small>
                     <% } else { %>
                       <div class="d-inline-flex">
-                        <button type="button" class="btn btn-outline-secondary mx-2">Valider</button>
-                        <button type="button" class="btn btn-outline-secondary mx-2">Refuser</button>
+                        <button type="button" href="/admin/valideOrga?siren=<%= orga.siren %> "class="btn btn-outline-secondary mx-2">Valider</button>
+                        <button type="button" href="/admin/refuseOrga?siren=<%= orga.siren %>" class="btn btn-outline-secondary mx-2">Refuser</button>
                       </div>
                     <% } %>
                   </div>

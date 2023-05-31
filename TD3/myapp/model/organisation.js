@@ -2,7 +2,7 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (siren, callback) {
-        db.query("select * from Organisation where siren = ?", [email], function (err, results) {
+        db.query("select * from Organisation where siren = ?", [siren], function (err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -23,7 +23,7 @@ module.exports = {
       },      
 
     create: function (siren, nom, type, siege, callback) {
-        db.query("insert into Organisation(siren, nom, type, siege, validee) values(?, ?, ?, ?, ?)", [siren, nom, type, siege, 0], function (err, results) {
+        db.query("insert into Organisation(siren, nom, type, siege, validee) values(?, ?, ?, ?, 'attente')", [siren, nom, type, siege], function (err, results) {
             if (err) throw err
             callback(results);
         });
@@ -38,6 +38,20 @@ module.exports = {
 
     update: function (siren, nom, type, siege, callback) {
         db.query("update Organisation set nom = ?, type = ?, siege = ? where siren = ?", [nom, type, siege, siren], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    valider: function (siren, callback) {
+        db.query("update Organisation set statut = 'validee' where siren = ?", siren, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
+    refuser: function (siren, callback) {
+        db.query("update Organisation set statut = 'refusee' where siren = ?", siren, function (err, results) {
             if (err) throw err;
             callback(results);
         });

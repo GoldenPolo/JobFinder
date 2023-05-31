@@ -5,6 +5,7 @@ app.use(express.json());
 var userModel = require('../model/utilisateur');
 var offerModel = require('../model/offre');
 var candidatureModel = require('../model/candidature');
+var demAjoutOrgaModel = require('../model/demandeAjoutOrganisation');
 var router = express.Router();
 const moment = require('moment');
 require('moment/locale/fr.js');
@@ -89,8 +90,29 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/addRecruter', requireRecruteur, function (req, res, next) {
-  res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur' });
+  userModel.readOrganisation(req.user.id, function(result){
+    demAjoutOrgaModel.read(result, function(resultat){
+      res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur', demandes : resultat });
+    })
+  });
 });
+
+router.get('/acceptRecruter', requireRecruteur, function (req, res, next) {
+  userModel.readOrganisation(req.user.id, function(result){
+    userModel.becomeRecruter(req.query.id, result, function(resultat){
+      demAjoutOrgaModel.delete(req.query.id, result, function(resultat){
+        res.redirect('/addRecruter');
+      })
+    })
+  });
+});
+
+router.get('/refuseRecruter', requireRecruteur, function (req, res, next) {
+  userModel.readOrganisation(req.user.id, function(result){
+    demAjoutOrgaModel.delete(req.query.id, result, function(resultat){
+      res.redirect('/addRecruter');
+    })
+  });});
 
 router.get('/addOffre', requireRecruteur, function (req, res, next) {
   res.render('./candidat/addOffre', { title: 'Ajouter une offre' });

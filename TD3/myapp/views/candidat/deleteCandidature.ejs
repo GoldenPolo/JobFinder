@@ -35,15 +35,19 @@
                 </ul>
             </div>
         </nav>
-        <form enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>">
-            <div class="card m-5">
-                <div class="d-flex flex-row justify-content-center">
-                    <label for="files">Vos fichiers :</label><input type="file" name="files" id="files" multiple>
-                </div>
+
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <p>La candidature a été supprimée !!!</p>
             </div>
-            <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="/candidat/myApplications">Retour à la liste de candidatures</a>
             </div>
-        </form>
+
+        </div>
+
     </body> 
 </html>

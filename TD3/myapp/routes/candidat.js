@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
+var multer = require('multer');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 var offerModel = require('../model/offre');
 var candidatureModel = require('../model/candidature');
 var orgaModel = require('../model/organisation');
 var userModel = require('../model/utilisateur');
+var demAjoutOrga = require('../model/demandeAjoutOrganisation')
 var router = express.Router();
 var candidatureModel = require('../model/candidature');
 const moment = require('moment');
@@ -114,9 +116,87 @@ router.get('/offerDetails', requireCandidat, function (req, res, next) {
   });
 });
 
+router.get('/addCandidature', requireCandidat, function (req, res, next) { 
+  result = offerModel.read(req.query.id, function(result){
+    res.render('./candidat/addCandidature', { title: 'Ajout de candidature', offer: result, id : req.query.id });
+  });
+});
+
+router.post('/newCandidature', requireCandidat, function (req, res, next) { 
+  var piecesDossier = req.query.id + '-' + req.session.userid + '-';
+  var storage = multer.diskStorage({
+    destination:function(req, file, callback){
+      callback(null, './public/uploads');
+    },
+    filename:function(req, file, callback){
+      var temp_file_arr = file.originalname.split(".");
+      var temp_file_name = temp_file_arr[0];
+      var temp_file_extension = temp_file_arr[1];
+      callback(null, piecesDossier + temp_file_name + '.' + temp_file_extension);
+    }
+  });
+  var upload = multer({storage:storage}).array('files');
+  upload(req, result, function (err){
+    if (err){
+      res.end('Error when uploading file!!');
+    }
+    else {
+      result = candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function(result){
+        res.redirect('/candidat/myApplications');
+      });
+    }
+  });
+});
+
 router.get('/myApplications', requireCandidat, function (req, res, next) {
   result = candidatureModel.readCandidaturesCandidat(req.session.userid, function(result){
     res.render('./candidat/myApplications', { title: 'Mes candidatures', applications: result, moment: moment});
+  });
+});
+
+router.get('/applicationDetails', requireCandidat, function (req, res, next) {
+  console.log(req.query.offre);
+  result = candidatureModel.read(req.session.userid, req.query.offre, function(result){
+    if (result.length == 0){
+      res.end('Pas de candidature!! pour ' + req.query.offre);
+    }
+    res.render('./candidat/applicationDetails', { title: 'Détails de votre candidature', application: result, moment: moment});
+  });
+});
+
+router.get('/addFiles', requireCandidat, function (req, res, next) { 
+  res.render('./candidat/addFiles', { title: 'Ajout de fichiers', id : req.query.id });
+});
+
+router.post('/addToCandidature', requireCandidat, function (req, res, next) { 
+  var piecesDossier = req.query.id + '-' + req.session.userid + '-';
+  var storage = multer.diskStorage({
+    destination:function(req, file, callback){
+      callback(null, './public/uploads');
+    },
+    filename:function(req, file, callback){
+      var temp_file_arr = file.originalname.split(".");
+      var temp_file_name = temp_file_arr[0];
+      var temp_file_extension = temp_file_arr[1];
+      callback(null, piecesDossier + temp_file_name + '.' + temp_file_extension);
+    }
+  });
+  var upload = multer({storage:storage}).array('files');
+  upload(req, result, function (err){
+    if (err){
+      res.end('Error when uploading file!!');
+    }
+    else {
+      result = candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function(result){
+        res.redirect('/candidat/myApplications');
+      });
+    }
+  });
+});
+
+router.get('/deleteCandidature', requireCandidat, function (req, res, next) {
+  candidatureModel.delete(req.session.userid, req.query.id, function(result){
+      res.render('./candidat/deleteCandidature', { title: 'Suppression de la candidature'});
   });
 });
 
@@ -133,29 +213,31 @@ router.post('/newOrga', requireCandidat, function (req, res, next) {
    res.redirect('/offersList');
  })});
  
+router.get('/becomeRecruter', requireCandidat, function (req, res, next) {
+  result = orgaModel.readall(function(result){
+    res.render('./candidat/becomeRecruter', { title: 'Devenir recruteur', orgas: result, moment: moment});
+  });
+});
+
+router.post('/newRecruter', requireCandidat, function (req, res, next) {
+  const siren = req.body.selectOrga;
+  demAjoutOrga.create(req.user.id, siren, function(result){
+    res.redirect('/offersList');
+  });
+});
 
 router.get('/addUser', function (req, res, next) {
- res.render('./candidat/addUser', { title: 'Ajouter un utilisateur' });
-});
-
-router.post('/newUser', function (req, res, next) {
- const prenom = req.body.prenom;
- const nom = req.body.nom;
- const pwd = req.body.pwd;
- const tel = req.body.tel;
- userModel.create(nom, prenom, pwd, 'candidat', tel, function (req, res, next) {
-  res.redirect('/offersList');
-})});
-
-router.get('/addCandidature', requireCandidat, function (req, res, next) {
- res.render('./candidat/addCandidature', { title: 'Ajouter une candidature' });
-});
-
-router.post('/newCandidature', requireCandidat, function (req, res, next) {
- const files = req.body.files;
- //comment avoir l'offre actuelle???
- candidatureModel.create(req.user.id, offre, new Date().toLocaleDateString(), files, function (req, res, next) {
-  res.redirect('/offersList');
-})});
+  res.render('./candidat/addUser', { title: 'Ajouter un utilisateur' });
+ });
+ 
+ router.post('/newUser', function (req, res, next) {
+  const prenom = req.body.prenom;
+  const nom = req.body.nom;
+  const pwd = req.body.pwd;
+  const tel = req.body.tel;
+  const mail = req.body.mail;
+  userModel.create(mail, nom, prenom, pwd, 'candidat', tel, function (req, res2, next) {
+   res.redirect('/login');
+ })});
 
 module.exports = router;

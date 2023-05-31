@@ -71,6 +71,34 @@ router.get('/userDetails', requireAdmin, function (req, res, next) {
     });
 });
 
+router.get('/userModif', requireAdmin, function (req, res, next) {
+  result = userModel.read(req.query.id, function(result){
+      res.render('./admin/userModif', { title: 'Modification de l\'utilisateur', user: result, moment: moment});
+  });
+});
+
+router.post('/userModified', requireAdmin, function (req, res, next) {
+  const nom = req.body.nom;
+  const prenom = req.body.prenom;
+  const email = req.body.email;
+  const tel = req.body.tel;
+  
+  userModel.update(req.query.id, email, nom, prenom, tel, function (req, res, next) {});
+  res.redirect("./usersList")
+});
+
+router.get('/userAdmin', requireAdmin, function (req, res, next) {
+  userModel.becomeAdmin(req.query.id, function(result){
+      res.render('./admin/userAdmin', { title: 'Transformation de l\'utilisateur en admin'});
+  });
+});
+
+router.get('/userDelete', requireAdmin, function (req, res, next) {
+  userModel.delete(req.query.id, function(result){
+      res.render('./admin/userDelete', { title: 'Suppression de l\'utilisateur'});
+  });
+});
+
 router.get('/organisationsList', requireAdmin, function(req, res) {
   let currentPage = req.query.page || 1;
   let perPage = req.query.perPage || 10;
@@ -120,6 +148,17 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   });
 });
 
+router.get('/valideOrga', requireAdmin, function (req, res, next) {
+  orgaModel.valider(req.query.siren, function(result){
+      res.redirect('/organisationsList');
+  });
+});
+
+router.get('/refuseOrga', requireAdmin, function (req, res, next) {
+  orgaModel.refuser(req.query.siren, function(result){
+      res.redirect('/organisationsList');
+  });
+});
 
 router.get('/searchOrganisation', requireAdmin, function(req, res) {
   const query = req.query.q;

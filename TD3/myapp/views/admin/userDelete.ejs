@@ -18,16 +18,10 @@
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/offersList">Offres</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/usersList">Utilisateurs</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/addOrganisation">Ajouter organisation</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/becomeRecruter">Devenir recruteur</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/myApplications">Mes candidatures</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/admin/organisationsList">Organisations</a>
                     </li>
                     <li>
                         <a class="btn btn-outline-secondary m-2 me-5" href="/logout">Déconnexion</a>
@@ -35,15 +29,18 @@
                 </ul>
             </div>
         </nav>
-        <form enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>">
-            <div class="card m-5">
-                <div class="d-flex flex-row justify-content-center">
-                    <label for="files">Vos fichiers :</label><input type="file" name="files" id="files" multiple>
-                </div>
+
+        <div class="card m-5">
+            <div class="d-flex flex-row justify-content-center">
+                <p>L'utilisateur a été supprimé !!!</p>
             </div>
-            <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col col-1">
+                <a class="btn btn-outline-primary" href="/admin/usersList">Retour à la liste d'utilisateurs</a>
             </div>
-        </form>
+        </div>
+        
     </body> 
 </html>

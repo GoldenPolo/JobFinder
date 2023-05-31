@@ -35,15 +35,23 @@
                 </ul>
             </div>
         </nav>
-        <form enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>">
+
+        
+        <form method="post" action="/candidat/newRecruter">
             <div class="card m-5">
                 <div class="d-flex flex-row justify-content-center">
-                    <label for="files">Vos fichiers :</label><input type="file" name="files" id="files" multiple>
+                    <select class="form-select" aria-label="selectOrga">
+                        <option selected>Choisissez votre organisation</option>
+                        <% orgas.forEach((orga)=> { %>
+                            <option value="<%= orga.siren %>"><%= orga.nom %></option>
+                        <% }); %>
+                    </select>
+                    Lorsque votre demande sera validée, vous deviendrez automatiquement recruteur.
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
-            </div>
         </form>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-outline-primary" href="">Faire la demande</button>
+        </div>
     </body> 
 </html>

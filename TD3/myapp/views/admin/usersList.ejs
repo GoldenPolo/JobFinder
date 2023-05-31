@@ -55,9 +55,10 @@
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"> <%= user.prenom %> <%= user.nom %></h5>
                     <div class="d-inline-flex">
-                      <button  type="button" class="btn btn-outline-secondary mx-2">Admin</button>
-                      <button  type="button" class="btn btn-outline-secondary mx-2">Modifier</button>
-                      <button  type="button" class="btn btn-outline-secondary mx-2">Supprimer</button>
+                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userDetails?id=<%= user.id %>">Voir détails</button>
+                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Admin</button>
+                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userModif?id=<%= user.id %>">Modifier</button>
+                      <button id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Supprimer</button>
                     </div>
                   </div>
                   <div class="d-flex w-100">

@@ -33,6 +33,19 @@
             </div>
         </nav>
 
+        <div class="list-group">
+            <% demandes.forEach((demande)=> { %>
+                <div class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><%= demande.prenom %><%= demande.nom %></h5>
+                        <div class="d-inline-flex">
+                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/recruter/acceptRecruter?id=<%= demande.id %>">Accepter</a>
+                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/recruter/refuseRecruter?id=<%= demande.id %>">Refuser</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
         
     </body> 
 </html>

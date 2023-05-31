@@ -21,7 +21,10 @@
                         <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/offersList">Offres</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/addOrganisation">Recruter</a>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/addOrganisation">Ajouter organisation</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/becomeRecruter">Devenir recruteur</a>
                     </li>
                     <li>
                         <a class="btn btn-outline-secondary m-2 me-5" href="/candidat/myApplications">Mes candidatures</a>
@@ -35,10 +38,30 @@
 
         
         <form method="post" action="/candidat/newOrga">
-              <input type="text" name="nomOrga" id="nomOrga"><label for="nomOrga">Nom de l'organisation :</label>
-              <input type="text" name="siren" id="siren"><label for="siren">Numéro SIREN :</label>
-              <input type="text" name="type" id="type"><label for="type">Type d'organisation :</label>
-              <input type="text" name="siege" id="siege"><label for="siege">L'adresse du siège :</label>
+            Ce formulaire va vous permettre de déposer une demande d'ajout de votre organisation. Lorsqu'elle sera acceptée, vous deviendrez automatiquement recruteur.
+            <div class="card m-5">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="col col-2 m-3">
+                        <div class="row">
+                            <label for="nomOrga">Nom de l'organisation :</label><input type="text" name="nomOrga" id="nomOrga"><br>
+                        </div>
+                        <div class="row">
+                            <label for="siren">Numéro SIREN :</label><input type="text" name="siren" id="siren">
+                        </div>
+                    </div>
+                    <div class="col col-2 m-3">
+                        <div class="row">
+                            <label for="type">Type d'organisation :</label><input type="text" name="type" id="type"><br>
+                        </div>
+                        <div class="row">
+                            <label for="siege">Adresse du siège :</label><input type="text" name="siege" id="siege">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+            </div>
         </form>
     </body> 
 </html>
