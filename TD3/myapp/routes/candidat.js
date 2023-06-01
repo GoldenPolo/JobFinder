@@ -209,8 +209,8 @@ router.post('/newOrga', requireCandidat, function (req, res, next) {
   const siren = req.body.siren;
   const type = req.body.type;
   const siege = req.body.siege;
-  orgaModel.create(siren, nom, type, siege, function (req, res, next) {
-   res.redirect('/offersList');
+  orgaModel.create(siren, nomOrga, type, siege, function (result) {
+   res.redirect('./offersList');
  })});
  
 router.get('/becomeRecruter', requireCandidat, function (req, res, next) {

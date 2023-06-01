@@ -90,10 +90,8 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/addRecruter', requireRecruteur, function (req, res, next) {
-  userModel.readOrganisation(req.user.id, function(result){
-    demAjoutOrgaModel.read(result, function(resultat){
-      res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur', demandes : resultat });
-    })
+  demAjoutOrgaModel.read(req.session.userorganisation, function(resultat){
+    res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur', demandes : resultat });
   });
 });
 

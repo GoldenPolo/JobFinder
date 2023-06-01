@@ -2,7 +2,7 @@ var db = require('./db.js');
 
 module.exports = {
     read: function (siren, callback) {
-        db.query("select Utilisateur.nom as nom, Utilisateur.prenom as prenom, utilisateur.id as id from (DemandeAjoutOrganisation INNER JOIN Utilisateur ON DemandeAjoutOrganisation.utilisateur = Utilisateur.id) where organisation = ?", [siren], function (err, results) {
+        db.query("select Utilisateur.nom as nom, Utilisateur.prenom as prenom, Utilisateur.id as id from (DemandeAjoutOrganisation INNER JOIN Utilisateur ON DemandeAjoutOrganisation.utilisateur = Utilisateur.id) where DemandeAjoutOrganisation.organisation = ?", [siren], function (err, results) {
             if (err) throw err;
             callback(results);
         });

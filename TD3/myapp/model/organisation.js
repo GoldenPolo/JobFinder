@@ -23,7 +23,7 @@ module.exports = {
       },      
 
     create: function (siren, nom, type, siege, callback) {
-        db.query("insert into Organisation(siren, nom, type, siege, validee) values(?, ?, ?, ?, 'attente')", [siren, nom, type, siege], function (err, results) {
+        db.query("insert into Organisation(siren, nom, type, siege, statut) values(?, ?, ?, ?, 'attente')", [siren, nom, type, siege], function (err, results) {
             if (err) throw err
             callback(results);
         });
