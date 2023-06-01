@@ -214,7 +214,7 @@ router.post('/newOrga', requireCandidat, function (req, res, next) {
  })});
  
 router.get('/becomeRecruter', requireCandidat, function (req, res, next) {
-  result = orgaModel.readall(function(result){
+  result = orgaModel.readValidated(function(result){
     res.render('./candidat/becomeRecruter', { title: 'Devenir recruteur', orgas: result, moment: moment});
   });
 });

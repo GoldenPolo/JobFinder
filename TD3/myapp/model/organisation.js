@@ -15,6 +15,13 @@ module.exports = {
         });
     },
 
+    readValidated: function (callback) {
+        db.query("select * from Organisation WHERE statut = 'validee'", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     readPage: function(startIndex, perPage, callback) {
         db.query('SELECT * FROM Organisation LIMIT ?, ?', [startIndex, perPage], function(err, results) {
           if (err) throw err;
