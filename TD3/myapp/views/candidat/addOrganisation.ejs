@@ -36,32 +36,42 @@
             </div>
         </nav>
 
-        
-        <form method="post" action="/candidat/newOrga">
-            Ce formulaire va vous permettre de déposer une demande d'ajout de votre organisation. Lorsqu'elle sera acceptée, vous deviendrez automatiquement recruteur.
-            <div class="card m-5">
+        <div class="row justify-content-center">
+            <form class="col col-8 mt-5" method="post" action="/candidat/newOrga">
                 <div class="d-flex flex-row justify-content-center">
-                    <div class="col col-2 m-3">
-                        <div class="row">
-                            <label for="nomOrga">Nom de l'organisation :</label><input type="text" name="nomOrga" id="nomOrga"><br>
+                    <div class="h1">Demande d'ajout d'une organisation</div>
+                </div>
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="p">Lorsque que votre demande sera acceptée, vous deviendrez automatiquement recruteur.</div>
+                </div>
+                <div class="card m-5">
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="col col-4 m-2">
+                            <div class="row">
+                                <label class="m-2" for="nomOrga">Nom de l'organisation :</label>
+                                <input class="m-2" type="text" name="nomOrga" id="nomOrga"><br>
+                            </div>
+                            <div class="row">
+                                <label class="m-2" for="siren">Numéro SIREN :</label>
+                                <input class="m-2" type="text" name="siren" id="siren">
+                            </div>
                         </div>
-                        <div class="row">
-                            <label for="siren">Numéro SIREN :</label><input type="text" name="siren" id="siren">
-                        </div>
-                    </div>
-                    <div class="col col-2 m-3">
-                        <div class="row">
-                            <label for="type">Type d'organisation :</label><input type="text" name="type" id="type"><br>
-                        </div>
-                        <div class="row">
-                            <label for="siege">Adresse du siège :</label><input type="text" name="siege" id="siege">
+                        <div class="col col-4 m-2">
+                            <div class="row">
+                                <label class="m-2" for="type">Type d'organisation :</label>
+                                <input class="m-2" type="text" name="type" id="type"><br>
+                            </div>
+                            <div class="row">
+                                <label class="m-2" for="siege">Adresse du siège :</label>
+                                <input class="m-2" type="text" name="siege" id="siege">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
-            </div>
-        </form>
+                <div class="d-flex flex-row justify-content-center">
+                    <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+                </div>
+            </form>
+        </div>
     </body> 
 </html>
