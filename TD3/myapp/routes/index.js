@@ -6,11 +6,11 @@ const paginateInfo = require('paginate-info');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login');
+  res.render('login', { message : false });
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login', { message : false });
 });
 
 router.get('/successfulLogin', function(req, res, next) {

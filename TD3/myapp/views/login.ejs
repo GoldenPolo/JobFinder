@@ -24,6 +24,11 @@
                             <button type="submit" class="btn btn-primary">Connexion</button>
                         </div>
                     </form> 
+                    <% if (message) { %>
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <%= message %>
+                        </div>
+                    <% } %>
                 </div>
                 <div class="row text-center mb-3">
                     <a class="btn" href="/candidat/addUser">Pas encore de compte ? Inscription</a>
