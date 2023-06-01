@@ -33,19 +33,27 @@
             </div>
         </nav>
 
-        <div class="list-group">
-            <% demandes.forEach((demande)=> { %>
-                <div class="list-group-item list-group-item-action">
+        <div class="col">
+            <% if (demandes.length === 0) { %>
+              <div class="alert alert-warning m-3" role="alert">
+                Aucun résultat.
+              </div>
+            <% } else { %>
+                <% demandes.forEach((demande)=> { %>
+                  <div class="row card p-3 m-3">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1"><%= demande.prenom %><%= demande.nom %></h5>
-                        <div class="d-inline-flex">
-                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/recruter/acceptRecruter?id=<%= demande.id %>">Accepter</a>
-                            <a id="btnDetails" type="button" class="btn btn-outline-secondary mx-2" href="/recruter/refuseRecruter?id=<%= demande.id %>">Refuser</a>
-                        </div>
+                      <h5 class="mb-1"> <%= demande.prenom %> <%= demande.nom %></h5>
+                      <div class="d-inline-flex">
+                        <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Accepter</a>
+                        <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Refuser</a>
+                      </div>
                     </div>
-                </div>
-            <% }); %>
-        </div>
+                    <div class="d-flex w-100">
+                      <p class="mx-2">État :<% if (demande.validee) { %> accepté <% } else { %> attente <% } %></p>
+                    </div>
+                  </div>
+              <% }); %>
+            <% } %>
         
     </body> 
 </html>
