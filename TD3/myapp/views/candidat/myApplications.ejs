@@ -36,41 +36,38 @@
             </div>
         </nav>
 
-        <div class="d-flex justify-content-end">
-            <div class="dropdown">
-                <button id="btnGroupDrop2" type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Trier
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                    <a class="dropdown-item">Récent à ancient</a>
-                    <a class="dropdown-item">Distance croissante</a>
-                    <a class="dropdown-item">Salaire décroissant</a>
-                </div>
-            </div>
+        <div class="d-flex justify-content-center m-3 mb-4">
+            <h1 class="text-center">Mes candidatures</h1>
         </div>
         
-        <div class="list-group">
-            <% applications.forEach((application)=> { %>
-                <a class="list-group-item list-group-item-action" href="/candidat/applicationDetails?offre=<%= application.offre_id %>">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Poste de : <%= application.fiche_intitule %></h5>
-                        <div class="d-inline-flex">
-                            <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Salaire entre : <%= application.fiche_salaireMin %> et <%= application.fiche_salaireMax %> euros</button>
-                            <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Lieu : <%= application.fiche_lieu %></button>
-                            <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Rythme : <%= application.fiche_rythme %></button>
+        <div class="col">
+            <% if (applications.length === 0) { %>
+                <div class="alert alert-warning" role="alert">
+                  Aucune offre ne correspond à cette recherche.
+                </div>
+            <% } else { %>
+                <% applications.forEach((application)=> { %>
+                    <div class="row card p-3 m-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Poste de : <%= application.fiche_intitule %></h5>
+                            <div class="d-inline-flex">
+                                <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Salaire entre : <%= application.fiche_salaireMin %> et <%= application.fiche_salaireMax %> euros</button>
+                                <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Lieu : <%= application.fiche_lieu %></button>
+                                <button type="button" class="btn btn-outline-danger mx-2" style="pointer-events: none;">Rythme : <%= application.fiche_rythme %></button>
+                            </div>
+                            <small class="text-body-secondary">candidature faite le <%= moment(application.candidature_date).format('L') %></small>
                         </div>
-                        <small class="text-body-secondary">candidature faite le <%= moment(application.candidature_date).format('L') %></small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1">Entreprise : <%= application.organisation_nom %></p>
-                        <div class="d-inline-flex">
-                            <button id="btnDetails" href="/candidat/applicationDetails?offre=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Voir détails</button>
-                            <button id="btnDetails" href="/candidat/addFiles?id=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Compléter</button>
-                            <button id="btnDetails" href="/candidat/deleteCandidature?id=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Supprimer</button>
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="mb-1">Entreprise : <%= application.organisation_nom %></p>
+                            <div class="d-inline-flex">
+                                <a href="/candidat/applicationDetails?offre=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Voir détails</a>
+                                <a href="/candidat/addFiles?id=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Compléter</a>
+                                <a href="/candidat/deleteCandidature?id=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Supprimer</a>
+                            </div>
                         </div>
                     </div>
-                </a>
-            <% }); %>
+                <% }); %>
+            <% } %>
         </div>
         
         
