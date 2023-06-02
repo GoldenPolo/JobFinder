@@ -36,6 +36,7 @@ router.get('/offersList', requireCandidat, function(req, res) {
   let order = req.query.order;
   let jobTypeFilter = req.query.jobTypeFilter;
   let salaryFilter = req.query.salaryFilter;
+  let notif = req.query.notif;
 
   // Initialise les variables à des valeurs par défaut
   if (isNaN(currentPage) || currentPage < 1) {
@@ -46,6 +47,9 @@ router.get('/offersList', requireCandidat, function(req, res) {
   }
   if (!query) {
     query = '%';
+  }
+  if (!notif) {
+    notif = false;
   }
   if (order == 'date') {
     order = 'Offre.datePublication DESC';
@@ -105,7 +109,8 @@ router.get('/offersList', requireCandidat, function(req, res) {
       query: query,
       order: order,
       jobTypeFilter: jobTypeFilter,
-      salaryFilter: salaryFilter
+      salaryFilter: salaryFilter,
+      notif: notif
     });
   });
 });
@@ -149,8 +154,17 @@ router.post('/newCandidature', requireCandidat, function (req, res, next) {
 });
 
 router.get('/myApplications', requireCandidat, function (req, res, next) {
+  let notif = req.query.notif;
+  if (!notif) {
+    notif = false;
+  }
   result = candidatureModel.readCandidaturesCandidat(req.session.userid, function(result){
-    res.render('./candidat/myApplications', { title: 'Mes candidatures', applications: result, moment: moment});
+    res.render('./candidat/myApplications', { 
+      title: 'Mes candidatures', 
+      applications: result, 
+      moment: moment,
+      notif: notif
+    });
   });
 });
 

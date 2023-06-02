@@ -26,6 +26,7 @@ router.get('/usersList', requireAdmin, function(req, res) {
   let perPage = req.query.perPage || 10;
   let startIndex = (currentPage - 1) * perPage;
   let query = req.query.q; // Récupère le paramètre "q" de l'URL
+  let notif = req.query.notif;
   
   // Initialise les variables de pagination à des valeurs par défaut
   if (isNaN(currentPage) || currentPage < 1) {
@@ -36,6 +37,9 @@ router.get('/usersList', requireAdmin, function(req, res) {
   }
   if (!query) {
     query = '%';
+  }
+  if (!notif) {
+    notif = false;
   }
 
   // Execute la requête SQL avec les variables de pagination
@@ -60,7 +64,8 @@ router.get('/usersList', requireAdmin, function(req, res) {
         totalPages: totalPages,
         pages: pages
       },
-      query: query
+      query: query,
+      notif: notif
     });
   });
 });
@@ -105,6 +110,7 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   let startIndex = (currentPage - 1) * perPage;
   let query = req.query.q; // Récupère le paramètre "q" de l'URL
   let statusFilter = req.query.statusFilter; // Récupère le paramètre "statusFilter" de l'URL
+  let notif = req.query.notif;
   
   // Initialise les variables de pagination à des valeurs par défaut
   if (isNaN(currentPage) || currentPage < 1) {
@@ -118,6 +124,9 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   }
   if (!statusFilter) {
     statusFilter = 'attente';
+  }
+  if (!notif) {
+    notif = false;
   }
 
   // Execute la requête SQL avec les variables de pagination
@@ -143,7 +152,8 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
         pages: pages
       },
       query: query,
-      statusFilter: statusFilter
+      statusFilter: statusFilter,
+      notif: notif
     });
   });
 });

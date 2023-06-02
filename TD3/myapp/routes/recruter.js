@@ -33,6 +33,7 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
   let startIndex = (currentPage - 1) * perPage;
   let query = req.query.q; // Récupère le paramètre "q" de l'URL
   let statusFilter = req.query.statusFilter;
+  let notif = req.query.notif;
 
   if (isNaN(currentPage) || currentPage < 1) {
     currentPage = 1;
@@ -45,6 +46,9 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
   }
   if (!statusFilter) {
     statusFilter = 'publiee';
+  }
+  if (!notif) {
+    notif = false;
   }
 
   offerModel.readOffresOrganisationFilters(req.session.userorganisation, query, statusFilter, startIndex, perPage, function(result) {
@@ -71,7 +75,8 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
       },
       moment: moment,
       query: query,
-      statusFilter: statusFilter
+      statusFilter: statusFilter,
+      notif: notif
     });
   });
 });
@@ -83,9 +88,15 @@ router.get('/myOfferDetails', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/applicationsList', requireRecruteur, function (req, res, next) {
+  let notif = req.query.notif;
   result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
     console.log(result);
-    res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment});
+    res.render('./recruter/applicationsList', { 
+      title: 'Candidatures', 
+      applications: result, 
+      moment: moment,
+      notif: notif
+    });
   });
 });
 

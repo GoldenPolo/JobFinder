@@ -30,9 +30,16 @@
             </div>
         </nav>
 
+        <% if (notif) { %>
+          <div class="alert alert-warning alert-dismissible fade show m-3" role="alert">
+            <%= notif %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+
         <div class="d-flex justify-content-center m-3 mb-4">
           <h1 class="text-center">Liste des organisations</h1>
-      </div>
+        </div>
 
         <div class="d-flex justify-content-end my-2">
             <div class="dropdown me-3">
