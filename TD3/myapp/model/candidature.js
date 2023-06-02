@@ -21,6 +21,13 @@ module.exports = {
             callback(results);
         });
     },
+
+    readCandidaturesToMyOffer: function (offer, callback) {
+        db.query("select Candidature.date, Candidature.piecesDossier,  FichePoste.intitule, Utilisateur.nom, Utilisateur.prenom from (Candidature INNER JOIN Offre ON Candidature.offre = Offre.id INNER JOIN Utilisateur ON Candidature.candidat = Utilisateur.id INNER JOIN FichePoste on Offre.fichePoste = FichePoste.id) WHERE (Candidature.offre = ?)", [offer], function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     
     readAll: function (callback) {
         db.query("select * from Candidature", function (err, results) {

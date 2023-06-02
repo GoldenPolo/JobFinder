@@ -83,21 +83,24 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
 
 router.get('/myOfferDetails', requireRecruteur, function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
-    res.render('./recruter/myOfferDetails', { title: 'Détails de l\'offre', offer: result });
+    console.log(result);
+    res.render('./recruter/myOfferDetails', { title: 'Détails de l\'offre', offer: result, id : req.query.id });
   });
 });
 
 router.get('/applicationsList', requireRecruteur, function (req, res, next) {
-  let notif = req.query.notif;
-  result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
-    console.log(result);
-    res.render('./recruter/applicationsList', { 
-      title: 'Candidatures', 
-      applications: result, 
-      moment: moment,
-      notif: notif
+  if (req.query.id == null){
+    result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
+      console.log(result);
+      res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment, notif: notif});
     });
-  });
+  }
+  else {
+    result = candidatureModel.readCandidaturesToMyOffer(req.query.id, function(result){
+      console.log(result);
+      res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment, notif: notif});
+    });
+  }
 });
 
 router.get('/addRecruter', requireRecruteur, function (req, res, next) {
