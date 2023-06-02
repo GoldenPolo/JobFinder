@@ -149,14 +149,14 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
 });
 
 router.get('/valideOrga', requireAdmin, function (req, res, next) {
-  orgaModel.valider(req.query.siren, function(result){
-      res.redirect('/organisationsList');
+  organisationModel.valider(req.query.siren, function(result){
+      res.redirect('./organisationsList');
   });
 });
 
 router.get('/refuseOrga', requireAdmin, function (req, res, next) {
-  orgaModel.refuser(req.query.siren, function(result){
-      res.redirect('/organisationsList');
+  organisationModel.refuser(req.query.siren, function(result){
+      res.redirect('./organisationsList');
   });
 });
 
