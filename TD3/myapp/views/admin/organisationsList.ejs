@@ -82,7 +82,7 @@
                       <small class="text-body-secondary">Organisation refusée</small>
                     <% } else { %>
                       <div class="d-inline-flex">
-                        <a type="button" href="/admin/orgaDetails/<%= orga.siren %>" class="btn btn-outline-secondary mx-2">Voir détails</a>
+                        <a type="button" href="/admin/orgaDetails?siren=<%= orga.siren %>" class="btn btn-outline-secondary mx-2">Voir détails</a>
                         <a type="button" href="/admin/valideOrga?siren=<%= orga.siren %>"class="btn btn-outline-secondary mx-2">Valider</a>
                         <a type="button" href="/admin/refuseOrga?siren=<%= orga.siren %>" class="btn btn-outline-secondary mx-2">Refuser</a>
                       </div>

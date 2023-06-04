@@ -158,6 +158,14 @@ router.get('/organisationsList', requireAdmin, function(req, res) {
   });
 });
 
+router.get('/orgaDetails', requireAdmin, function (req, res, next) {
+  result = organisationModel.read(req.query.siren, function(result){
+      res.render('./admin/orgaDetails', {
+        orga: result[0], 
+        moment: moment});
+  });
+});
+
 router.get('/valideOrga', requireAdmin, function (req, res, next) {
   organisationModel.valider(req.query.siren, function(result){
       res.redirect('./organisationsList');
