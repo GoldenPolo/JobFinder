@@ -50,6 +50,13 @@ module.exports = {
         });
     },
 
+    update: function (id, dateValidite, indications, nombrePiecesDemandees, callback) {
+        db.query("update Offre set dateValidite = ?, indications = ?, nombrePiecesDemandees = ? where id = ?", [dateValidite, indications, nombrePiecesDemandees, id], function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+
     readAllFilters: function(query, order, jobTypeFilter, salaryFilter, startIndex, perPage, callback) {
         console.log(query);
         console.log(order);

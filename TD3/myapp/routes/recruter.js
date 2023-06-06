@@ -84,7 +84,22 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
 router.get('/myOfferDetails', requireRecruteur, function (req, res, next) { 
   result = offerModel.read(req.query.id, function(result){
     console.log(result);
-    res.render('./recruter/myOfferDetails', { title: 'Détails de l\'offre', offer: result, id : req.query.id });
+    res.render('./recruter/myOfferDetails', { title: 'Détails de l\'offre', offer: result, id : req.query.id, moment: moment });
+  });
+});
+
+router.get('/myOfferModif', requireRecruteur, function (req, res, next) { 
+  result = offerModel.read(req.query.id, function(result){
+    res.render('./recruter/myOfferModif', { title: 'Modification de l\'offre', offer: result, id : req.query.id, moment : moment });
+  });
+});
+
+router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
+  const dateVal = req.body.dateValidite;
+  const nbPiecesDem = req.body.nbPiecesDem;
+  const indications = req.body.indications;
+  offerModel.update(req.query.id, dateVal, indications, nbPiecesDem, function (resultat) {
+    res.redirect("/recruter/myOffersList");
   });
 });
 

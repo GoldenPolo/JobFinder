@@ -118,12 +118,17 @@
                         <p>Indications : <%= offer.offre_indications %></p><br>
                     </div>
                 </div>
+                <div class="col col-3 m-3">
+                    <div class="row">
+                        <p>Date de validité : <%= moment(offer.offre_date_validite).format('L') %></p><br>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row justify-content-center">
             <div class="col col-1">
-                <a class="btn btn-outline-primary" href="">Modifier</a>
+                <a class="btn btn-outline-primary" href="/recruter/myOfferModif?id=<%= id %>">Modifier</a>
             </div>
             <div class="col col-1">
                 <a class="btn btn-outline-primary" href="/recruter/applicationsList?id= <%= id %>">Voir les candidats</a>
