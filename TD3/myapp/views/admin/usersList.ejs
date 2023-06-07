@@ -67,9 +67,9 @@
                     <h5 class="mb-1"> <%= user.prenom %> <%= user.nom %></h5>
                     <div class="d-inline-flex">
                       <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userDetails?id=<%= user.id %>">Voir détails</a>
-                      <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Admin</a>
+                      <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userAdmin?id=<%= user.id %>">Admin</a>
                       <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userModif?id=<%= user.id %>">Modifier</a>
-                      <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2">Supprimer</a>
+                      <a id="btnDetails"  type="button" class="btn btn-outline-secondary mx-2" href="/admin/userDelete?id=<%= user.id %>">Supprimer</a>
                     </div>
                   </div>
                   <div class="d-flex w-100">
