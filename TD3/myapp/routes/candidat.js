@@ -235,7 +235,7 @@ router.get('/becomeRecruter', requireCandidat, function (req, res, next) {
 
 router.post('/newRecruter', requireCandidat, function (req, res, next) {
   const siren = req.body.selectOrga;
-  demAjoutOrga.create(req.user.id, siren, function(result){
+  demAjoutOrga.create(req.session.userid, siren, function(result){
     res.redirect('/offersList');
   });
 });
