@@ -46,8 +46,7 @@
                 </div>
                 <div class="card m-5">
                     <div class="d-flex flex-row justify-content-center">
-                        <select class="form-select" aria-label="selectOrga">
-                            <option selected>Choisissez votre organisation</option>
+                        <select class="form-select" aria-label="selectOrga" name="selectOrga">
                             <% orgas.forEach((orga)=> { %>
                                 <option value="<%= orga.siren %>"><%= orga.nom %></option>
                             <% }); %>
