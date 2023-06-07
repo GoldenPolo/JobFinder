@@ -125,21 +125,18 @@ router.get('/addRecruter', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/acceptRecruter', requireRecruteur, function (req, res, next) {
-  userModel.readOrganisation(req.user.id, function(result){
-    userModel.becomeRecruter(req.query.id, result, function(resultat){
-      demAjoutOrgaModel.delete(req.query.id, result, function(resultat){
-        res.redirect('/addRecruter');
-      })
+  userModel.becomeRecruter(req.query.id, req.session.userorganisation, function(resultat){
+    demAjoutOrgaModel.delete(req.query.id, req.session.userorganisation, function(resultat){
+      res.redirect('/recruter/addRecruter');
     })
   });
 });
 
 router.get('/refuseRecruter', requireRecruteur, function (req, res, next) {
-  userModel.readOrganisation(req.user.id, function(result){
-    demAjoutOrgaModel.delete(req.query.id, result, function(resultat){
-      res.redirect('/addRecruter');
-    })
-  });});
+  demAjoutOrgaModel.delete(req.query.id, req.session.userorganisation, function(resultat){
+    res.redirect('/recruter/addRecruter');
+  });
+});
 
 router.get('/addOffre', requireRecruteur, function (req, res, next) {
   res.render('./candidat/addOffre', { title: 'Ajouter une offre' });

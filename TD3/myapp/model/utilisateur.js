@@ -113,7 +113,7 @@ module.exports = {
     },
 
     becomeRecruter: function (id, orga, callback) {
-        db.query("update Utilisateur set type = 'recruter', organisation = ? where id = ?", [orga, id], function (err, results) {
+        db.query("update Utilisateur set type = 'recruteur', organisation = ? where id = ?", [orga, id], function (err, results) {
             if (err) throw err;
             callback(results);
         });
