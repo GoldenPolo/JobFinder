@@ -91,8 +91,8 @@ module.exports = {
         });
     },
 
-    create: function (nom, prenom, pwd, type, telephone, callback) {
-        db.query("insert into Utilisateur(nom, prenom, motDePasse, type, telephone, dateCreation, estActif) values(?, ?, ?, ?, ?, ?, ?)", [nom, prenom, pwd, type, telephone, new Date, 1], function (err, results) {
+    create: function (email, nom, prenom, pwd, type, telephone, callback) {
+        db.query("insert into Utilisateur(email, nom, prenom, motDePasse, type, telephone, dateCreation, estActif) values(?, ?, ?, ?, ?, ?, ?, ?)", [email, nom, prenom, pwd, type, telephone, new Date, 1], function (err, results) {
             if (err) throw err;
             callback(results);
         });
