@@ -51,6 +51,20 @@ router.post('/login', (req, res) => {
   });
 });
 
+router.get('/signup', function(req, res, next) {
+  res.render('signup', { message : false });
+});
+ 
+router.post('/signup', function (req, res, next) {
+  const prenom = req.body.prenom;
+  const nom = req.body.nom;
+  const pwd = req.body.pwd;
+  const tel = req.body.tel;
+  const mail = req.body.mail;
+  userModel.create(mail, nom, prenom, pwd, 'candidat', tel, function (req, res2, next) {
+    res.redirect('/login');
+})});
+
 router.get('/logout',(req,res) => { 
   req.session.destroy(); 
   res.redirect('/');

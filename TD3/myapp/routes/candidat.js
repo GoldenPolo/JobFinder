@@ -240,18 +240,4 @@ router.post('/newRecruter', requireCandidat, function (req, res, next) {
   });
 });
 
-router.get('/addUser', function (req, res, next) {
-  res.render('./candidat/addUser', { title: 'Ajouter un utilisateur' });
- });
- 
- router.post('/newUser', function (req, res, next) {
-  const prenom = req.body.prenom;
-  const nom = req.body.nom;
-  const pwd = req.body.pwd;
-  const tel = req.body.tel;
-  const mail = req.body.mail;
-  userModel.create(mail, nom, prenom, pwd, 'candidat', tel, function (req, res2, next) {
-   res.redirect('/login');
- })});
-
 module.exports = router;
