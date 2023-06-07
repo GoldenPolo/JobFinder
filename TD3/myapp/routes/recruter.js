@@ -118,6 +118,21 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
   }
 });
 
+router.get('/download', requireRecruteur, function (req, res, next) {
+  const dirPath = path.resolve(__dirname, '../public/uploads');
+  let files = fs.readdirSync(dirPath).filter(file => file.startsWith(req.query.piecesDoss));
+  const zip = new AdmZip();
+  files.forEach((file => {
+    zip.addLocalFile(dirPath+'\\'+file);
+  }));
+  const downloadName = req.query.prenom+'_'+req.query.nom+'.zip';
+  const data = zip.toBuffer();
+  res.set('Content-Type','application/octet-stream');
+  res.set('Content-Disposition',`attachment; filename=${downloadName}`);
+  res.set('Content-Length',data.length);
+  res.send(data);
+});
+
 router.get('/addRecruter', requireRecruteur, function (req, res, next) {
   demAjoutOrgaModel.read(req.session.userorganisation, function(resultat){
     res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur', demandes : resultat });
