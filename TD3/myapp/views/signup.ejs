@@ -16,14 +16,14 @@
                 <div class="row text-center mt-3">
                     <h2 class="">Inscription</h2>
                 </div>
-                <div class="row m-3 mx-5 text-center justify-content-center align-items-center">
+                <div class="row m-3 mx-5 text-center justify-content-center align-items-center has-validation">
                     <form action="/signup" method="post">
                         <input type="email" class="form-control mb-3" id="mail" placeholder="Email" name="mail" required>
                         <input type="text" class="form-control mb-3" id="prenom" placeholder="Prénom" name="prenom" required>
                         <input type="text" class="form-control mb-3" id="nom" placeholder="Nom" name="nom" required>
                         <input type="tel" class="form-control mb-3" id="tel" placeholder="Téléphone" name="tel" pattern="[0-9]{10}" required>
                         <input type="password" class="form-control mb-3" id="pwd" placeholder="Mot de passe" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!-/:-@[-`]).{12,}" required>
-                        <div class="invalid-feedback">Minimum 12 caractères avec majuscules, minuscules, chiffres et caractères spéciaux</div>
+                        <p class="small">Minimum 12 caractères avec majuscules, minuscules, chiffres et caractères spéciaux</p>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Créer mon compte</button>
                         </div>
@@ -35,7 +35,7 @@
                     <% } %>
                 </div>
                 <div class="row text-center mb-3">
-                    <a class="btn" href="/signup">Déjà un compte ? Connexion</a>
+                    <a class="btn" href="/login">Déjà un compte ? Connexion</a>
                 </div>
             </div>
         </div>
