@@ -55,6 +55,7 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
     const numOffers = result.length; // nombre total d'offres
     let totalPages = Math.ceil(numOffers / perPage); // nombre total de pages
     const pages = []; // tableau des numéros de page
+    let notif = req.query.notif
     if (totalPages == 0) {
       totalPages = 1;
     }
@@ -63,6 +64,9 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
     }
     if (query == '%') {
       query = '';
+    }
+    if (!notif){
+      notif = false;
     }
     res.render('./recruter/myOffersList', { 
       title: 'Mes offres', 
@@ -104,6 +108,10 @@ router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/applicationsList', requireRecruteur, function (req, res, next) {
+  let notif = req.query.notif
+  if (!notif){
+    notif = false;
+  }
   if (req.query.id == null){
     result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
       console.log(result);
@@ -111,7 +119,8 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
         title: 'Candidatures', 
         applications: result, 
         moment: moment, 
-        notif: notif});
+        notif: notif
+      });
     });
   }
   else {

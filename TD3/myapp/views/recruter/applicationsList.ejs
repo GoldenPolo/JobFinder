@@ -52,7 +52,7 @@
                           <h5 class="mb-1"><%= application.prenom %> <%= application.nom %></h5>
                           <p class="mb-1">Date : <%= moment(application.date).format('L') %></p>
                       </div>
-                      <button  type="button" class="btn btn-outline-secondary mx-2" href="/recruter/download?piecesDoss=<%= application.piecesDossier %>&prenom=<%= application.prenom %>&nom=<%= application.nom %">Télécharger les documents</button>
+                      <a type="button" class="btn btn-outline-secondary mx-2" href="/recruter/download?piecesDoss=<%= application.piecesDossier %>&prenom=<%= application.prenom %>&nom=<%= application.nom %>">Télécharger les documents</a>
                     </div>
                 </div>
             <% }); %>
