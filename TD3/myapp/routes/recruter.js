@@ -99,7 +99,7 @@ router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
   const nbPiecesDem = req.body.nbPiecesDem;
   const indications = req.body.indications;
   offerModel.update(req.query.id, dateVal, indications, nbPiecesDem, function (resultat) {
-    res.redirect("/recruter/myOffersList");
+    res.redirect("/recruter/myOffersList?notif=Votre offre a été mise à jour");
   });
 });
 
@@ -107,13 +107,21 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
   if (req.query.id == null){
     result = candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function(result){
       console.log(result);
-      res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment, notif: notif});
+      res.render('./recruter/applicationsList', { 
+        title: 'Candidatures', 
+        applications: result, 
+        moment: moment, 
+        notif: notif});
     });
   }
   else {
     result = candidatureModel.readCandidaturesToMyOffer(req.query.id, function(result){
       console.log(result);
-      res.render('./recruter/applicationsList', { title: 'Candidatures', applications: result, moment: moment, notif: notif});
+      res.render('./recruter/applicationsList', { 
+        title: 'Candidatures', 
+        applications: result, 
+        moment: moment, 
+        notif: notif});
     });
   }
 });
@@ -134,22 +142,29 @@ router.get('/download', requireRecruteur, function (req, res, next) {
 });
 
 router.get('/addRecruter', requireRecruteur, function (req, res, next) {
+  let notif = req.query.notif
+  if (!notif){
+    notif = false
+  }
   demAjoutOrgaModel.read(req.session.userorganisation, function(resultat){
-    res.render('./recruter/addRecruter', { title: 'Ajouter un recruteur', demandes : resultat });
+    res.render('./recruter/addRecruter', { 
+      demandes : resultat ,
+      notif : notif
+    });
   });
 });
 
 router.get('/acceptRecruter', requireRecruteur, function (req, res, next) {
   userModel.becomeRecruter(req.query.id, req.session.userorganisation, function(resultat){
     demAjoutOrgaModel.delete(req.query.id, req.session.userorganisation, function(resultat){
-      res.redirect('/recruter/addRecruter');
+      res.redirect('/recruter/addRecruter?notif=La demande a été acceptée');
     })
   });
 });
 
 router.get('/refuseRecruter', requireRecruteur, function (req, res, next) {
   demAjoutOrgaModel.delete(req.query.id, req.session.userorganisation, function(resultat){
-    res.redirect('/recruter/addRecruter');
+    res.redirect('/recruter/addRecruter?notif=La demande a été refusée');
   });
 });
 

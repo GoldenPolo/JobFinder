@@ -75,7 +75,7 @@ router.post('/signup', function (req, res, next) {
 
 router.get('/logout',(req,res) => { 
   req.session.destroy(); 
-  res.redirect('/');
+  res.redirect('/login?notif=Vous avez été déconnecté');
 });
 
 module.exports = router;
