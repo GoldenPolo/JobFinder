@@ -1,59 +1,59 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-const sessions = require('express-session');
-const cookieParser = require('cookie-parser');
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const logger = require('morgan')
+const sessions = require('express-session')
+const cookieParser = require('cookie-parser')
 
-var indexRouter = require('./routes/index');
-var candidatRouter = require('./routes/candidat');
-var recruterRouter = require('./routes/recruter');
-var adminRouter = require('./routes/admin');
+const indexRouter = require('./routes/index')
+const candidatRouter = require('./routes/candidat')
+const recruterRouter = require('./routes/recruter')
+const adminRouter = require('./routes/admin')
 
-var apiRouter = require('./routes/api');
-var cors = require('cors');
+const apiRouter = require('./routes/api')
+const cors = require('cors')
 
-var app = express();
+const app = express()
 
-app.use(cors());
+app.use(cors())
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(logger('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 app.use(sessions({
-  secret: "moncodesercretquepersonnenedoitconnaitre", 
-  saveUninitialized:true,
+  secret: 'moncodesercretquepersonnenedoitconnaitre',
+  saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 2 },
   resave: false
-  }));
-app.use(express.static(path.join(__dirname, 'public')));
+}))
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter);
-app.use('/candidat', candidatRouter);
-app.use('/recruter', recruterRouter);
-app.use('/admin', adminRouter);
+app.use('/', indexRouter)
+app.use('/candidat', candidatRouter)
+app.use('/recruter', recruterRouter)
+app.use('/admin', adminRouter)
 
-app.use('/api', apiRouter);
+app.use('/api', apiRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.use(function (req, res, next) {
+  next(createError(404))
+})
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+  res.status(err.status || 500)
+  res.render('error')
+})
 
-module.exports = app;
+module.exports = app

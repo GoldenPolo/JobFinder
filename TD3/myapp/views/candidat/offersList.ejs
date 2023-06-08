@@ -68,9 +68,9 @@
                 Trier
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item <% if (order === 'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Récent à ancient</a>
-                    <a class="dropdown-item <% if (order === 'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Salaire min décroissant</a>
-                    <a class="dropdown-item <% if (order === 'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Distance croissante</a>
+                    <a class="dropdown-item <% if (order  ===  'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Récent à ancient</a>
+                    <a class="dropdown-item <% if (order  ===  'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Salaire min décroissant</a>
+                    <a class="dropdown-item <% if (order  ===  'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Distance croissante</a>
                     
                 </div>
             </div>
@@ -90,7 +90,7 @@
     </div>
         
         <div class="col">
-            <% if (offers.length === 0) { %>
+            <% if (offers.length  ===  0) { %>
                 <div class="alert alert-warning" role="alert">
                   Aucune offre ne correspond à cette recherche.
                 </div>
@@ -121,15 +121,15 @@
         <% if (paginationInfo) { %>
             <nav class="navbar d-flex justify-content-center" aria-label="Page navigation">
               <ul class="pagination">
-                <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  1) { %>disabled<% } %>">
                   <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>" tabindex="-1">Previous</a>
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
-                  <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
+                  <li class="page-item <% if (paginationInfo.currentPage  ===  page) { %>active<% } %>">
                     <a class="page-link" href="/candidat/offersList?page=<%= page %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>"><%= page %></a>
                   </li>
                 <% }); %>
-                <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  paginationInfo.totalPages) { %>disabled<% } %>">
                   <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Next</a>
                 </li>
               </ul>

@@ -50,9 +50,9 @@
                 État
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item <% if (statusFilter === 'publiee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=publiee">Offres valides</a>
-                    <a class="dropdown-item <% if (statusFilter === 'expiree') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=expiree">Offres expirées</a>
-                    <a class="dropdown-item <% if (statusFilter === 'nonPubliee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=nonPubliee">Offres non publiées</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'publiee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=publiee">Offres valides</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'expiree') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=expiree">Offres expirées</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'nonPubliee') { %>active<% } %>" href="/recruter/myOffersList?q=<%= query %>&statusFilter=nonPubliee">Offres non publiées</a>
                 </div>
             </div>
             <div class="col-auto me-3">
@@ -70,7 +70,7 @@
         </div>
         
         <div class="col">
-            <% if (offers.length === 0) { %>
+            <% if (offers.length  ===  0) { %>
                 <div class="alert alert-warning" role="alert">
                   Aucune offre ne correspond à cette recherche.
                 </div>
@@ -98,15 +98,15 @@
         <% if (paginationInfo) { %>
             <nav class="navbar d-flex justify-content-center" aria-label="Page navigation"">
               <ul class="pagination">
-                <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  1) { %>disabled<% } %>">
                   <a class="page-link" href="/recruter/myOffersList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>" tabindex="-1">Previous</a>
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
-                  <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
+                  <li class="page-item <% if (paginationInfo.currentPage  ===  page) { %>active<% } %>">
                     <a class="page-link" href="/recruter/myOffersList?page=<%= paginationInfo.page %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>"><%= page %></a>
                   </li>
                 <% }); %>
-                <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  paginationInfo.totalPages) { %>disabled<% } %>">
                   <a class="page-link" href="/recruter/myOffersList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>">Next</a>
                 </li>
               </ul>

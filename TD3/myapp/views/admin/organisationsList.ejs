@@ -47,9 +47,9 @@
                   Statut
                   </button>
                   <div class="dropdown-menu">
-                      <a class="dropdown-item <% if (statusFilter === 'attente') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=attente">En attente</a>
-                      <a class="dropdown-item <% if (statusFilter === 'validee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=validee">Validées</a>
-                      <a class="dropdown-item <% if (statusFilter === 'refusee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=refusee">Refusées</a>
+                      <a class="dropdown-item <% if (statusFilter  ===  'attente') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=attente">En attente</a>
+                      <a class="dropdown-item <% if (statusFilter  ===  'validee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=validee">Validées</a>
+                      <a class="dropdown-item <% if (statusFilter  ===  'refusee') { %>active<% } %>" href="/admin/organisationsList?q=<%= query %>&statusFilter=refusee">Refusées</a>
                   </div>
             </div>
             <div class="col-auto me-3">
@@ -67,7 +67,7 @@
         </div>
         
         <div class="col">
-            <% if (organisations.length === 0) { %>
+            <% if (organisations.length  ===  0) { %>
               <div class="alert alert-warning m-3" role="alert">
                 Aucune organisation ne correspond à cette recherche.
               </div>
@@ -76,9 +76,9 @@
                 <div class="row card p-3 m-3">
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= orga.nom %></h5>
-                    <% if (statusFilter == 'validee') { %>
+                    <% if (statusFilter === 'validee') { %>
                       <small class="text-body-secondary">Organisation validée</small>
-                    <% } else if (statusFilter == 'refusee') { %>
+                    <% } else if (statusFilter === 'refusee') { %>
                       <small class="text-body-secondary">Organisation refusée</small>
                     <% } else { %>
                       <div class="d-inline-flex">
@@ -101,15 +101,15 @@
           <% if (paginationInfo) { %>
             <nav class="navbar d-flex justify-content-center" aria-label="Page navigation"">
               <ul class="pagination">
-                <li class="page-item <% if (paginationInfo.currentPage === 1) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  1) { %>disabled<% } %>">
                   <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>" tabindex="-1">Previous</a>
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
-                  <li class="page-item <% if (paginationInfo.currentPage === page) { %>active<% } %>">
+                  <li class="page-item <% if (paginationInfo.currentPage  ===  page) { %>active<% } %>">
                     <a class="page-link" href="/admin/organisationsList?page=<%= page %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>"><%= page %></a>
                   </li>
                 <% }); %>
-                <li class="page-item <% if (paginationInfo.currentPage === paginationInfo.totalPages) { %>disabled<% } %>">
+                <li class="page-item <% if (paginationInfo.currentPage  ===  paginationInfo.totalPages) { %>disabled<% } %>">
                   <a class="page-link" href="/admin/organisationsList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&q=<%= query %>&statusFilter=<%= statusFilter %>">Next</a>
                 </li>
               </ul>
