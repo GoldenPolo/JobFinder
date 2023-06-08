@@ -109,14 +109,30 @@ router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
 
 router.get('/applicationsList', requireRecruteur, function (req, res, next) {
   let notif = req.query.notif
+  let intituleList = []
+  let intituleFilter = req.query.intituleFilter
   if (!notif) {
     notif = false
   }
+  if (!intituleFilter) {
+    intituleFilter = '%'
+  }
   if (!req.query.id) {
-    candidatureModel.readCandidaturesToAllMyOffers(req.session.userorganisation, function (result) {
+    candidatureModel.readCandidaturesToAllMyOffers(req.session.userorganisation, intituleFilter, function (result) {
+      for (let i = 0; i < result.length; i++) {
+        if (!intituleList.includes(result[i].intitule)) intituleList.push(result[i].intitule)
+      }
+      if (intituleList.length === 0) {
+        intituleList = false
+      }
+      if (intituleFilter === '%') {
+        intituleFilter = false
+      }
       res.render('./recruter/applicationsList', {
         title: 'Candidatures',
         applications: result,
+        intituleList,
+        intituleFilter,
         moment,
         notif
       })

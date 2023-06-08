@@ -43,6 +43,24 @@
         <div class="d-flex justify-content-center m-3 mb-4">
             <h1 class="text-center">Liste des candidatures</h1>
         </div>
+
+        <% if (intituleList) { %>
+            <div class="d-flex justify-content-end my-2">
+                <div class="dropdown me-3">
+                    <button type="button" class="btn <% if (intituleFilter != ''){ %> btn-outline-primary <% } else { %> btn-outline-secondary <% } %> dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filtrer par offre
+                    </button>
+                    <div class="dropdown-menu">
+                        <% for (let i = 0; i < intituleList.length; i++) { %>
+                            <a class="dropdown-item <% if (intituleList[i]  ===  intituleFilter) { %>active<% } %>" href="/recruter/applicationsList?intituleFilter=<%= intituleList[i] %>"><%= intituleList[i] %></a>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-auto me-3">
+                    <a class="btn btn-outline-danger mb-2 me-2" href="/recruter/applicationsList">Réinitialiser les filtres</a>
+                </div>
+            </div>
+        <% } %>
         
         <div class="col">
             <% if (applications.length  ===  0) { %>
@@ -53,11 +71,11 @@
                 <% applications.forEach((application)=> { %>
                     <div class="row card p-3 m-3">
                         <div class="d-flex w-100 justify-content-between">
-                            <div class="d-flex flex-column">
-                                <h5><%= application.prenom %> <%= application.nom %></h5>
+                            <div class="col col-4">
+                                <h3><%= application.prenom %> <%= application.nom %></h3>
                                 <p>Date : <%= moment(application.date).format('L') %></p>
                             </div>
-                            <div class="d-flex flex-column">
+                            <div class="col col-4">
                                 <h5>Intitulé de l'offre : <%= application.intitule %></h5>
                                 <p>Responsable : <%= application.responsable %></p>
                             </div>
