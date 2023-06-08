@@ -169,12 +169,14 @@ router.get('/myApplications', requireCandidat, function (req, res, next) {
 });
 
 router.get('/applicationDetails', requireCandidat, function (req, res, next) {
-  console.log(req.query.offre);
   result = candidatureModel.read(req.session.userid, req.query.offre, function(result){
     if (result.length == 0){
       res.end('Pas de candidature!! pour ' + req.query.offre);
     }
-    res.render('./candidat/applicationDetails', { title: 'Détails de votre candidature', application: result, moment: moment});
+    res.render('./candidat/applicationDetails', { 
+      title : 'Détails de votre candidature', 
+      application : result[0], 
+      moment : moment});
   });
 });
 
