@@ -147,7 +147,7 @@ router.post('/newCandidature', requireCandidat, function (req, res, next) {
     }
     else {
       result = candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function(result){
-        res.redirect('/candidat/myApplications');
+        res.redirect('/candidat/myApplications?notif=Votre candidature a été enregistrée');
       });
     }
   });
@@ -202,7 +202,7 @@ router.post('/addToCandidature', requireCandidat, function (req, res, next) {
     }
     else {
       result = candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function(result){
-        res.redirect('/candidat/myApplications');
+        res.redirect('/candidat/myApplications?notif=Votre candidature a été mise à jour');
       });
     }
   });
@@ -210,7 +210,7 @@ router.post('/addToCandidature', requireCandidat, function (req, res, next) {
 
 router.get('/deleteCandidature', requireCandidat, function (req, res, next) {
   candidatureModel.delete(req.session.userid, req.query.id, function(result){
-      res.render('./candidat/deleteCandidature', { title: 'Suppression de la candidature'});
+      res.redirect('/candidat/myApplications?notif=Votre candidature a été supprimée');
   });
 });
 
@@ -224,7 +224,7 @@ router.post('/newOrga', requireCandidat, function (req, res, next) {
   const type = req.body.type;
   const siege = req.body.siege;
   orgaModel.create(siren, nomOrga, type, siege, function (result) {
-   res.redirect('./offersList');
+   res.redirect('./offersList?notif=Votre demande a été enregistrée');
  })});
  
 router.get('/becomeRecruter', requireCandidat, function (req, res, next) {
@@ -236,7 +236,7 @@ router.get('/becomeRecruter', requireCandidat, function (req, res, next) {
 router.post('/newRecruter', requireCandidat, function (req, res, next) {
   const siren = req.body.selectOrga;
   demAjoutOrga.create(req.session.userid, siren, function(result){
-    res.redirect('/offersList');
+    res.redirect('/candidat/offersList?notif=Votre demande a été enregistrée');
   });
 });
 

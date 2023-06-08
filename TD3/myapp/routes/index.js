@@ -6,11 +6,18 @@ const paginateInfo = require('paginate-info');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login', { message : false });
+  res.redirect('login');
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login', { message : false });
+  let notif = req.query.notif;
+  if (!notif) {
+    notif = false;
+  }
+  res.render('login', { 
+    message : false,
+    notif : notif 
+  });
 });
 
 router.get('/successfulLogin', function(req, res, next) {
@@ -45,7 +52,8 @@ router.post('/login', (req, res) => {
       res.redirect('/successfulLogin?type=' + result[1]);
     } else {
       return res.render('./login', {
-        message: 'Identifiants incorrects'
+        message: 'Identifiants incorrects',
+        notif : false
       })
     }
   });
@@ -62,7 +70,7 @@ router.post('/signup', function (req, res, next) {
   const tel = req.body.tel;
   const mail = req.body.mail;
   userModel.create(mail, nom, prenom, pwd, 'candidat', tel, function (req, res2, next) {
-    res.redirect('/login');
+    res.redirect('/login?notif=Votre compte a été créé');
 })});
 
 router.get('/logout',(req,res) => { 
