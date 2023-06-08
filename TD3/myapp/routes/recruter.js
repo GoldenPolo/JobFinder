@@ -70,7 +70,7 @@ router.get('/myOffersList', requireRecruteur, function (req, res, next) {
       notif = false;
     }
     res.render('./recruter/myOffersList', { 
-      title: 'Mes offres', 
+      title: 'Nos offres', 
       offers: result,
       paginationInfo: {
         currentPage: parseInt(currentPage),

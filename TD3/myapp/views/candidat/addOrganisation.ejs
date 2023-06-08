@@ -37,7 +37,7 @@
         </nav>
 
         <div class="row justify-content-center">
-            <form class="col col-8 mt-5" method="post" action="/candidat/newOrga">
+            <form class="col col-6 mt-5" method="post" action="/candidat/newOrga">
                 <div class="d-flex flex-row justify-content-center">
                     <div class="h1">Demande d'ajout d'une organisation</div>
                 </div>
@@ -45,27 +45,11 @@
                     <div class="p">Lorsque que votre demande sera acceptée, vous deviendrez automatiquement recruteur.</div>
                 </div>
                 <div class="card m-5">
-                    <div class="d-flex flex-row justify-content-around">
-                        <div class="col col-4 m-2">
-                            <div class="row">
-                                <label class="m-2" for="nomOrga">Nom de l'organisation :</label>
-                                <input class="m-2" type="text" name="nomOrga" id="nomOrga"><br>
-                            </div>
-                            <div class="row">
-                                <label class="m-2" for="siren">Numéro SIREN :</label>
-                                <input class="m-2" type="text" name="siren" id="siren">
-                            </div>
-                        </div>
-                        <div class="col col-4 m-2">
-                            <div class="row">
-                                <label class="m-2" for="type">Type d'organisation :</label>
-                                <input class="m-2" type="text" name="type" id="type"><br>
-                            </div>
-                            <div class="row">
-                                <label class="m-2" for="siege">Adresse du siège :</label>
-                                <input class="m-2" type="text" name="siege" id="siege">
-                            </div>
-                        </div>
+                    <div class="row m-3 mx-5 text-center justify-content-center align-items-center">
+                        <input class="form-control mb-3 mt-4" type="text" name="nomOrga" id="nomOrga" placeholder="Nom de l'organisation"><br>
+                        <input class="form-control mb-3" type="text" name="siren" id="siren" placeholder="Numéro SIREN">
+                        <input class="form-control mb-3" type="text" name="type" id="type" placeholder="Type d'organisation"><br>
+                        <input class="form-control mb-3 mb-4" type="text" name="siege" id="siege" placeholder="Adresse du siège social">
                     </div>
                 </div>
                 <div class="d-flex flex-row justify-content-center">
