@@ -145,7 +145,7 @@ router.post('/newCandidature', requireCandidat, function (req, res, next) {
     }
   })
   const upload = multer({ storage }).array('files')
-  upload(req, result, function (err) {
+  upload(req, res, function (err) {
     if (err) {
       res.end('Error when uploading file!!')
     } else {
@@ -202,7 +202,7 @@ router.post('/addToCandidature', requireCandidat, function (req, res, next) {
     }
   })
   const upload = multer({ storage }).array('files')
-  upload(req, result, function (err) {
+  upload(req, res, function (err) {
     if (err) {
       res.end('Error when uploading file!!')
     } else {

@@ -15,8 +15,8 @@ module.exports = {
     })
   },
 
-  readCandidaturesToAllMyOffres: function (organisation, callback) {
-    db.query('select * from (Candidature INNER JOIN Offre ON Candidature.offre = Offre.id) WHERE (Offre.organisation = ?)', [organisation], function (err, results) {
+  readCandidaturesToAllMyOffers: function (organisation, callback) {
+    db.query('SELECT Candidature.piecesDossier as piecesDossier, Candidature.date as date, Utilisateur.nom as nom, Utilisateur.prenom as prenom, FichePoste.intitule as intitule, FichePoste.responsable as responsable from (Candidature INNER JOIN Offre ON Candidature.offre = Offre.id INNER JOIN Utilisateur ON Candidature.candidat = Utilisateur.id INNER JOIN FichePoste ON Offre.fichePoste = FichePoste.id) WHERE (Offre.organisation = ?)', [organisation], function (err, results) {
       if (err) throw err
       callback(results)
     })

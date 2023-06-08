@@ -112,9 +112,8 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
   if (!notif) {
     notif = false
   }
-  if (req.query.id === null) {
-    candidatureModel.readCandidaturesToAllMyOffres(req.session.userorganisation, function (result) {
-      console.log(result)
+  if (!req.query.id) {
+    candidatureModel.readCandidaturesToAllMyOffers(req.session.userorganisation, function (result) {
       res.render('./recruter/applicationsList', {
         title: 'Candidatures',
         applications: result,
