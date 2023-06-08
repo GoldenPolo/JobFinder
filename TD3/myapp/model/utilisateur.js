@@ -105,8 +105,8 @@ module.exports = {
     })
   },
 
-  update: function (id, email, nom, prenom, pwd, callback) {
-    db.query('update Utilisateur set email = ?, nom = ?, prenom = ?, motDePasse = ? where id = ?', [email, nom, prenom, pwd, id], function (err, results) {
+  update: function (id, email, nom, prenom, tel, callback) {
+    db.query('update Utilisateur set email = ?, nom = ?, prenom = ?, telephone = ? where id = ?', [email, nom, prenom, tel, id], function (err, results) {
       if (err) throw err
       callback(results)
     })
