@@ -57,14 +57,15 @@ module.exports = {
     })
   },
 
-  readAllFilters: function (query, order, jobTypeFilter, salaryFilter, startIndex, perPage, callback) {
+  readAllFilters: function (query, order, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
     console.log(query)
     console.log(order)
     console.log(jobTypeFilter)
     console.log(salaryFilter)
+    console.log(statusFilter)
     console.log(startIndex)
     console.log(perPage)
-    db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?) AND (FichePoste.type LIKE ?) AND (FichePoste.salaireMin > ?)", [`%${query}%`, jobTypeFilter, salaryFilter], function (err, result) {
+    db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?) AND (FichePoste.type LIKE ?) AND (FichePoste.salaireMin > ?) AND (FichePoste.statut LIKE ?)", [`%${query}%`, jobTypeFilter, salaryFilter, statusFilter], function (err, result) {
       console.log(result[0])
       if (err) throw err
       const total = result[0].total
@@ -73,7 +74,7 @@ module.exports = {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
       }
-      const SQLquery = "SELECT Offre.id, Offre.dateValidite, Offre.datePublication, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE '%" + query + "%') AND (FichePoste.type LIKE '" + jobTypeFilter + "') AND (FichePoste.salaireMin >= '" + salaryFilter + "') ORDER BY " + order + ' LIMIT ' + startIndex + ',' + perPage
+      const SQLquery = "SELECT Offre.id, Offre.dateValidite, Offre.datePublication, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE '%" + query + "%') AND (FichePoste.type LIKE '" + jobTypeFilter + "') AND (FichePoste.salaireMin >= '" + salaryFilter + "') AND (FichePoste.statut LIKE '" + statusFilter + "') ORDER BY " + order + ' LIMIT ' + startIndex + ',' + perPage
       console.log(SQLquery)
       db.query(SQLquery, function (err, results) {
         if (err) throw err

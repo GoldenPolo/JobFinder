@@ -49,8 +49,18 @@
 
         <div class="d-flex justify-content-end my-2">
             <div class="dropdown me-3">
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Salaire min
+                <button type="button" class="btn btn-outline-primary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Trier
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item <% if (order  ===  'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Récent à ancient</a>
+                    <a class="dropdown-item <% if (order  ===  'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Salaire min décroissant</a>
+                    <a class="dropdown-item <% if (order  ===  'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Distance croissante</a>
+                </div>
+            </div>
+            <div class="dropdown me-3">
+                <button type="button" class="btn <% if (salaryFilter != ''){ %> btn-outline-primary <% } else { %> btn-outline-secondary <% } %> dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Salaire minimum
                 </button>
                 <div class="dropdown-menu me-3">
                     <form action="/candidat/offersList" method="get">
@@ -64,14 +74,33 @@
                 </div>
             </div>
             <div class="dropdown me-3">
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Trier
+                <button type="button" class="btn <% if (typeFilter != ''){ %> btn-outline-primary <% } else { %> btn-outline-secondary <% } %> dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Type de métier
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item <% if (order  ===  'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Récent à ancient</a>
-                    <a class="dropdown-item <% if (order  ===  'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Salaire min décroissant</a>
-                    <a class="dropdown-item <% if (order  ===  'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Distance croissante</a>
-                    
+                    <a class="dropdown-item <% if (typeFilter  ===  'sante') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=sante">Santé</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'administration_gestion') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=administration_gestion">Administration et gestion</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'enseignement') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=enseignement">Enseignement</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'vente_commerce') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=vente_commerce">Vente et commerce</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'informatique_tic') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=informatique_tic">Informatique et TIC</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'ingenerie_construction') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=ingenerie_construction">Ingénierie et construction</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'hotellerie_restauration') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=hotellerie_restauration">Hôtellerie et restauration</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'marketing_communication') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=marketing_communication">Marketing et communication</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'finance') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=finance">Finance</a>
+                    <a class="dropdown-item <% if (typeFilter  ===  'industrie') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=industrie">Industrie</a>
+                </div>
+            </div>
+            <div class="dropdown me-3">
+                <button type="button" class="btn <% if (statusFilter != ''){ %> btn-outline-primary <% } else { %> btn-outline-secondary <% } %> dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Statut de poste
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item <% if (statusFilter  ===  'cadre') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=cadre">Cadre</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'etam') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=etam">ETAM</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'ouvrier') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=ouvrier">Ouvrier</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'liberal') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=liberal">Libéral</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'stagiaire') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=stagiaire">Stagiaire</a>
+                    <a class="dropdown-item <% if (statusFilter  ===  'apprenti') { %>active<% } %>" href="/candidat/offersList?order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&statusFilter=apprenti">Apprenti</a>
                 </div>
             </div>
             <div class="col-auto me-3">
@@ -122,15 +151,15 @@
             <nav class="navbar d-flex justify-content-center" aria-label="Page navigation">
               <ul class="pagination">
                 <li class="page-item <% if (paginationInfo.currentPage  ===  1) { %>disabled<% } %>">
-                  <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>" tabindex="-1">Previous</a>
+                  <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage - 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>" tabindex="-1">Previous</a>
                 </li>
                 <% paginationInfo.pages.forEach((page) => { %>
                   <li class="page-item <% if (paginationInfo.currentPage  ===  page) { %>active<% } %>">
-                    <a class="page-link" href="/candidat/offersList?page=<%= page %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>"><%= page %></a>
+                    <a class="page-link" href="/candidat/offersList?page=<%= page %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>"><%= page %></a>
                   </li>
                 <% }); %>
                 <li class="page-item <% if (paginationInfo.currentPage  ===  paginationInfo.totalPages) { %>disabled<% } %>">
-                  <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>">Next</a>
+                  <a class="page-link" href="/candidat/offersList?page=<%= paginationInfo.currentPage + 1 %>&size=<%= paginationInfo.pageSize %>&order=<%= order %>&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Next</a>
                 </li>
               </ul>
             </nav>

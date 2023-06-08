@@ -30,8 +30,9 @@ router.get('/offersList', requireCandidat, function (req, res) {
   const startIndex = (currentPage - 1) * perPage
   let query = req.query.q // Récupère le paramètre "q" de l'URL
   let order = req.query.order
-  let jobTypeFilter = req.query.jobTypeFilter
+  let typeFilter = req.query.typeFilter
   let salaryFilter = req.query.salaryFilter
+  let statusFilter = req.query.statusFilter
   let notif = req.query.notif
 
   // Initialise les variables à des valeurs par défaut
@@ -56,15 +57,18 @@ router.get('/offersList', requireCandidat, function (req, res) {
   } else {
     order = 'Offre.datePublication DESC'
   }
-  if (!jobTypeFilter) {
-    jobTypeFilter = '%'
+  if (!typeFilter) {
+    typeFilter = '%'
   }
   if (!salaryFilter) {
     salaryFilter = '%'
   }
+  if (!statusFilter) {
+    statusFilter = '%'
+  }
 
   // Execute la requête SQL avec les variables
-  offerModel.readAllFilters(query, order, jobTypeFilter, salaryFilter, startIndex, perPage, function (results) {
+  offerModel.readAllFilters(query, order, typeFilter, salaryFilter, statusFilter, startIndex, perPage, function (results) {
     const numOffers = results.length // nombre total d'offres
     let totalPages = Math.ceil(numOffers / perPage) // nombre total de pages
     const pages = [] // tableau des numéros de page
@@ -87,11 +91,14 @@ router.get('/offersList', requireCandidat, function (req, res) {
     if (query === '%') {
       query = ''
     }
-    if (jobTypeFilter === '%') {
-      jobTypeFilter = ''
+    if (typeFilter === '%') {
+      typeFilter = ''
     }
     if (salaryFilter === '%') {
       salaryFilter = ''
+    }
+    if (statusFilter === '%') {
+      statusFilter = ''
     }
     res.render('./candidat/offersList', {
       offers: results,
@@ -104,8 +111,9 @@ router.get('/offersList', requireCandidat, function (req, res) {
       moment,
       query,
       order,
-      jobTypeFilter,
+      typeFilter,
       salaryFilter,
+      statusFilter,
       notif
     })
   })
