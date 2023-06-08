@@ -12,7 +12,8 @@ require('moment/locale/fr.js');
 moment.locale('fr');
 const paginateInfo = require('paginate-info');
 const organisation = require('../model/organisation');
-
+const path = require('node:path'); 
+const fs = require('node:fs');
 
 function requireRecruteur(req, res, next) {
   if (req.session && req.session.userType === 'recruteur') {
