@@ -36,6 +36,13 @@ module.exports = {
     })
   },
 
+  update: function (id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, callback) {
+    db.query('update FichePoste set intitule = ?, statut = ?, responsable = ?, type = ?, lieu = ?, rythme = ?, salaireMin = ?, salaireMax = ?, description = ? where id = ?', [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, id], function (err, results) {
+      if (err) throw err
+      callback(results)
+    })
+  },
+
   delete: function (id, callback) {
     db.query('delete from FichePoste where id = ?', [id], function (err, results) {
       if (err) throw err
