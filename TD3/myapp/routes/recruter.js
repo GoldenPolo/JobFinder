@@ -8,6 +8,7 @@ const candidatureModel = require('../model/candidature')
 const demAjoutOrgaModel = require('../model/demandeAjoutOrganisation')
 const router = express.Router()
 const moment = require('moment')
+const AdmZip = require('adm-zip')
 require('moment/locale/fr.js')
 moment.locale('fr')
 const organisation = require('../model/organisation')
@@ -203,6 +204,46 @@ router.post('/newOffer', requireRecruteur, function (req, res, next) {
   // comment récupérer fichePoste et organisation?
   offerModel.create(etat, dateValid, indic, nbPieces, fichePoste, organisation, function (req, res, next) {
     res.redirect('/myOffersList')
+  })
+})
+
+router.get('/myFichesList', requireRecruteur, function (req, res, next) {
+  fichePosteModel.readFichesOrga(req.session.userorganisation, function (result) {
+    res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result })
+  })
+})
+
+router.get('/myFicheDetails', requireRecruteur, function (req, res, next) {
+  fichePosteModel.readFicheId(req.query.id, function (result) {
+    res.render('./recruter/myFicheDetails', { title: 'Détails de la fiche', fiche: result[0], moment })
+  })
+})
+
+router.get('/myFicheModif', requireRecruteur, function (req, res, next) {
+  fichePosteModel.readFicheId(req.query.id, function (result) {
+    res.render('./recruter/myFicheModif', { title: 'Modification de la fiche', fiche: result[0], moment })
+  })
+})
+
+router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
+  const intitule = req.body.intitule
+  const statut = req.body.statut
+  const type = req.body.type
+  const description = req.body.description
+  const responsable = req.body.responsable
+  const rythme = req.body.rythme
+  const salaireMin = req.body.salaireMin
+  const salaireMax = req.body.salaireMax
+  const lieu = req.body.lieu
+  fichePosteModel.update(req.query.id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, function (resultat) {
+    res.redirect('/recruter/myFichesList')
+  })
+})
+
+router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
+  fichePosteModel.delete(req.query.id, function (result) {
+    res.render('./recruter/myFichesList')
+    //Notif pour dire que c'est delete!!!!
   })
 })
 
