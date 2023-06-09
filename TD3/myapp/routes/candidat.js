@@ -132,7 +132,8 @@ router.get('/addCandidature', requireCandidat, function (req, res, next) {
 })
 
 router.post('/newCandidature', requireCandidat, function (req, res, next) {
-  const piecesDossier = req.query.id + '-' + req.session.userid + '-'
+  const piecesDossier = req.query.id + '-' + req.session.userid + '-';
+  var nb = req.query.nb;
   const storage = multer.diskStorage({
     destination: function (req, file, callback) {
       callback(null, './public/uploads')
@@ -144,7 +145,7 @@ router.post('/newCandidature', requireCandidat, function (req, res, next) {
       callback(null, piecesDossier + tempFileName + '.' + tempFileExtension)
     }
   })
-  const upload = multer({ storage }).array('files')
+  const upload = multer({ storage:storage , limits: {files: nb}}).array('files')
   upload(req, res, function (err) {
     if (err) {
       res.end('Error when uploading file!!')
@@ -184,34 +185,50 @@ router.get('/applicationDetails', requireCandidat, function (req, res, next) {
   })
 })
 
-router.get('/addFiles', requireCandidat, function (req, res, next) {
-  res.render('./candidat/addFiles', { title: 'Ajout de fichiers', id: req.query.id })
-})
+router.get('/addFiles', requireCandidat, function (req, res, next) { 
+  const dirPath = path.resolve(__dirname, '../public/uploads');
+  let files = fs.readdirSync(dirPath).filter(file => file.startsWith(req.query.piecesDoss));
+  result = offerModel.read(req.query.id, function(result){
+    var nbFilesMissing = result.offre_nombre_pieces_demandees - files.length;
+    if (nbFilesMissing > 0){
+      res.render('./candidat/addFiles', { offer : result, title: 'Ajout de fichiers', id : req.query.id , nb: nbFilesMissing});
+    }
+    else{
+      res.redirect('/candidat/completeCandidature');
+    }
+  });
+});
 
-router.post('/addToCandidature', requireCandidat, function (req, res, next) {
-  const piecesDossier = req.query.id + '-' + req.session.userid + '-'
-  const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-      callback(null, './public/uploads')
+router.get('/completeCandidature', requireCandidat, function (req, res, next) {
+  res.render('./candidat/completeCandidature', { title: 'Candidature complète'});
+});
+
+router.post('/addToCandidature', requireCandidat, function (req, res, next) { 
+  var piecesDossier = req.query.id + '-' + req.session.userid + '-';
+  var nb = req.query.nb;
+  var storage = multer.diskStorage({
+    destination:function(req, file, callback){
+      callback(null, './public/uploads');
     },
-    filename: function (req, file, callback) {
-      const tempFileArr = file.originalname.split('.')
-      const tempFileName = tempFileArr[0]
-      const tempFileExtension = tempFileArr[1]
-      callback(null, piecesDossier + tempFileName + '.' + tempFileExtension)
+    filename:function(req, file, callback){
+      var temp_file_arr = file.originalname.split(".");
+      var temp_file_name = temp_file_arr[0];
+      var temp_file_extension = temp_file_arr[1];
+      callback(null, piecesDossier + temp_file_name + '.' + temp_file_extension);
     }
-  })
-  const upload = multer({ storage }).array('files')
-  upload(req, res, function (err) {
-    if (err) {
-      res.end('Error when uploading file!!')
-    } else {
-      candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function (result) {
-        res.redirect('/candidat/myApplications?notif=Votre candidature a été mise à jour')
-      })
+  });
+  var upload = multer({storage:storage, limits: {files: nb}}).array('files');
+  upload(req, result, function (err){
+    if (err){
+      res.end('Error when uploading file!!');
     }
-  })
-})
+    else {
+      result = candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function(result){
+        res.redirect('/candidat/myApplications');
+      });
+    }
+  });
+});
 
 router.get('/deleteCandidature', requireCandidat, function (req, res, next) {
   candidatureModel.delete(req.session.userid, req.query.id, function (result) {
