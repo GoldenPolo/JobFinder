@@ -1,6 +1,13 @@
 const db = require('./db.js')
 
 module.exports = {
+  readFicheId: function (id, callback) {
+    db.query('select * from FichePoste where id= ?', [id], function (err, results) {
+      if (err) throw err
+      callback(results)
+    })
+  },
+  
   readFicheIntitule: function (intitule, callback) {
     db.query('select * from FichePoste where intitule= ?', [intitule], function (err, results) {
       if (err) throw err
