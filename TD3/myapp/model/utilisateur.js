@@ -80,6 +80,13 @@ module.exports = {
     })
   },
 
+  readPassword: function (email, callback) {
+    db.query('select motDePasse, type, id from Utilisateur where email = ?', [email], function (err, results) {
+      if (err) throw err
+      callback(results[0])
+    })
+  },
+
   validPassword: function (email, password, callback) {
     db.query('select motDePasse, type, id from Utilisateur where email = ?', [email], function (err, rows) {
       if (err) throw err

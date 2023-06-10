@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userModel = require('../model/utilisateur')
+const passModel = require('../model/pass')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -41,13 +42,22 @@ router.get('/successfulLogin', function (req, res, next) {
 router.post('/login', (req, res) => {
   const username = req.body.email
   const password = req.body.pswd
-  userModel.validPassword(username, password, function (result) {
-    console.log(result)
-    if (result[0]) {
-      const session = req.session
-      session.useremail = req.body.username
-      session.userid = result[2]
-      res.redirect('/successfulLogin?type=' + result[1])
+  userModel.readPassword(username, function (result) {
+    console.log(result.motDePasse)
+    if (result) {
+      passModel.comparePassword(password, result.motDePasse, function (result2) {
+        if (result2) {
+          const session = req.session
+          session.useremail = req.body.username
+          session.userid = result.id
+          res.redirect('/successfulLogin?type=' + result.type)
+        } else {
+          return res.render('./login', {
+            message: 'Identifiants incorrects',
+            notif: false
+          })
+        }
+      })
     } else {
       return res.render('./login', {
         message: 'Identifiants incorrects',
@@ -67,8 +77,11 @@ router.post('/signup', function (req, res, next) {
   const pwd = req.body.pwd
   const tel = req.body.tel
   const mail = req.body.mail
-  userModel.create(mail, nom, prenom, pwd, 'candidat', tel, function (req, res2, next) {
-    res.redirect('/login?notif=Votre compte a été créé')
+  passModel.generateHash(pwd, function (result) {
+    const hashPwd = result
+    userModel.create(mail, nom, prenom, hashPwd, 'candidat', tel, function (req, res2, next) {
+      res.redirect('/login?notif=Votre compte a été créé')
+    })
   })
 })
 

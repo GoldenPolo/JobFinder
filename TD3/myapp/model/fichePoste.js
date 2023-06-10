@@ -7,7 +7,7 @@ module.exports = {
       callback(results)
     })
   },
-  
+
   readFicheIntitule: function (intitule, callback) {
     db.query('select * from FichePoste where intitule= ?', [intitule], function (err, results) {
       if (err) throw err

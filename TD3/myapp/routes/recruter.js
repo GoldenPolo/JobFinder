@@ -6,6 +6,7 @@ const userModel = require('../model/utilisateur')
 const offerModel = require('../model/offre')
 const candidatureModel = require('../model/candidature')
 const demAjoutOrgaModel = require('../model/demandeAjoutOrganisation')
+const fichePosteModel = require('../model/fichePoste')
 const router = express.Router()
 const moment = require('moment')
 const AdmZip = require('adm-zip')
@@ -243,7 +244,7 @@ router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
 router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
   fichePosteModel.delete(req.query.id, function (result) {
     res.render('./recruter/myFichesList')
-    //Notif pour dire que c'est delete!!!!
+    // Notif pour dire que c'est delete!!!!
   })
 })
 
