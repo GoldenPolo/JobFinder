@@ -210,7 +210,7 @@ router.post('/newOffer', requireRecruteur, function (req, res, next) {
 
 router.get('/myFichesList', requireRecruteur, function (req, res, next) {
   fichePosteModel.readFichesOrga(req.session.userorganisation, function (result) {
-    res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result })
+    res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: false })
   })
 })
 
@@ -237,14 +237,19 @@ router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
   const salaireMax = req.body.salaireMax
   const lieu = req.body.lieu
   fichePosteModel.update(req.query.id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, function (resultat) {
-    res.redirect('/recruter/myFichesList')
+    res.redirect('/recruter/myFichesList',
+      {
+        notif: 'La fiche a été mise à jour'
+      })
   })
 })
 
 router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
   fichePosteModel.delete(req.query.id, function (result) {
-    res.render('./recruter/myFichesList')
-    // Notif pour dire que c'est delete!!!!
+    res.render('./recruter/myFichesList',
+      {
+        notif: 'La fiche a été supprimée'
+      })
   })
 })
 
