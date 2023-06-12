@@ -194,17 +194,19 @@ router.get('/refuseRecruter', requireRecruteur, function (req, res, next) {
   })
 })
 
-router.get('/addOffre', requireRecruteur, function (req, res, next) {
-  res.render('./candidat/addOffre', { title: 'Ajouter une offre' })
+router.get('/addOffer', requireRecruteur, function (req, res, next) {
+  fichePosteModel.readFichesOrga(req.session.userorganisation, function (result) {
+    res.render('./recruter/addOffer', { title: 'Ajouter une offre', fiches: result })
+  })
 })
 
 router.post('/newOffer', requireRecruteur, function (req, res, next) {
-  const dateValid = req.body.dateValid
-  const indic = req.body.indic
-  const nbPieces = req.body.nbPieces
-  // comment récupérer fichePoste et organisation?
-  offerModel.create(etat, dateValid, indic, nbPieces, fichePoste, organisation, function (req, res, next) {
-    res.redirect('/myOffersList')
+  const dateValid = req.body.dateValidite
+  const indic = req.body.indications
+  const nbPieces = req.body.nbPiecesDem
+  const fiche = req.body.selectFiche
+  offerModel.create('nonPubliee', dateValid, indic, nbPieces, fiche, req.session.userorganisation, function (req, res, next) {
+    res.render('./recruter/myOffersList', { notif: 'L\'offre a été créée' })
   })
 })
 
@@ -249,6 +251,28 @@ router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
     res.render('./recruter/myFichesList',
       {
         notif: 'La fiche a été supprimée'
+      })
+  })
+})
+
+router.get('/newFiche', requireRecruteur, function (req, res, next) {
+  res.render('./recruter/newFiche', { title: 'Ajouter une fiche de poste' })
+})
+
+router.post('/newFiche', requireRecruteur, function (req, res, next) {
+  const intitule = req.body.intitule
+  const statut = req.body.statut
+  const type = req.body.type
+  const description = req.body.description
+  const responsable = req.body.responsable
+  const rythme = req.body.rythme
+  const salaireMin = req.body.salaireMin
+  const salaireMax = req.body.salaireMax
+  const lieu = req.body.lieu
+  fichePosteModel.create(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, req.session.userorganisation, function (resultat) {
+    res.render('./recruter/myFichesList',
+      {
+        notif: 'La fiche a été ajoutée'
       })
   })
 })

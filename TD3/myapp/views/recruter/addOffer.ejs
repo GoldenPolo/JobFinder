@@ -35,10 +35,38 @@
                 </ul>
             </div>
         </nav>
+        
         <form method="post" action="/recruter/newOffer">
-            <input type="date" name="dateValid" id="dateValid"><label for="dateValid">Date d'expiration de l'offre :</label>
-            <input type="text" name="indic" id="indic"><label for="indic">Indications :</label>
-            <input type="number" name="nbPieces" id="nbPieces"><label for="nbPieces">Nombre de pièces demandées :</label>
-      </form>
+            <div class="card m-5">
+                <div class="d-flex  justify-content-center">
+                    <div class="col-3 m-3">
+                        <div class="col">                        
+                            <select class="form-select" aria-label="selectFiche" name="selectFiche">
+                                <% fiches.forEach((fiche)=> { %>
+                                    <option value="<%= fiche.id %>"><%= fiche.intitule %></option>
+                                <% }); %>
+                            </select><br>
+                        </div>
+                        <div class="col">                        
+                            <label for="dateValidite">Date de validité :</label>
+                            <input type="date" id="dateValidite" name="dateValidite"><br>
+                        </div>
+                        <div class="col">                        
+                            <label for="nbPiecesDem">Nombre de pièces demandées :</label>
+                            <input type="number" id="nbPiecesDem" name="nbPiecesDem"><br>
+                        </div>
+                    </div>
+                    <div class="row m-3">
+                        <div class="col">
+                            <label for="indications">Indications :</label><br/>                      
+                            <textarea rows = "6" cols="30" id="indications" name="indications"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+            </div>
+        </form>
     </body> 
 </html>
