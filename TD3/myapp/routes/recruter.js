@@ -12,7 +12,6 @@ const moment = require('moment')
 const AdmZip = require('adm-zip')
 require('moment/locale/fr.js')
 moment.locale('fr')
-const organisation = require('../model/organisation')
 const path = require('node:path')
 const fs = require('node:fs')
 
@@ -21,6 +20,20 @@ function requireRecruteur (req, res, next) {
     return next()
   } else {
     res.redirect('/login')
+  }
+}
+
+function deleteFilesOffer (offer) {
+  const dirPath = path.resolve(__dirname, '../public/uploads')
+  const files = fs.readdirSync(dirPath).filter(file => file.startsWith(offer))
+  if (files) {
+    files.forEach((file) => {
+      try {
+        fs.unlinkSync(dirPath + '\\' + file)
+      } catch (err) {
+        console.error(err)
+      }
+    })
   }
 }
 
@@ -106,6 +119,13 @@ router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
   const indications = req.body.indications
   offerModel.update(req.query.id, dateVal, indications, nbPiecesDem, function (resultat) {
     res.redirect('/recruter/myOffersList?notif=Votre offre a été mise à jour')
+  })
+})
+
+router.get('/deleteOffer', requireRecruteur, function (req, res, next) {
+  offerModel.delete(req.query.id, function (result) {
+    deleteFilesOffer(req.query.id)
+    res.redirect('/recruter/myOffersList')
   })
 })
 
@@ -247,11 +267,16 @@ router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
 })
 
 router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
-  fichePosteModel.delete(req.query.id, function (result) {
-    res.render('./recruter/myFichesList',
-      {
-        notif: 'La fiche a été supprimée'
+  offerModel.readOffresPoste(req.query.id, function (offres) {
+    fichePosteModel.delete(req.query.id, function (result) {
+      offres.forEach((offre) => {
+        deleteFilesOffer(offre.id)
       })
+      res.render('./recruter/myFichesList',
+        {
+          notif: 'La fiche a été supprimée'
+        })
+    })
   })
 })
 
