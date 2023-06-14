@@ -95,7 +95,12 @@
                         </div>
                         <div class="d-flex w-100 justify-content-between">
                             <p class="mb-1">Entreprise : <%= offer.nom %></p>
-                            <a href="/recruter/myOfferDetails?id=<%= offer.id %>" type="button" class="btn btn-outline-secondary mx-2">En savoir plus</a>
+                            <div class="d-flex">
+                                <a href="/recruter/myOfferDetails?id=<%= offer.id %>" type="button" class="btn btn-outline-secondary mx-2">En savoir plus</a>
+                                <% if (offer.etat  ===  'nonPubliee') { %>
+                                    <a class="btn btn-outline-primary" href="/recruter/publishOffer?id=<%= offer.id %>">Publier</a>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 <% }); %>

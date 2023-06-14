@@ -117,7 +117,7 @@ module.exports = {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
       }
-      db.query('SELECT Offre.id, Offre.dateValidite, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?) AND (Offre.etat = ?) LIMIT ?, ?', [organisation, `%${query}%`, statusFilter, startIndex, perPage], function (err, results) {
+      db.query('SELECT Offre.id, Offre.dateValidite, Offre.etat, Organisation.nom, FichePoste.intitule, FichePoste.statut, FichePoste.type, FichePoste.lieu, FichePoste.rythme, FichePoste.salaireMin, FichePoste.salaireMax FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.organisation = ?) AND (FichePoste.intitule LIKE ?) AND (Offre.etat = ?) LIMIT ?, ?', [organisation, `%${query}%`, statusFilter, startIndex, perPage], function (err, results) {
         if (err) throw err
         callback(results, pages, total)
       })
