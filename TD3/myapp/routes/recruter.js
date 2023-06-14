@@ -40,8 +40,7 @@ function deleteFilesOffer (offer) {
 function updateEtatOffers () {
   offerModel.readAll(function (offres) {
     offres.forEach((offer) => {
-      const d = Date(offer.dateValidite)
-      if (offer.etat !== 'expiree' && d < Date()) {
+      if (offer.etat !== 'expiree' && moment(offer.dateValidite, 'YYYY-MM-DD').isBefore(Date())) {
         offerModel.expireOffer(offer.id)
       }
     })
