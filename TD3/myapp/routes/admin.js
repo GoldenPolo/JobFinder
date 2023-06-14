@@ -5,12 +5,28 @@ const router = express.Router()
 const moment = require('moment')
 require('moment/locale/fr.js')
 moment.locale('fr')
+const path = require('node:path')
+const fs = require('node:fs')
 
 function requireAdmin (req, res, next) {
   if (req.session && req.session.userType === 'admin') {
     return next()
   } else {
     res.redirect('/login')
+  }
+}
+
+function deleteFilesCandidature (piecesDossier) {
+  const dirPath = path.resolve(__dirname, '../public/uploads')
+  const files = fs.readdirSync(dirPath).filter(file => file.startsWith(piecesDossier))
+  if (files) {
+    files.forEach((file) => {
+      try {
+        fs.unlinkSync(dirPath + '\\' + file)
+      } catch (err) {
+        console.error(err)
+      }
+    })
   }
 }
 
@@ -104,8 +120,13 @@ router.get('/userAdmin', requireAdmin, function (req, res, next) {
 })
 
 router.get('/userDelete', requireAdmin, function (req, res, next) {
-  userModel.delete(req.query.id, function (result) {
-    res.redirect("/admin/usersList?notif=L'utilisateur a été supprimé")
+  candidatureModel.readCandidaturesCandidat(req.query.id, function (candidatures) {
+    userModel.delete(req.query.id, function (result) {
+      candidatures.forEach((candidature) => {
+        deleteFilesCandidature(candidature.piecesDossier)
+      })
+      res.redirect("/admin/usersList?notif=L'utilisateur a été supprimé")
+    })
   })
 })
 
