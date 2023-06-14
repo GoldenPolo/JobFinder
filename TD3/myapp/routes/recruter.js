@@ -37,12 +37,24 @@ function deleteFilesOffer (offer) {
   }
 }
 
+function updateEtatOffers () {
+  offerModel.readAll(function (offres) {
+    offres.forEach((offer) => {
+      const d = Date(offer.dateValidite)
+      if (offer.etat !== 'expiree' && d < Date()) {
+        offerModel.expireOffer(offer.id)
+      }
+    })
+  })
+}
+
 /* GET users listing. */
 router.get('/', requireRecruteur, function (req, res, next) {
   res.redirect('/myOffersList')
 })
 
 router.get('/myOffersList', requireRecruteur, function (req, res, next) {
+  updateEtatOffers()
   let currentPage = req.query.page || 1
   let perPage = req.query.perPage || 10
   const startIndex = (currentPage - 1) * perPage

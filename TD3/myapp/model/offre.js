@@ -57,6 +57,13 @@ module.exports = {
     })
   },
 
+  expireOffer: function (id, callback) {
+    db.query('update Offre set etat = ? where id = ?', ['expiree', id], function (err, results) {
+      if (err) throw err
+      callback(results)
+    })
+  },
+
   readAllFilters: function (query, order, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
     console.log(query)
     console.log(order)
