@@ -63,6 +63,12 @@ module.exports = {
       callback(results)
     })
   },
+  
+  revalidateOffer: function (id) {
+    db.query('update Offre set etat = ? where id = ?', ['nonPubliee', id], function (err, results) {
+      if (err) throw err
+    })
+  },
 
   readAllFilters: function (query, order, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
     console.log(query)

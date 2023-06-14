@@ -43,6 +43,9 @@ function updateEtatOffers () {
       if (offer.etat !== 'expiree' && moment(offer.dateValidite, 'YYYY-MM-DD').isBefore(Date())) {
         offerModel.expireOffer(offer.id)
       }
+      if (offer.etat === 'expiree' && moment(offer.dateValidite, 'YYYY-MM-DD').isAfter(Date())) {
+        offerModel.revalidateOffer(offer.id)
+      }
     })
   })
 }
