@@ -136,10 +136,16 @@ router.post('/myOfferModified', requireRecruteur, function (req, res, next) {
   })
 })
 
+router.get('/publishOffer', requireRecruteur, function (req, res, next) {
+  offerModel.publishOffer(req.query.id, function (result) {
+    res.redirect('/recruter/myOffersList?notif=Votre offre a été publiée')
+  })
+})
+
 router.get('/deleteOffer', requireRecruteur, function (req, res, next) {
   offerModel.delete(req.query.id, function (result) {
     deleteFilesOffer(req.query.id)
-    res.redirect('/recruter/myOffersList')
+    res.redirect('/recruter/myOffersList?notif=Votre offre a été supprimée')
   })
 })
 

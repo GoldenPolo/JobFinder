@@ -70,6 +70,12 @@ module.exports = {
     })
   },
 
+  publishOffer: function (id) {
+    db.query('update Offre set etat = ? where id = ?', ['publiee', id], function (err, results) {
+      if (err) throw err
+    })
+  },
+
   readAllFilters: function (query, order, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
     console.log(query)
     console.log(order)
