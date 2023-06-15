@@ -1,6 +1,7 @@
 const express = require('express')
 const userModel = require('../model/utilisateur')
 const organisationModel = require('../model/organisation')
+const candidatureModel = require('../model/candidature')
 const router = express.Router()
 const moment = require('moment')
 require('moment/locale/fr.js')

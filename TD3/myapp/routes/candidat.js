@@ -35,6 +35,20 @@ function updateEtatOffers () {
   })
 }
 
+function deleteFilesCandidature (piecesDossier) {
+  const dirPath = path.resolve(__dirname, '../public/uploads')
+  const files = fs.readdirSync(dirPath).filter(file => file.startsWith(piecesDossier))
+  if (files) {
+    files.forEach((file) => {
+      try {
+        fs.unlinkSync(dirPath + '\\' + file)
+      } catch (err) {
+        console.error(err)
+      }
+    })
+  }
+}
+
 router.get('/', requireCandidat, function (req, res, next) {
   res.redirect('/offersList')
 })
@@ -245,6 +259,7 @@ router.post('/addToCandidature', requireCandidat, function (req, res, next) {
 })
 
 router.get('/deleteCandidature', requireCandidat, function (req, res, next) {
+  deleteFilesCandidature(req.query.piecesDoss)
   candidatureModel.delete(req.session.userid, req.query.id, function (result) {
     res.redirect('/candidat/myApplications?notif=Votre candidature a été supprimée')
   })
