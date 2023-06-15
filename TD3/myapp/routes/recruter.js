@@ -251,8 +251,11 @@ router.post('/newOffer', requireRecruteur, function (req, res, next) {
 
 router.get('/myFichesList', requireRecruteur, function (req, res, next) {
   fichePosteModel.readFichesOrga(req.session.userorganisation, function (result) {
-    res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: false })
-  })
+    if (Array.isArray(result)) {
+      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: false })
+    } else {
+      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: [result], notif: false })
+    }  })
 })
 
 router.get('/myFicheDetails', requireRecruteur, function (req, res, next) {
