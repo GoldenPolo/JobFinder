@@ -2,6 +2,7 @@ const express = require('express')
 const userModel = require('../model/utilisateur')
 const organisationModel = require('../model/organisation')
 const candidatureModel = require('../model/candidature')
+const demAjoutOrgaModel = require('../model/demandeAjoutOrganisation')
 const router = express.Router()
 const moment = require('moment')
 require('moment/locale/fr.js')
@@ -195,8 +196,15 @@ router.get('/orgaDetails', requireAdmin, function (req, res, next) {
 })
 
 router.get('/valideOrga', requireAdmin, function (req, res, next) {
-  organisationModel.valider(req.query.siren, function (result) {
-    res.redirect("/admin/organisationsList?notif=L'organisation a été validée")
+  demAjoutOrgaModel.read(req.query.siren, function (demandes) {
+    demandes.forEach((demande) => {
+      userModel.becomeRecruter(demande.id, req.query.siren, function () {
+        demAjoutOrgaModel.delete(demande.id, req.query.siren, function () {})
+      })
+    })
+    organisationModel.valider(req.query.siren, function (result) {
+      res.redirect("/admin/organisationsList?notif=L'organisation a été validée")
+    })
   })
 })
 
