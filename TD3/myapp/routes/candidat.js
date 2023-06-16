@@ -276,8 +276,9 @@ router.post('/newOrga', requireCandidat, function (req, res, next) {
   const siege = req.body.siege
   orgaModel.create(siren, nomOrga, type, siege, function (result) {
     demAjoutOrga.create(req.session.userid, siren, function (result) {
+      console.log('EMAIL DE CONFIRMATION ENVOYE')
       res.redirect('./offersList?notif=Votre demande a été enregistrée')
-    })  
+    })
   })
 })
 

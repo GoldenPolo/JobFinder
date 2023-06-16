@@ -80,6 +80,7 @@ router.post('/signup', function (req, res, next) {
   passModel.generateHash(pwd, function (result) {
     const hashPwd = result
     userModel.create(mail, nom, prenom, hashPwd, 'candidat', tel, function (req, res2, next) {
+      console.log('EMAIL DE CONFIRMATION ENVOYÉ À ', mail)
       res.redirect('/login?notif=Votre compte a été créé')
     })
   })

@@ -222,6 +222,7 @@ router.get('/addRecruter', requireRecruteur, function (req, res, next) {
 router.get('/acceptRecruter', requireRecruteur, function (req, res, next) {
   userModel.becomeRecruter(req.query.id, req.session.userorganisation, function (resultat) {
     demAjoutOrgaModel.delete(req.query.id, req.session.userorganisation, function (resultat) {
+      console.log('EMAIL DE CONFIRMATION ENVOYÉ')
       res.redirect('/recruter/addRecruter?notif=La demande a été acceptée')
     })
   })
@@ -255,7 +256,8 @@ router.get('/myFichesList', requireRecruteur, function (req, res, next) {
       res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: false })
     } else {
       res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: [result], notif: false })
-    }  })
+    }
+  })
 })
 
 router.get('/myFicheDetails', requireRecruteur, function (req, res, next) {

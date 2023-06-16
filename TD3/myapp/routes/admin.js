@@ -117,6 +117,7 @@ router.post('/userModified', requireAdmin, function (req, res, next) {
 
 router.get('/userAdmin', requireAdmin, function (req, res, next) {
   userModel.becomeAdmin(req.query.id, function (result) {
+    console.log('EMAIL DE CONFIRMATION ENVOYÉ')
     res.redirect("/admin/usersList?notif=L'utilisateur est maintenant administrateur")
   })
 })
