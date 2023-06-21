@@ -4,60 +4,41 @@ const db = require('./db.js')
 module.exports = {
   read: function (id, callback) {
     db.query('select * from Utilisateur where id = ?', [id], function (err, results) {
-      if (err) throw err
-      callback(results[0])
+      if (err) {
+        callback(null, err)
+      } else if (results.length === 0) {
+        callback(results, new TypeError('Error : pas d\'utilisateur avec cet id!'))
+      } else callback(results[0], null)
+    })
+  },
+
+  readId: function (email, callback) {
+    db.query('select id from Utilisateur where email = ?', [email], function (err, results) {
+      if (err) {
+        callback(null, err)
+      } else if (results.length === 0) {
+        callback(results, new TypeError('Error : pas d\'utilisateur avec cet email!'))
+      } else callback(results[0], null)
     })
   },
 
   readType: function (id, callback) {
     db.query('select type from Utilisateur where id = ?', [id], function (err, results) {
-      if (err) throw err
-      callback(results)
+      if (err) {
+        callback(null, err)
+      } else if (results.length === 0) {
+        callback(results, new TypeError('Error : pas d\'utilisateur avec cet id!'))
+      } else callback(results[0], null)
     })
   },
 
   readOrganisation: function (id, callback) {
     db.query('select organisation from Utilisateur where id = ?', [id], function (err, results) {
-      if (err) throw err
-      callback(results)
-    })
-  },
-
-  readall: function (page, size, callback) {
-    const start = page * size
-    db.query('select * from Utilisateur limit ?, ?', [start, size], function (err, results) {
-      if (err) throw err
-
-      // Get the total count of users
-      db.query('select count(*) as count from Utilisateur', function (err, countResult) {
-        if (err) throw err
-
-        // Generate pagination info
-        const totalItems = countResult[0].count
-        const currentPage = page
-        const pageSize = size
-        const totalPages = Math.ceil(totalItems / pageSize)
-        const startPage = 1
-        const endPage = totalPages
-        const startIndex = (currentPage - 1) * pageSize
-        const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1)
-        const pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i)
-
-        const paginationInfo = {
-          totalItems,
-          currentPage,
-          pageSize,
-          totalPages,
-          startPage,
-          endPage,
-          startIndex,
-          endIndex,
-          pages
-        }
-
-        // Return the results and pagination info
-        callback(results, paginationInfo)
-      })
+      if (err) {
+        callback(null, err)
+      } else if (results.length === 0) {
+        callback(results, new TypeError('Error : pas d\'utilisateur avec cet id!'))
+      } else callback(results[0], null)
     })
   },
 
@@ -99,7 +80,7 @@ module.exports = {
   },
 
   create: function (email, nom, prenom, pwd, type, telephone, callback) {
-    db.query('insert into Utilisateur(email, nom, prenom, motDePasse, type, telephone, dateCreation, estActif) values(?, ?, ?, ?, ?, ?, ?, ?)', [email, nom, prenom, pwd, type, telephone, new Date(), 1], function (err, results) {
+    db.query('insert into Utilisateur(email, nom, prenom, motDePasse, type, telephone, dateCreation, estActif) output Inserted.id values(?, ?, ?, ?, ?, ?, ?, ?)', [email, nom, prenom, pwd, type, telephone, new Date(), 1], function (err, results) {
       if (err) throw err
       callback(results)
     })
