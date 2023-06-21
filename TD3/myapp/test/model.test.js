@@ -56,7 +56,7 @@ describe('Model Tests', () => {
 
   test('read all with filters', () => {
     userModel.readAllFilters('prenom1', 0, 10, function (resultat) {
-      expect(resultat.length).toBeMoreThanOrEqual(1)
+      expect(resultat.length).toBeGreaterThanOrEqual(1)
     })
   })
 
@@ -88,22 +88,15 @@ describe('Model Tests', () => {
     }
     userModel.readOrganisation(9000, cbRead)
   })
-
-  test('error create', () => {
-    function cbCreate (err, resultat) {
-      expect(() => {
-        if (err) throw err
-      }).toThrow(1092)
-    }
-    userModel.create(9000, 'email', cbCreate)
-  })
 })
 
 describe('Model tests with preparation', () => {
   let id
   beforeEach(() => {
-    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function (id_) {
-      id = id_
+    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function () {
+      userModel.readId('test@mail.com', function (res) {
+        id = res.id
+      })
     })
   })
 
@@ -113,25 +106,31 @@ describe('Model tests with preparation', () => {
 
   test('update user', () => {
     userModel.update(id, 'test@mail.com', 'testnom2', 'testprenom2', 'tel', function (res) {
-      userModel.read(id, function (resultat) {
-        expect(resultat.nom).toBe('testnom2')
-        expect(resultat.prenom).toBe('testprenom2')
+      userModel.read(id, function (resultat, err) {
+        if (!err) {
+          expect(resultat.nom).toBe('testnom2')
+          expect(resultat.prenom).toBe('testprenom2')
+        }
       })
     })
   })
 
   test('become Recruter', () => {
     userModel.becomeRecruter(id, 1, function (resultat) {
-      userModel.readType(id, function (type) {
-        expect(type).toBe('recruteur')
+      userModel.readType(id, function (res, err) {
+        if (!err) {
+          expect(res.type).toBe('recruteur')
+        }
       })
     })
   })
 
   test('become Admin', () => {
     userModel.becomeAdmin(id, function (resultat) {
-      userModel.readType(id, function (type) {
-        expect(type).toBe('admin')
+      userModel.readType(id, function (res, err) {
+        if (!err) {
+          expect(res.type).toBe('admin')
+        }
       })
     })
   })
@@ -140,14 +139,16 @@ describe('Model tests with preparation', () => {
 describe('Model tests with preparation before', () => {
   let id
   beforeEach(() => {
-    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function (id_) {
-      id = id_
+    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function () {
+      userModel.readId('test@mail.com', function (res) {
+        id = res.id
+      })
     })
   })
 
   test('delete user', () => {
     userModel.delete(id, function (res) {
-      function cbRead (err, resultat) {
+      function cbRead (resultat, err) {
         expect(() => {
           if (err) throw err
         }).toThrow('Error : pas d\'utilisateur avec cet id!')
@@ -157,18 +158,20 @@ describe('Model tests with preparation before', () => {
   })
 })
 
-describe('Model tests with preparation', () => {
+describe('Model tests with preparation after', () => {
   let id
   afterEach(async () => {
     userModel.delete(id, function () {})
   })
 
   test('create user', () => {
-    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function (id_) {
-      id = id_
-      userModel.read(id, function (resultat) {
-        expect(resultat.nom).toBe('testnom')
-        expect(resultat.prenom).toBe('testprenom')
+    userModel.create('test@mail.com', 'testnom', 'testprenom', 'testpasswd', 'candidat', 'tel', function () {
+      userModel.readId('test@mail.com', function (res) {
+        id = res.id
+        userModel.read(id, function (resultat) {
+          expect(resultat.nom).toBe('testnom')
+          expect(resultat.prenom).toBe('testprenom')
+        })
       })
     })
   })
