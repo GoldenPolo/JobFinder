@@ -245,17 +245,20 @@ router.post('/newOffer', requireRecruteur, function (req, res, next) {
   const indic = req.body.indications
   const nbPieces = req.body.nbPiecesDem
   const fiche = req.body.selectFiche
-  offerModel.create('nonPubliee', dateValid, indic, nbPieces, fiche, req.session.userorganisation, function (req, res, next) {
-    res.render('./recruter/myOffersList', { notif: 'L\'offre a été créée' })
+  offerModel.create('nonPubliee', dateValid, indic, nbPieces, fiche, req.session.userorganisation, function (resultat) {
+    res.redirect('/recruter/myOffersList?notif=L\'offre a été créée (sous l\'état "non publiée")')
   })
 })
 
 router.get('/myFichesList', requireRecruteur, function (req, res, next) {
+  if (!req.query.notif) {
+    req.query.notif = false
+  }
   fichePosteModel.readFichesOrga(req.session.userorganisation, function (result) {
     if (Array.isArray(result)) {
-      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: false })
+      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: result, notif: req.query.notif })
     } else {
-      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: [result], notif: false })
+      res.render('./recruter/myFichesList', { title: 'Liste des fiches de poste', fiches: [result], notif: req.query.notif })
     }
   })
 })
@@ -283,10 +286,7 @@ router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
   const salaireMax = req.body.salaireMax
   const lieu = req.body.lieu
   fichePosteModel.update(req.query.id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, function (resultat) {
-    res.redirect('/recruter/myFichesList',
-      {
-        notif: 'La fiche a été mise à jour'
-      })
+    res.redirect('/recruter/myFichesList?notif=La fiche a été mise à jour')
   })
 })
 
@@ -296,10 +296,7 @@ router.get('/myFicheDelete', requireRecruteur, function (req, res, next) {
       offres.forEach((offre) => {
         deleteFilesOffer(offre.id)
       })
-      res.render('./recruter/myFichesList',
-        {
-          notif: 'La fiche a été supprimée'
-        })
+      res.redirect('/recruter/myFichesList?notif=La fiche a été supprimée')
     })
   })
 })
@@ -319,10 +316,7 @@ router.post('/newFiche', requireRecruteur, function (req, res, next) {
   const salaireMax = req.body.salaireMax
   const lieu = req.body.lieu
   fichePosteModel.create(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, req.session.userorganisation, function (resultat) {
-    res.render('./recruter/myFichesList',
-      {
-        notif: 'La fiche a été ajoutée'
-      })
+    res.redirect('/recruter/myFichesList?notif=La fiche a été ajoutée')
   })
 })
 

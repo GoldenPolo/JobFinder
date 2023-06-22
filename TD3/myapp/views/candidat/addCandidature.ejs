@@ -35,18 +35,32 @@
                 </ul>
             </div>
         </nav>
-        <form enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>&nb=<%= offer.offre_nombre_pieces_demandees %>">
-            <div class="card m-5">
+
+        <div class="row justify-content-center">
+            <form class="col col-6 mt-5" enctype="multipart/form-data" method="post" action="/candidat/newCandidature?id=<%= id %>&nb=<%= offer.offre_nombre_pieces_demandees %>">
                 <div class="d-flex flex-row justify-content-center">
-                    Cette offre accepte <%= offer.offre_nombre_pieces_demandees %> fichiers.                                    
+                    <div class="h1">Candidature</div>
                 </div>
                 <div class="d-flex flex-row justify-content-center">
-                    <label for="files">Vos fichiers :</label><input type="file" name="files" id="files" multiple>
+                    <div class="p">Déposez ici les pièces demandées pour l'offre <%= offer.fiche_intitule %> chez <%= offer.organisation_type %>.</div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
-            </div>
-        </form>
+                <div class="card m-5">
+                    <div class="row m-3 mx-5 text-center justify-content-center align-items-center">
+                        <div class="d-flex flex-row justify-content-center mb-3">
+                            Cette offre accepte <%= offer.offre_nombre_pieces_demandees %> fichiers.                                    
+                        </div>
+                        <div class="d-flex flex-row justify-content-center mb-3">
+                            <div class="p">Indications : </br> <%= offer.offre_indications %></div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-center">
+                            <input type="file" name="files" id="files" multiple required>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-center">
+                    <button type="submit" class="btn btn-outline-primary" href="">Valider</button>
+                </div>
+            </form>
+        </div>
     </body> 
 </html>

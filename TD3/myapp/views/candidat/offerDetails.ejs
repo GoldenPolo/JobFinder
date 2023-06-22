@@ -51,13 +51,13 @@
             <div class="d-flex flex-row justify-content-center">
                 <div class="col col-3 m-3">
                     <div class="row">
-                        <p><%= offer.fiche_intitule %></p><br>
+                        <p>Poste : <%= offer.fiche_intitule %></p><br>
                     </div>
                     <div class="row">
-                        <p><%= offer.fiche_statut %></p><br>
+                        <p>Statut : <%= offer.fiche_statut %></p><br>
                     </div>
                     <div class="row">
-                        <p><%= offer.fiche_type %></p><br>
+                        <p>Type de métier : <%= offer.fiche_type %></p><br>
                     </div>
                 </div>
                 <div class="col col-5 m-3">
@@ -88,11 +88,6 @@
 
         <div class="card m-5">
             <div class="d-flex flex-row justify-content-center">
-                <div class="col col-3 m-3">
-                    <div class="row">
-                        <p>Logo ?</p><br>
-                    </div>
-                </div>
                 <div class="col col-5 m-3">
                     <div class="row">
                         <p>Entreprise : <%= offer.organisation_nom %></p><br>
@@ -100,10 +95,10 @@
                 </div>
                 <div class="col col-3 m-3">
                     <div class="row">
-                        <p><%= offer.organisation_type %></p><br>
+                        <p>Type d'entreprise : <%= offer.organisation_type %></p><br>
                     </div>
                     <div class="row">
-                        <p><%= offer.organisation_siege %></p><br>
+                        <p>Siège : <%= offer.organisation_siege %></p><br>
                     </div>
                 </div>
             </div>
@@ -125,7 +120,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col col-1">
+            <div class="col col-1 mb-5">
                 <a class="btn btn-outline-primary" href="/candidat/addCandidature?id=<%= offer.id %>">Candidater</a>
             </div>
         </div>

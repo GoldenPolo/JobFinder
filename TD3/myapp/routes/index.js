@@ -27,7 +27,7 @@ router.get('/successfulLogin', function (req, res, next) {
   } else if (req.query.type === 'recruteur') {
     userModel.readOrganisation(req.session.userid, function (result) {
       console.log(result)
-      req.session.userorganisation = result[0].organisation
+      req.session.userorganisation = result.organisation
       res.redirect('./recruter/myOffersList')
     })
   } else if (req.query.type === 'admin') {

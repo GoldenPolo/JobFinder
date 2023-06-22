@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid d-flex border-top-0 border-bottom border-dark">
                 <div class="col col-2">
-                    <img class="img-fluid m-2" src="/public/images/logo.png" alt="logo">
+                    <img class="img-fluid m-2" src="/images/logo.png" alt="logo">
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -35,6 +35,17 @@
                 </ul>
             </div>
         </nav>
+
+        <div class="col col-12">
+            <div class="row m-3">
+                <div class="col col-1 ms-5">
+                    <a class="btn btn-outline-secondary w-100" href="/recruter/myOffersList">Retour</a>
+                </div>
+                <div class="col col-9">
+                    <h2 class="m-2 text-center"><%= title %></h2>
+                </div>
+            </div>
+        </div>
         
         <form method="post" action="/recruter/newOffer">
             <div class="card m-5">
@@ -49,17 +60,17 @@
                         </div>
                         <div class="col">                        
                             <label for="dateValidite">Date de validité :</label>
-                            <input type="date" id="dateValidite" name="dateValidite"><br>
+                            <input type="date" id="dateValidite" name="dateValidite" required><br>
                         </div>
                         <div class="col">                        
                             <label for="nbPiecesDem">Nombre de pièces demandées :</label>
-                            <input type="number" id="nbPiecesDem" name="nbPiecesDem"><br>
+                            <input type="number" id="nbPiecesDem" name="nbPiecesDem" required><br>
                         </div>
                     </div>
                     <div class="row m-3">
                         <div class="col">
                             <label for="indications">Indications :</label><br/>                      
-                            <textarea rows = "6" cols="30" id="indications" name="indications"></textarea>
+                            <textarea rows = "6" cols="30" id="indications" name="indications" required></textarea>
                         </div>
                     </div>
                 </div>
