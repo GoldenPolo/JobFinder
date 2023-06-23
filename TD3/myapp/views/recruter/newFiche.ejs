@@ -56,41 +56,36 @@
                         </div>
                         <div class="col m-3">
                             <div class="p">Statut : </div>
-                            <input type="radio" name="statut" id="cadre" value="cadre">
-                            <label for="cadre">Cadre</label>
-                            <input type="radio" name="statut" id="etam" value="etam">
-                            <label for="etam">ETAM</label>
-                            <input type="radio" name="statut" id="ouvrier" value="ouvrier">
-                            <label for="ouvrier">Ouvrier</label>
-                            <input type="radio" name="statut" id="liberal" value="liberal">
-                            <label for="liberal">Liberal</label>
-                            <input type="radio" name="statut" id="stagiaire" value="stagiaire">
-                            <label for="stagiaire">Stagiaire</label>
-                            <input type="radio" name="statut" id="apprenti" value="apprenti">
-                            <label for="apprenti">Apprenti</label>
-                        </div>
-                        <div class="col m-3">
-                            <div class="p">Type de métier : </div>
-                            <input type="radio" name="type" id="sante" value="sante">
-                            <label for="sante">sante</label>
-                            <input type="radio" name="type" id="administration_gestion" value="administration_gestion">
-                            <label for="administration_gestion">Administration et gestion</label>
-                            <input type="radio" name="type" id="enseignement" value="enseignement">
-                            <label for="enseignement">enseignement</label>
-                            <input type="radio" name="type" id="vente_commerce" value="vente_commerce">
-                            <label for="vente_commerce">Vente et commerce</label>
-                            <input type="radio" name="type" id="informatique_tic" value="informatique_tic">
-                            <label for="informatique_tic">Informatique et TIC</label>
-                            <input type="radio" name="type" id="ingenerie_construction" value="ingenerie_construction">
-                            <label for="ingenerie_construction">Ingénerie et construction</label>
-                            <input type="radio" name="type" id="hotellerie_restauration" value="hotellerie_restauration">
-                            <label for="hotellerie_restauration">Hotellerie et restauration</label>
-                            <input type="radio" name="type" id="marketing_communication" value="marketing_communication">
-                            <label for="marketing_communication">Marketing et communication</label>
-                            <input type="radio" name="type" id="finance" value="finance">
-                            <label for="finance">Finance</label>
-                            <input type="radio" name="type" id="industrie" value="industrie">
-                            <label for="industrie">Industrie</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="radio" name="statut" id="cadre" value="cadre">
+                                    <label for="cadre">Cadre</label>
+                                </div>
+                                <div class="col">
+                                    <input type="radio" name="statut" id="etam" value="etam">
+                                    <label for="etam">ETAM</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="radio" name="statut" id="ouvrier" value="ouvrier">
+                                    <label for="ouvrier">Ouvrier</label>
+                                </div>
+                                <div class="col">
+                                    <input type="radio" name="statut" id="liberal" value="liberal">
+                                    <label for="liberal">Liberal</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="radio" name="statut" id="stagiaire" value="stagiaire">
+                                    <label for="stagiaire">Stagiaire</label>
+                                </div>
+                                <div class="col">
+                                    <input type="radio" name="statut" id="apprenti" value="apprenti">
+                                    <label for="apprenti">Apprenti</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col col-5 m-3">
@@ -98,7 +93,7 @@
                             <label for="description">Description :</label>
                             <input type="text" id="description" name="description"><br>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row">
                             <label for="responsable">Responsable :</label>
                             <input type="text" id="responsable" name="responsable"><br>
                         </div>
@@ -121,6 +116,30 @@
                             <input type="text" id="lieu" name="lieu"><br>
                         </div>
                     </div>
+                </div>
+                
+                <div class="col m-3">
+                    <div class="p">Type de métier : </div>
+                    <input type="radio" name="type" id="sante" value="sante">
+                    <label for="sante">Sante</label>
+                    <input type="radio" name="type" id="administration_gestion" value="administration_gestion">
+                    <label for="administration_gestion">Administration et gestion</label>
+                    <input type="radio" name="type" id="enseignement" value="enseignement">
+                    <label for="enseignement">Enseignement</label>
+                    <input type="radio" name="type" id="vente_commerce" value="vente_commerce">
+                    <label for="vente_commerce">Vente et commerce</label>
+                    <input type="radio" name="type" id="informatique_tic" value="informatique_tic">
+                    <label for="informatique_tic">Informatique et TIC</label>
+                    <input type="radio" name="type" id="ingenerie_construction" value="ingenerie_construction">
+                    <label for="ingenerie_construction">Ingénerie et construction</label>
+                    <input type="radio" name="type" id="hotellerie_restauration" value="hotellerie_restauration">
+                    <label for="hotellerie_restauration">Hotellerie et restauration</label>
+                    <input type="radio" name="type" id="marketing_communication" value="marketing_communication">
+                    <label for="marketing_communication">Marketing et communication</label>
+                    <input type="radio" name="type" id="finance" value="finance">
+                    <label for="finance">Finance</label>
+                    <input type="radio" name="type" id="industrie" value="industrie">
+                    <label for="industrie">Industrie</label>
                 </div>
             </div>
             <div class="d-flex flex-row justify-content-center">
