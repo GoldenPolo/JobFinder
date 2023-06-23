@@ -158,37 +158,25 @@ router.get('/applicationsList', requireRecruteur, function (req, res, next) {
   if (!intituleFilter) {
     intituleFilter = '%'
   }
-  if (!req.query.id) {
-    candidatureModel.readCandidaturesToAllMyOffers(req.session.userorganisation, intituleFilter, function (result) {
-      for (let i = 0; i < result.length; i++) {
-        if (!intituleList.includes(result[i].intitule)) intituleList.push(result[i].intitule)
-      }
-      if (intituleList.length === 0) {
-        intituleList = false
-      }
-      if (intituleFilter === '%') {
-        intituleFilter = false
-      }
-      res.render('./recruter/applicationsList', {
-        title: 'Candidatures',
-        applications: result,
-        intituleList,
-        intituleFilter,
-        moment,
-        notif
-      })
+  candidatureModel.readCandidaturesToAllMyOffers(req.session.userorganisation, intituleFilter, function (result) {
+    for (let i = 0; i < result.length; i++) {
+      if (!intituleList.includes(result[i].intitule)) intituleList.push(result[i].intitule)
+    }
+    if (intituleList.length === 0) {
+      intituleList = false
+    }
+    if (intituleFilter === '%') {
+      intituleFilter = false
+    }
+    res.render('./recruter/applicationsList', {
+      title: 'Candidatures',
+      applications: result,
+      intituleList,
+      intituleFilter,
+      moment,
+      notif
     })
-  } else {
-    candidatureModel.readCandidaturesToMyOffer(req.query.id, function (result) {
-      console.log(result)
-      res.render('./recruter/applicationsList', {
-        title: 'Candidatures',
-        applications: result,
-        moment,
-        notif
-      })
-    })
-  }
+  })
 })
 
 router.get('/download', requireRecruteur, function (req, res, next) {

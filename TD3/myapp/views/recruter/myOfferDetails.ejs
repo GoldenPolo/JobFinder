@@ -132,7 +132,7 @@
         <div class="d-flex justify-content-center">
             <a class="btn btn-outline-primary mx-2" href="/recruter/myOfferModif?id=<%= id %>">Modifier</a>
             <% if (offer.offre_etat  ===  'publiee') { %>
-                    <a class="btn btn-outline-primary mx-2" href="/recruter/applicationsList?id=<%= id %>">Voir les candidats</a>
+                    <a class="btn btn-outline-primary mx-2" href="/recruter/applicationsList?intituleFilter=<%= offer.fiche_intitule %>">Voir les candidats</a>
             <% } %>
             <% if (offer.offre_etat  ===  'nonPubliee') { %>
                     <a class="btn btn-outline-primary mx-2" href="/recruter/publishOffer?id=<%= id %>">Publier</a>
