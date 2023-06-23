@@ -59,14 +59,20 @@
                             <input type="text" id="statut" name="statut" value=<%= fiche.statut %>><br>
                         </div>
                         <div class="row">
-                            <label for="type">Statut :</label>
+                            <label for="type">Type :</label>
                             <input type="text" id="type" name="type" value=<%= fiche.type %>>
+                        </div>
+                        <div class="row">
+                            <label for="lieu">Lieu :</label>
+                            <input type="text" id="lieu" name="lieu" value=<%= fiche.lieu %>><br>
                         </div>
                     </div>
                     <div class="col col-5 m-3">
                         <div class="row">
                             <label for="description">Description :</label>
-                            <input type="text" id="description" name="description" value=<%= fiche.description %>><br>
+                            <textarea type="text" id="description" name="description" rows="8">
+                                <%= fiche.description %>
+                            </textarea><br>
                         </div>
                         <div class="row mt-2">
                             <label for="responsable">Responsable :</label>
@@ -87,8 +93,12 @@
                             <input type="text" id="salaireMax" name="salaireMax" value=<%= fiche.salaireMax %>><br>
                         </div>
                         <div class="row">
-                            <label for="lieu">Lieu :</label>
-                            <input type="text" id="lieu" name="lieu" value=<%= fiche.lieu %>><br>
+                            <label for="latitude">Latitude :</label>
+                            <input type="text" id="latitude" name="latitude" value=<%= fiche.latitude %>><br>
+                        </div>
+                        <div class="row">
+                            <label for="longitude">Longitude :</label>
+                            <input type="text" id="longitude" name="longitude" value=<%= fiche.longitude %>><br>
                         </div>
                     </div>
                 </div>

@@ -29,15 +29,15 @@ module.exports = {
     })
   },
 
-  create: function (intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga, callback) {
-    db.query('insert into FichePoste(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga], function (err, results) {
+  create: function (intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga, latitude, longitude, callback) {
+    db.query('insert into FichePoste(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga, latitude, longitude) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, orga, latitude, longitude], function (err, results) {
       if (err) throw err
       callback(results)
     })
   },
 
-  update: function (id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, callback) {
-    db.query('update FichePoste set intitule = ?, statut = ?, responsable = ?, type = ?, lieu = ?, rythme = ?, salaireMin = ?, salaireMax = ?, description = ? where id = ?', [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, id], function (err, results) {
+  update: function (id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, latitude, longitude, callback) {
+    db.query('update FichePoste set intitule = ?, statut = ?, responsable = ?, type = ?, lieu = ?, rythme = ?, salaireMin = ?, salaireMax = ?, description = ?, latitude = ?, longitude = ? where id = ?', [intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, latitude, longitude, id], function (err, results) {
       if (err) throw err
       callback(results)
     })

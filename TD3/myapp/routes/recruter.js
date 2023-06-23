@@ -273,7 +273,9 @@ router.post('/myFicheModified', requireRecruteur, function (req, res, next) {
   const salaireMin = req.body.salaireMin
   const salaireMax = req.body.salaireMax
   const lieu = req.body.lieu
-  fichePosteModel.update(req.query.id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, function (resultat) {
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  fichePosteModel.update(req.query.id, intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, latitude, longitude, function (resultat) {
     res.redirect('/recruter/myFichesList?notif=La fiche a été mise à jour')
   })
 })
@@ -303,7 +305,9 @@ router.post('/newFiche', requireRecruteur, function (req, res, next) {
   const salaireMin = req.body.salaireMin
   const salaireMax = req.body.salaireMax
   const lieu = req.body.lieu
-  fichePosteModel.create(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, req.session.userorganisation, function (resultat) {
+  const latitude = req.body.latitude
+  const longitude = req.body.longitude
+  fichePosteModel.create(intitule, statut, responsable, type, lieu, rythme, salaireMin, salaireMax, description, req.session.userorganisation, latitude, longitude, function (resultat) {
     res.redirect('/recruter/myFichesList?notif=La fiche a été ajoutée')
   })
 })
