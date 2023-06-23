@@ -57,10 +57,9 @@ module.exports = {
     })
   },
 
-  expireOffer: function (id, callback) {
+  expireOffer: function (id) {
     db.query('update Offre set etat = ? where id = ?', ['expiree', id], function (err, results) {
       if (err) throw err
-      callback(results)
     })
   },
 
