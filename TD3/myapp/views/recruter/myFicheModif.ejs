@@ -52,7 +52,9 @@
                     <div class="col col-3 m-3">
                         <div class="row">
                             <label for="intitule">Intitule :</label>
-                            <input type="text" id="intitule" name="intitule" value=<%= fiche.intitule %>><br>
+                            <textarea type="text" id="intitule" name="intitule" rows="2">
+                                <%= fiche.intitule %>
+                            </textarea><br>
                         </div>
                         <div class="row">
                             <label for="statut">Statut :</label>
@@ -76,7 +78,9 @@
                         </div>
                         <div class="row mt-2">
                             <label for="responsable">Responsable :</label>
-                            <input type="text" id="responsable" name="responsable" value=<%= fiche.responsable %>><br>
+                            <textarea type="text" id="responsable" name="responsable" rows="1">
+                                <%= fiche.responsable %>
+                            </textarea><br>
                         </div>
                         <div class="row">
                             <label for="rythme">Rythme :</label>
