@@ -67,8 +67,8 @@
                         <div class="d-flex w-100 justify-content-between">
                             <p class="mb-1">Entreprise : <%= application.organisation_nom %></p>
                             <div class="d-inline-flex">
-                                <a href="/candidat/applicationDetails?offre=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Voir détails</a>
-                                <a href="/candidat/addFiles?id=<%= application.offre_id %>" type="button" class="btn btn-outline-secondary mx-2">Compléter</a>
+                                <a href="/candidat/applicationDetails?offre=<%= application.offre_id %>&piecesDoss=<%= application.piecesDossier %>" type="button" class="btn btn-outline-secondary mx-2">Voir détails</a>
+                                <a href="/candidat/addFiles?id=<%= application.offre_id %>&piecesDoss=<%= application.piecesDossier %>" type="button" class="btn btn-outline-secondary mx-2">Compléter</a>
                                 <a href="/candidat/deleteCandidature?id=<%= application.offre_id %>&piecesDoss=<%= application.piecesDossier %>" type="button" class="btn btn-outline-secondary mx-2">Supprimer</a>
                             </div>
                         </div>

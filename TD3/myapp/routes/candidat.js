@@ -203,6 +203,8 @@ router.get('/myApplications', requireCandidat, function (req, res, next) {
 })
 
 router.get('/applicationDetails', requireCandidat, function (req, res, next) {
+  const dirPath = path.resolve(__dirname, '../public/uploads')
+  const files = fs.readdirSync(dirPath).filter(file => file.startsWith(req.query.piecesDoss))
   candidatureModel.read(req.session.userid, req.query.offre, function (result) {
     if (result.length === 0) {
       res.end('Pas de candidature!! pour ' + req.query.offre)
@@ -210,6 +212,7 @@ router.get('/applicationDetails', requireCandidat, function (req, res, next) {
     res.render('./candidat/applicationDetails', {
       title: 'Détails de votre candidature',
       application: result[0],
+      nb: files.length,
       moment
     })
   })
@@ -247,13 +250,11 @@ router.post('/addToCandidature', requireCandidat, function (req, res, next) {
     }
   })
   const upload = multer({ storage, limits: { files: nb } }).array('files')
-  upload(req, function (err) {
+  upload(req, res, function (err) {
     if (err) {
       res.end('Error when uploading file!!')
     } else {
-      candidatureModel.create(req.session.userid, req.query.id, piecesDossier, function (result) {
-        res.redirect('/candidat/myApplications')
-      })
+      res.redirect('/candidat/myApplications')
     }
   })
 })
