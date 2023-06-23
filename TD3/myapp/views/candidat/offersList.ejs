@@ -55,8 +55,32 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item <% if (order  ===  'date') { %>active<% } %>" href="/candidat/offersList?order=date&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Récent à ancient</a>
                     <a class="dropdown-item <% if (order  ===  'salaire') { %>active<% } %>" href="/candidat/offersList?order=salaire&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Salaire min décroissant</a>
-                    <a class="dropdown-item <% if (order  ===  'distance') { %>active<% } %>" href="/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>">Distance croissante</a>
+                    <a class="dropdown-item <% if (order  ===  'distance') { %>active<% } %>" id="find-me">Distance croissante</a>
                 </div>
+                <script>
+                    function geoFindMe() {
+        
+                        function success(position) {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+        
+                            window.location.href = `/candidat/offersList?order=distance&q=<%= query %>&salaryFilter=<%= salaryFilter %>&typeFilter=<%= typeFilter %>&lat=${latitude}&lon=${longitude}`;
+                        }
+        
+                        function error() {
+                            status.textContent = "Unable to retrieve your location";
+                        }
+        
+                        if (!navigator.geolocation) {
+                            status.textContent = "Geolocation is not supported by your browser";
+                        } else {
+                            navigator.geolocation.getCurrentPosition(success, error);
+                        }
+                        }
+        
+                    document.querySelector("#find-me").addEventListener("click", geoFindMe);
+                </script>
+        
             </div>
             <div class="dropdown me-3">
                 <button type="button" class="btn <% if (salaryFilter != ''){ %> btn-outline-primary <% } else { %> btn-outline-secondary <% } %> dropdown-toggle mb-2 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

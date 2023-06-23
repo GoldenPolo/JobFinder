@@ -60,6 +60,8 @@ router.get('/offersList', requireCandidat, function (req, res) {
   const startIndex = (currentPage - 1) * perPage
   let query = req.query.q // Récupère le paramètre "q" de l'URL
   let order = req.query.order
+  let latOrder = req.query.lat
+  let lonOrder = req.query.lon
   let typeFilter = req.query.typeFilter
   let salaryFilter = req.query.salaryFilter
   let statusFilter = req.query.statusFilter
@@ -96,9 +98,15 @@ router.get('/offersList', requireCandidat, function (req, res) {
   if (!statusFilter) {
     statusFilter = '%'
   }
+  if (!latOrder) {
+    latOrder = 0
+  }
+  if (!lonOrder) {
+    lonOrder = 0
+  }
 
   // Execute la requête SQL avec les variables
-  offerModel.readAllFilters(query, order, typeFilter, salaryFilter, statusFilter, startIndex, perPage, function (results) {
+  offerModel.readAllFilters(query, order, latOrder, lonOrder, typeFilter, salaryFilter, statusFilter, startIndex, perPage, function (results) {
     const numOffers = results.length // nombre total d'offres
     let totalPages = Math.ceil(numOffers / perPage) // nombre total de pages
     const pages = [] // tableau des numéros de page
