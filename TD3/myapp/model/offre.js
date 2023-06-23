@@ -76,14 +76,21 @@ module.exports = {
     })
   },
 
-  readAllFilters: function (query, order, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
+  readAllFilters: function (query, order, latOrder, lonOrder, jobTypeFilter, salaryFilter, statusFilter, startIndex, perPage, callback) {
     console.log(query)
     console.log(order)
+    console.log(latOrder)
+    console.log(lonOrder)
     console.log(jobTypeFilter)
     console.log(salaryFilter)
     console.log(statusFilter)
     console.log(startIndex)
     console.log(perPage)
+
+    if (order === 'distance') {
+      order = `(POW((longitude-${lonOrder}),2) + POW((latitude-${latOrder}),2))`
+    }
+
     db.query("SELECT COUNT(*) AS total FROM (Offre INNER JOIN Organisation ON (Offre.organisation = Organisation.siren) INNER JOIN FichePoste ON (Offre.fichePoste = FichePoste.id)) WHERE (Offre.etat = 'publiee') AND (FichePoste.intitule LIKE ?) AND (FichePoste.type LIKE ?) AND (FichePoste.salaireMin > ?) AND (FichePoste.statut LIKE ?)", [`%${query}%`, jobTypeFilter, salaryFilter, statusFilter], function (err, result) {
       console.log(result[0])
       if (err) throw err
